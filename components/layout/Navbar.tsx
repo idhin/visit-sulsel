@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MapPin, ChevronDown, Camera, Store, Users, ShoppingCart, MessageSquare, Ticket } from "lucide-react";
@@ -36,6 +37,8 @@ export default function Navbar() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const isHomepage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +69,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          scrolled
+          scrolled || !isHomepage
             ? "bg-deep-ocean/95 backdrop-blur-md shadow-lg py-3"
             : "bg-transparent py-5"
         )}
