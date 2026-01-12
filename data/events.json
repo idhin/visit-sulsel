@@ -5,7 +5,8 @@
       "name": "Lovely December Toraja",
       "description": "Festival tahunan terbesar di Toraja yang menampilkan berbagai upacara adat, pertunjukan seni, dan parade budaya.",
       "image": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
-      "date": "Desember 2026",
+      "date": "2026-12-01",
+      "endDate": "2026-12-31",
       "location": "Tana Toraja",
       "category": "festival",
       "featured": true
@@ -15,7 +16,8 @@
       "name": "Festival Pinisi",
       "description": "Perayaan warisan maritim Bulukumba dengan parade perahu Pinisi, lomba layar, dan pameran kerajinan.",
       "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
-      "date": "September 2026",
+      "date": "2026-09-15",
+      "endDate": "2026-09-20",
       "location": "Bulukumba",
       "category": "festival",
       "featured": true
@@ -25,7 +27,8 @@
       "name": "Makassar International Writers Festival",
       "description": "Festival sastra internasional yang menghadirkan penulis dari berbagai negara untuk diskusi dan workshop.",
       "image": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800",
-      "date": "Mei 2026",
+      "date": "2026-05-10",
+      "endDate": "2026-05-14",
       "location": "Makassar",
       "category": "seni",
       "featured": false
@@ -35,7 +38,8 @@
       "name": "Festival Budaya Luwu",
       "description": "Perayaan kebudayaan Luwu Raya dengan tarian tradisional, musik, dan pameran kerajinan lokal.",
       "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800",
-      "date": "Juli 2026",
+      "date": "2026-07-20",
+      "endDate": "2026-07-25",
       "location": "Palopo",
       "category": "festival",
       "featured": false
@@ -45,7 +49,8 @@
       "name": "Musim Upacara Rambu Solo'",
       "description": "Periode utama pelaksanaan upacara pemakaman adat Toraja. Kesempatan menyaksikan ritual budaya yang megah.",
       "image": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800",
-      "date": "Juli - September 2026",
+      "date": "2026-07-01",
+      "endDate": "2026-09-30",
       "location": "Tana Toraja",
       "category": "budaya",
       "featured": true
@@ -55,7 +60,8 @@
       "name": "F8 Makassar",
       "description": "Festival seni dan musik terbesar di Makassar dengan penampilan artis nasional dan internasional.",
       "image": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800",
-      "date": "Agustus 2026",
+      "date": "2026-08-08",
+      "endDate": "2026-08-10",
       "location": "Makassar",
       "category": "musik",
       "featured": true

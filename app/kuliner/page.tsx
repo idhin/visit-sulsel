@@ -213,7 +213,7 @@ export default function KulinerPage() {
               <div>
                 <h3 className="font-semibold text-deep-ocean mb-3">Tempat Terbaik</h3>
                 <div className="flex flex-wrap gap-2">
-                  {selectedItem.bestSpots.map((spot, index) => (
+                  {selectedItem.restaurants.map((spot, index) => (
                     <span
                       key={index}
                       className="px-3 py-1.5 bg-gold/10 text-deep-ocean text-sm rounded-full"

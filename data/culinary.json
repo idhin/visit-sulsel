@@ -8,7 +8,8 @@
       "category": "makanan",
       "origin": "Makassar",
       "price": "Rp25.000 - Rp40.000",
-      "mustTry": true,
+      "taste": "Gurih & Rempah",
+      "featured": true,
       "restaurants": ["Coto Nusantara", "Coto Daeng Sirua", "Coto Paraikatte"]
     },
     {
@@ -19,7 +20,8 @@
       "category": "makanan",
       "origin": "Makassar",
       "price": "Rp30.000 - Rp50.000",
-      "mustTry": true,
+      "taste": "Gurih & Pedas",
+      "featured": true,
       "restaurants": ["Pallubasa Onta", "Pallubasa Serigala"]
     },
     {
@@ -30,7 +32,8 @@
       "category": "makanan",
       "origin": "Makassar",
       "price": "Rp45.000 - Rp75.000",
-      "mustTry": true,
+      "taste": "Gurih & Harum",
+      "featured": true,
       "restaurants": ["Sop Konro Karebosi", "Konro Iga Bakar"]
     },
     {
@@ -41,7 +44,8 @@
       "category": "jajanan",
       "origin": "Makassar",
       "price": "Rp10.000 - Rp20.000",
-      "mustTry": true,
+      "taste": "Manis & Legit",
+      "featured": true,
       "restaurants": ["Pantai Losari Food Court"]
     },
     {
@@ -52,7 +56,8 @@
       "category": "minuman",
       "origin": "Makassar",
       "price": "Rp12.000 - Rp20.000",
-      "mustTry": true,
+      "taste": "Manis & Segar",
+      "featured": true,
       "restaurants": ["Es Pisang Ijo Pondok Santap"]
     },
     {
@@ -63,7 +68,8 @@
       "category": "makanan",
       "origin": "Bone",
       "price": "Rp35.000 - Rp60.000",
-      "mustTry": false,
+      "taste": "Pedas & Aromatik",
+      "featured": false,
       "restaurants": ["RM Nusantara Bone"]
     },
     {
@@ -74,7 +80,8 @@
       "category": "makanan",
       "origin": "Luwu",
       "price": "Rp20.000 - Rp35.000",
-      "mustTry": false,
+      "taste": "Asam & Segar",
+      "featured": false,
       "restaurants": ["RM Kapurung Palopo"]
     },
     {
@@ -85,7 +92,8 @@
       "category": "minuman",
       "origin": "Toraja",
       "price": "Rp25.000 - Rp50.000",
-      "mustTry": true,
+      "taste": "Fruity & Earthy",
+      "featured": true,
       "restaurants": ["Kopi Toraja Kalosi", "Rantepao Coffee"]
     }
   ],

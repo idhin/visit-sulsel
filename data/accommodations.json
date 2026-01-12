@@ -5,11 +5,12 @@
       "name": "Aryaduta Makassar",
       "description": "Hotel bintang 5 di jantung kota Makassar dengan fasilitas lengkap dan pemandangan Pantai Losari.",
       "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800",
-      "category": "hotel",
+      "type": "hotel",
       "location": "Makassar",
       "rating": 4.8,
-      "priceRange": "Rp1.500.000 - Rp5.000.000",
-      "amenities": ["Kolam Renang", "Spa", "Gym", "Restaurant", "WiFi"],
+      "stars": 5,
+      "price": 1500000,
+      "facilities": ["Kolam Renang", "Spa", "Gym", "Restaurant", "WiFi"],
       "featured": true
     },
     {
@@ -17,11 +18,12 @@
       "name": "Toraja Heritage Hotel",
       "description": "Hotel berkonsep Tongkonan dengan arsitektur tradisional dan pemandangan pegunungan Toraja.",
       "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
-      "category": "resort",
+      "type": "resort",
       "location": "Tana Toraja",
       "rating": 4.7,
-      "priceRange": "Rp800.000 - Rp2.500.000",
-      "amenities": ["Restaurant", "Garden", "Cultural Tour", "WiFi"],
+      "stars": 4,
+      "price": 800000,
+      "facilities": ["Restaurant", "Garden", "Cultural Tour", "WiFi"],
       "featured": true
     },
     {
@@ -29,11 +31,12 @@
       "name": "Misiliana Hotel Toraja",
       "description": "Hotel nyaman dengan lokasi strategis di pusat Rantepao, dekat dengan objek wisata utama.",
       "image": "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800",
-      "category": "hotel",
+      "type": "hotel",
       "location": "Tana Toraja",
       "rating": 4.5,
-      "priceRange": "Rp500.000 - Rp1.200.000",
-      "amenities": ["Restaurant", "Parking", "WiFi", "Tour Desk"],
+      "stars": 3,
+      "price": 500000,
+      "facilities": ["Restaurant", "Parking", "WiFi", "Tour Desk"],
       "featured": false
     },
     {
@@ -41,11 +44,12 @@
       "name": "Anugerah Beach Resort",
       "description": "Resort tepi pantai dengan cottage-cottage tradisional dan akses langsung ke pantai Bira.",
       "image": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800",
-      "category": "resort",
+      "type": "resort",
       "location": "Bulukumba",
       "rating": 4.4,
-      "priceRange": "Rp400.000 - Rp1.000.000",
-      "amenities": ["Beach Access", "Restaurant", "Snorkeling", "WiFi"],
+      "stars": 4,
+      "price": 400000,
+      "facilities": ["Beach Access", "Restaurant", "Snorkeling", "WiFi"],
       "featured": true
     },
     {
@@ -53,11 +57,12 @@
       "name": "Dalton Hotel Makassar",
       "description": "Hotel modern di pusat bisnis Makassar dengan fasilitas lengkap untuk wisatawan dan pebisnis.",
       "image": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800",
-      "category": "hotel",
+      "type": "hotel",
       "location": "Makassar",
       "rating": 4.3,
-      "priceRange": "Rp600.000 - Rp1.500.000",
-      "amenities": ["Kolam Renang", "Gym", "Restaurant", "Meeting Room", "WiFi"],
+      "stars": 4,
+      "price": 600000,
+      "facilities": ["Pool", "Gym", "Restaurant", "Meeting Room", "WiFi"],
       "featured": false
     },
     {
@@ -65,18 +70,52 @@
       "name": "Malino Highlands Resort",
       "description": "Resort sejuk di dataran tinggi Malino dengan pemandangan hutan pinus dan udara segar.",
       "image": "https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=800",
-      "category": "resort",
+      "type": "resort",
       "location": "Gowa",
       "rating": 4.2,
-      "priceRange": "Rp350.000 - Rp900.000",
-      "amenities": ["Garden", "Restaurant", "Trekking", "WiFi"],
+      "stars": 3,
+      "price": 350000,
+      "facilities": ["Garden", "Restaurant", "Trekking", "WiFi"],
       "featured": false
+    },
+    {
+      "id": "pantai-losari-homestay",
+      "name": "Losari Beach Homestay",
+      "description": "Homestay nyaman dengan lokasi strategis dekat Pantai Losari, cocok untuk backpacker.",
+      "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800",
+      "type": "homestay",
+      "location": "Makassar",
+      "rating": 4.1,
+      "stars": 2,
+      "price": 200000,
+      "facilities": ["WiFi", "Parking", "Kitchen"],
+      "featured": false
+    },
+    {
+      "id": "toraja-homestay",
+      "name": "Tongkonan Homestay",
+      "description": "Pengalaman menginap di rumah tradisional Toraja dengan keramahan penduduk lokal.",
+      "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800",
+      "type": "homestay",
+      "location": "Tana Toraja",
+      "rating": 4.3,
+      "stars": 2,
+      "price": 250000,
+      "facilities": ["WiFi", "Cultural Tour", "Breakfast"],
+      "featured": true
     }
   ],
-  "categories": [
+  "types": [
     { "id": "semua", "name": "Semua", "icon": "Building" },
     { "id": "hotel", "name": "Hotel", "icon": "Hotel" },
     { "id": "resort", "name": "Resort", "icon": "Palmtree" },
-    { "id": "homestay", "name": "Homestay", "icon": "Home" }
+    { "id": "homestay", "name": "Homestay", "icon": "Building" }
+  ],
+  "locations": [
+    { "id": "semua", "name": "Semua Lokasi" },
+    { "id": "makassar", "name": "Makassar" },
+    { "id": "tana toraja", "name": "Tana Toraja" },
+    { "id": "bulukumba", "name": "Bulukumba" },
+    { "id": "gowa", "name": "Gowa" }
   ]
 }
