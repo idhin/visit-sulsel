@@ -6,6 +6,11 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MapPin, ChevronDown, Camera, Store, Users, ShoppingCart, MessageSquare, Ticket } from "lucide-react";
 import { cn } from "@/lib/utils";
+import SearchModal from "@/components/shared/SearchModal";
+import WishlistIcon from "@/components/shared/WishlistIcon";
+import ThemeToggle from "@/components/layout/ThemeToggle";
+import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
+import UserMenu from "@/components/shared/UserMenu";
 
 const mainNavLinks = [
   { href: "/", label: "Beranda" },
@@ -206,20 +211,26 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.7 }}
-              className="hidden lg:block"
-            >
-              <Link
-                href="/pesan"
-                className="px-6 py-2.5 bg-gradient-to-r from-gold to-gold-light text-deep-ocean font-semibold rounded-full hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 hover:scale-105"
+            {/* Search, Wishlist, Theme, Language, User & CTA */}
+            <div className="hidden lg:flex items-center gap-2">
+              <SearchModal />
+              <WishlistIcon />
+              <ThemeToggle />
+              <LanguageSwitcher />
+              <UserMenu />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.7 }}
               >
-                Pesan Sekarang
-              </Link>
-            </motion.div>
+                <Link
+                  href="/pesan"
+                  className="px-6 py-2.5 bg-gradient-to-r from-gold to-gold-light text-deep-ocean font-semibold rounded-full hover:shadow-lg hover:shadow-gold/30 transition-all duration-300 hover:scale-105"
+                >
+                  Pesan Sekarang
+                </Link>
+              </motion.div>
+            </div>
 
             {/* Mobile Menu Button */}
             <button

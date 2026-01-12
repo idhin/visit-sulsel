@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowRight, MapPin, Star } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import MotionWrapper from "@/components/animations/MotionWrapper";
+import WishlistButton from "@/components/shared/WishlistButton";
 import destinations from "@/data/destinations.json";
 
 const featured = destinations.destinations.filter((d) => d.featured).slice(0, 4);
@@ -56,12 +57,21 @@ export default function FeaturedDestinations() {
                   </span>
                 </div>
 
-                {/* Rating */}
-                <div className="absolute top-6 right-6 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-full flex items-center gap-1">
-                  <Star className="w-4 h-4 text-gold fill-gold" />
-                  <span className="text-sm font-semibold text-deep-ocean">
-                    {featured[0].rating}
-                  </span>
+                {/* Rating & Wishlist */}
+                <div className="absolute top-6 right-6 flex items-center gap-2">
+                  <div className="px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-full flex items-center gap-1">
+                    <Star className="w-4 h-4 text-gold fill-gold" />
+                    <span className="text-sm font-semibold text-deep-ocean">
+                      {featured[0].rating}
+                    </span>
+                  </div>
+                  <WishlistButton
+                    id={featured[0].id}
+                    type="destinasi"
+                    name={featured[0].name}
+                    image={featured[0].image}
+                    location={featured[0].location}
+                  />
                 </div>
 
                 {/* Content */}
@@ -104,10 +114,20 @@ export default function FeaturedDestinations() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-deep-ocean/80 via-deep-ocean/20 to-transparent" />
                   
-                  {/* Rating */}
-                  <div className="absolute top-4 right-4 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-full flex items-center gap-1">
-                    <Star className="w-3 h-3 text-gold fill-gold" />
-                    <span className="text-xs font-semibold text-deep-ocean">{dest.rating}</span>
+                  {/* Rating & Wishlist */}
+                  <div className="absolute top-4 right-4 flex items-center gap-2">
+                    <div className="px-2 py-1 bg-white/90 backdrop-blur-sm rounded-full flex items-center gap-1">
+                      <Star className="w-3 h-3 text-gold fill-gold" />
+                      <span className="text-xs font-semibold text-deep-ocean">{dest.rating}</span>
+                    </div>
+                    <WishlistButton
+                      id={dest.id}
+                      type="destinasi"
+                      name={dest.name}
+                      image={dest.image}
+                      location={dest.location}
+                      size="sm"
+                    />
                   </div>
 
                   {/* Content */}

@@ -9,8 +9,6 @@ import {
   Star,
   Clock,
   ArrowLeft,
-  Share2,
-  Heart,
   Calendar,
   Users,
   CheckCircle,
@@ -19,6 +17,9 @@ import {
   ChevronRight,
 } from "lucide-react";
 import MotionWrapper from "@/components/animations/MotionWrapper";
+import WishlistButton from "@/components/shared/WishlistButton";
+import ShareButton from "@/components/shared/ShareButton";
+import WeatherWidget from "@/components/shared/WeatherWidget";
 
 interface Destination {
   id: string;
@@ -46,7 +47,6 @@ interface Props {
 export default function DestinationClient({ destination, relatedDestinations }: Props) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
 
   const allImages = [destination.image, ...destination.gallery];
 
@@ -93,17 +93,17 @@ export default function DestinationClient({ destination, relatedDestinations }: 
 
         {/* Actions */}
         <div className="absolute top-8 right-4 sm:right-8 z-10 flex gap-2">
-          <button
-            onClick={() => setIsLiked(!isLiked)}
-            className={`p-3 rounded-full backdrop-blur-sm transition-colors ${
-              isLiked ? "bg-maroon text-white" : "bg-white/10 text-white hover:bg-white/20"
-            }`}
-          >
-            <Heart className={`w-5 h-5 ${isLiked ? "fill-current" : ""}`} />
-          </button>
-          <button className="p-3 bg-white/10 backdrop-blur-sm text-white rounded-full hover:bg-white/20 transition-colors">
-            <Share2 className="w-5 h-5" />
-          </button>
+          <WishlistButton
+            id={destination.id}
+            type="destinasi"
+            name={destination.name}
+            image={destination.image}
+            location={destination.location}
+          />
+          <ShareButton
+            title={`${destination.name} - Visit Sulsel`}
+            description={destination.description}
+          />
         </div>
 
         {/* Hero content */}
@@ -217,6 +217,11 @@ export default function DestinationClient({ destination, relatedDestinations }: 
 
             {/* Sidebar */}
             <div className="space-y-6">
+              {/* Weather Widget */}
+              <MotionWrapper>
+                <WeatherWidget location={destination.location} />
+              </MotionWrapper>
+
               {/* Quick info card */}
               <MotionWrapper delay={0.1}>
                 <div className="bg-white rounded-2xl p-6 shadow-sm sticky top-32">

@@ -3,6 +3,7 @@ import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import ClientComponents from "@/components/layout/ClientComponents";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -28,6 +29,13 @@ export const metadata: Metadata = {
     "Pantai Losari",
     "Bantimurung",
   ],
+  manifest: "/manifest.json",
+  themeColor: "#0A2540",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Visit Sulsel",
+  },
   openGraph: {
     title: "Visit Sulsel | Jelajahi Keindahan Sulawesi Selatan",
     description:
@@ -50,6 +58,7 @@ export default function RootLayout({
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        <ClientComponents />
       </body>
     </html>
   );
