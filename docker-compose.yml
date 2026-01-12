@@ -16,27 +16,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    networks:
-      - visitsulsel-network
-
-  nginx:
-    image: nginx:alpine
-    container_name: visitsulsel-nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
-    depends_on:
-      visitsulsel:
-        condition: service_healthy
-    networks:
-      - visitsulsel-network
-    profiles:
-      - prod
-
-networks:
-  visitsulsel-network:
-    driver: bridge
