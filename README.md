@@ -2,8 +2,6 @@
 
 Platform pariwisata interaktif untuk Provinsi Sulawesi Selatan. Dibangun dengan Next.js 14+, Tailwind CSS, dan Framer Motion untuk memberikan pengalaman pengguna yang memukau.
 
-![Visit Sulsel](https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=1200)
-
 ## ✨ Fitur Utama
 
 ### 🗺️ Destinasi Wisata
