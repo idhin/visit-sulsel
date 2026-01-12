@@ -1,0 +1,98 @@
+{
+  "culinary": [
+    {
+      "id": "coto-makassar",
+      "name": "Coto Makassar",
+      "description": "Sup daging sapi khas Makassar dengan kuah kacang yang gurih dan rempah-rempah khas. Biasanya disajikan dengan ketupat atau burasa.",
+      "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800",
+      "category": "makanan",
+      "origin": "Makassar",
+      "price": "Rp25.000 - Rp40.000",
+      "mustTry": true,
+      "restaurants": ["Coto Nusantara", "Coto Daeng Sirua", "Coto Paraikatte"]
+    },
+    {
+      "id": "pallubasa",
+      "name": "Pallubasa",
+      "description": "Hidangan mirip coto tapi dengan kuah yang lebih bening dan kaya rempah. Menggunakan jeroan sapi dan daging.",
+      "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800",
+      "category": "makanan",
+      "origin": "Makassar",
+      "price": "Rp30.000 - Rp50.000",
+      "mustTry": true,
+      "restaurants": ["Pallubasa Onta", "Pallubasa Serigala"]
+    },
+    {
+      "id": "konro",
+      "name": "Sop Konro",
+      "description": "Sup iga sapi dengan kuah bening yang gurih dan harum rempah. Ada juga versi bakar dengan saus kacang.",
+      "image": "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800",
+      "category": "makanan",
+      "origin": "Makassar",
+      "price": "Rp45.000 - Rp75.000",
+      "mustTry": true,
+      "restaurants": ["Sop Konro Karebosi", "Konro Iga Bakar"]
+    },
+    {
+      "id": "pisang-epe",
+      "name": "Pisang Epe",
+      "description": "Pisang raja yang dipipihkan dan dibakar, disajikan dengan saus gula merah dan keju. Jajanan khas Pantai Losari.",
+      "image": "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=800",
+      "category": "jajanan",
+      "origin": "Makassar",
+      "price": "Rp10.000 - Rp20.000",
+      "mustTry": true,
+      "restaurants": ["Pantai Losari Food Court"]
+    },
+    {
+      "id": "es-pisang-ijo",
+      "name": "Es Pisang Ijo",
+      "description": "Dessert segar dengan pisang yang dibungkus adonan hijau pandan, disajikan dengan sirup merah dan es serut.",
+      "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800",
+      "category": "minuman",
+      "origin": "Makassar",
+      "price": "Rp12.000 - Rp20.000",
+      "mustTry": true,
+      "restaurants": ["Es Pisang Ijo Pondok Santap"]
+    },
+    {
+      "id": "palubutung",
+      "name": "Pa'lu Butung",
+      "description": "Ikan bandeng yang dibakar dengan bumbu rica-rica yang pedas dan aromatik. Hidangan khas suku Bugis.",
+      "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800",
+      "category": "makanan",
+      "origin": "Bone",
+      "price": "Rp35.000 - Rp60.000",
+      "mustTry": false,
+      "restaurants": ["RM Nusantara Bone"]
+    },
+    {
+      "id": "kapurung",
+      "name": "Kapurung",
+      "description": "Makanan tradisional dari sagu dengan sayuran dan ikan. Disantap dengan kuah asam yang segar.",
+      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
+      "category": "makanan",
+      "origin": "Luwu",
+      "price": "Rp20.000 - Rp35.000",
+      "mustTry": false,
+      "restaurants": ["RM Kapurung Palopo"]
+    },
+    {
+      "id": "kopi-toraja",
+      "name": "Kopi Toraja",
+      "description": "Kopi arabika premium dari dataran tinggi Toraja dengan cita rasa fruity, earthy, dan hints of chocolate.",
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800",
+      "category": "minuman",
+      "origin": "Toraja",
+      "price": "Rp25.000 - Rp50.000",
+      "mustTry": true,
+      "restaurants": ["Kopi Toraja Kalosi", "Rantepao Coffee"]
+    }
+  ],
+  "categories": [
+    { "id": "semua", "name": "Semua", "icon": "UtensilsCrossed" },
+    { "id": "makanan", "name": "Makanan", "icon": "Soup" },
+    { "id": "jajanan", "name": "Jajanan", "icon": "Cookie" },
+    { "id": "minuman", "name": "Minuman", "icon": "Coffee" }
+  ]
+}

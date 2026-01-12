@@ -1,36 +1,197 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏝️ Visit Sulsel
 
-## Getting Started
+Platform pariwisata interaktif untuk Provinsi Sulawesi Selatan. Dibangun dengan Next.js 14+, Tailwind CSS, dan Framer Motion untuk memberikan pengalaman pengguna yang memukau.
 
-First, run the development server:
+![Visit Sulsel](https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=1200)
+
+## ✨ Fitur Utama
+
+### 🗺️ Destinasi Wisata
+- Gallery destinasi dengan filter kategori (Alam, Pantai, Budaya)
+- Detail halaman untuk setiap destinasi
+- Image lightbox dan galeri foto
+- Rating dan informasi lengkap
+
+### 🍜 Kuliner Khas
+- Showcase makanan khas Makassar dan Sulsel
+- Kategori: Makanan Utama, Jajanan, Minuman
+- Informasi harga dan lokasi terbaik
+
+### 🎭 Budaya & Tradisi
+- Profil 4 suku besar (Bugis, Makassar, Toraja, Mandar)
+- Gallery tarian tradisional
+- Timeline sejarah Sulawesi Selatan
+- Kerajinan tangan khas
+
+### 📅 Event & Festival
+- Kalender event mendatang
+- Countdown timer untuk event
+- Filter berdasarkan kategori
+
+### 🏨 Akomodasi
+- Daftar hotel dan resort
+- Filter berdasarkan tipe, lokasi, dan harga
+- Sorting berdasarkan rating, harga, bintang
+
+### 📋 Itinerary Builder
+- Paket wisata siap pakai (3, 5, 7 hari)
+- Interactive itinerary builder
+- Estimasi budget calculator
+- Detail aktivitas per hari
+
+## 🎨 Desain
+
+### Tema Visual
+- **Warna Utama**: Deep Ocean (#0A2540) - Biru laut dalam
+- **Aksen**: Gold (#D4AF37) - Emas tradisional
+- **Aksen Sekunder**: Maroon (#8B1A1A) - Terinspirasi tenun Toraja
+- **Background**: Cream (#FDF8F3) - Hangat dan elegan
+
+### Tipografi
+- **Heading**: Playfair Display (elegan, berkelas)
+- **Body**: Plus Jakarta Sans (modern, mudah dibaca)
+
+### Animasi
+- Scroll reveal animations dengan Framer Motion
+- Parallax effects pada hero sections
+- Hover animations pada cards
+- Page transitions yang smooth
+- Staggered animations untuk list items
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 14+ (App Router)
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Language**: TypeScript
+
+## 📦 Instalasi
 
 ```bash
+# Clone repository
+git clone https://github.com/yourusername/visitsulsel.git
+
+# Masuk ke direktori
+cd visitsulsel
+
+# Install dependencies
+npm install
+
+# Jalankan development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Struktur Proyek
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+visitsulsel/
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # Landing Page
+│   ├── destinasi/         # Halaman Destinasi
+│   ├── kuliner/           # Halaman Kuliner
+│   ├── budaya/            # Halaman Budaya
+│   ├── event/             # Halaman Event
+│   ├── akomodasi/         # Halaman Akomodasi
+│   └── itinerary/         # Halaman Itinerary
+├── components/
+│   ├── layout/            # Navbar, Footer
+│   ├── home/              # Komponen Landing Page
+│   ├── shared/            # Komponen Reusable
+│   └── animations/        # Animation Wrappers
+├── data/                  # JSON Data
+│   ├── destinations.json
+│   ├── culinary.json
+│   ├── culture.json
+│   ├── events.json
+│   ├── accommodations.json
+│   └── itineraries.json
+└── lib/                   # Utilities
+```
 
-## Learn More
+## 📱 Responsive Design
 
-To learn more about Next.js, take a look at the following resources:
+Website ini fully responsive dan dioptimalkan untuk:
+- 📱 Mobile (320px+)
+- 📱 Tablet (768px+)
+- 💻 Desktop (1024px+)
+- 🖥️ Large Desktop (1280px+)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run dev      # Development server
+npm run build    # Production build
+npm run start    # Start production server
+npm run lint     # Run ESLint
+```
 
-## Deploy on Vercel
+## 🐳 Docker Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Quick Start (Development/Testing)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Build dan jalankan dengan Docker Compose
+docker compose up -d --build
+
+# Lihat logs
+docker compose logs -f
+
+# Stop
+docker compose down
+```
+
+Akses aplikasi di http://localhost:3000
+
+### Production dengan Nginx
+
+```bash
+# Gunakan docker-compose.prod.yml untuk production
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Akses aplikasi di http://localhost (port 80)
+
+### Konfigurasi SSL/HTTPS
+
+1. Letakkan sertifikat SSL di folder `nginx/ssl/`:
+   - `fullchain.pem` - Sertifikat lengkap
+   - `privkey.pem` - Private key
+
+2. Edit `nginx/nginx.conf` dan uncomment bagian HTTPS server
+
+3. Ganti `your-domain.com` dengan domain Anda
+
+4. Restart container:
+   ```bash
+   docker compose -f docker-compose.prod.yml restart nginx
+   ```
+
+### Docker Commands
+
+```bash
+# Build image saja
+docker build -t visitsulsel .
+
+# Jalankan container manual
+docker run -d -p 3000:3000 --name visitsulsel visitsulsel
+
+# Lihat status containers
+docker compose ps
+
+# Rebuild tanpa cache
+docker compose build --no-cache
+
+# Hapus semua (termasuk volumes)
+docker compose down -v --rmi all
+```
+
+## 📄 Lisensi
+
+© 2026 Visit Sulsel - Provinsi Sulawesi Selatan
+
+---
+
+Dibuat dengan ❤️ untuk Sulawesi Selatan

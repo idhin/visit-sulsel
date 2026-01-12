@@ -1,0 +1,276 @@
+{
+  "cultures": [
+    {
+      "id": "rambu-solo",
+      "name": "Upacara Rambu Solo'",
+      "description": "Upacara pemakaman adat Toraja yang megah dan sakral. Melibatkan pemotongan kerbau dan berlangsung selama beberapa hari dengan berbagai ritual.",
+      "image": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800",
+      "category": "upacara",
+      "origin": "Tana Toraja",
+      "significance": "Menghormati arwah leluhur dan memastikan perjalanan ke alam baka (Puya)",
+      "bestTime": "Juli - September",
+      "featured": true
+    },
+    {
+      "id": "tongkonan",
+      "name": "Rumah Adat Tongkonan",
+      "description": "Rumah tradisional Toraja dengan atap melengkung seperti tanduk kerbau. Simbol status sosial dan pusat kehidupan keluarga.",
+      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800",
+      "category": "arsitektur",
+      "origin": "Tana Toraja",
+      "significance": "Pusat spiritualitas dan identitas keluarga Toraja",
+      "featured": true
+    },
+    {
+      "id": "pinisi",
+      "name": "Kapal Pinisi",
+      "description": "Kapal layar tradisional yang dibangun oleh suku Bugis dan Makassar. Simbol kejayaan maritim Nusantara.",
+      "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+      "category": "kerajinan",
+      "origin": "Bulukumba",
+      "significance": "Warisan budaya maritim Indonesia yang diakui UNESCO",
+      "featured": true
+    },
+    {
+      "id": "tenun-sengkang",
+      "name": "Tenun Sutra Sengkang",
+      "description": "Kain tenun sutra tradisional dengan motif khas Bugis. Dibuat dengan teknik turun-temurun oleh pengrajin wanita.",
+      "image": "https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=800",
+      "category": "kerajinan",
+      "origin": "Wajo (Sengkang)",
+      "significance": "Simbol keanggunan dan status sosial masyarakat Bugis",
+      "featured": true
+    },
+    {
+      "id": "tari-pakarena",
+      "name": "Tari Pa'karena",
+      "description": "Tarian tradisional Makassar yang lemah gemulai. Penari bergerak dengan anggun diiringi musik tradisional.",
+      "image": "https://images.unsplash.com/photo-1545959570-a94084071b5d?w=800",
+      "category": "tarian",
+      "origin": "Gowa",
+      "significance": "Ungkapan rasa syukur dan penghormatan kepada Dewi Padi",
+      "featured": false
+    },
+    {
+      "id": "accera-kalompoang",
+      "name": "Accera Kalompoang",
+      "description": "Upacara adat kerajaan Gowa untuk membersihkan pusaka kerajaan. Dilakukan setahun sekali dengan ritual sakral.",
+      "image": "https://images.unsplash.com/photo-1493707553966-283afac8c358?w=800",
+      "category": "upacara",
+      "origin": "Gowa",
+      "significance": "Menjaga kesakralan pusaka dan kesejahteraan rakyat",
+      "featured": false
+    }
+  ],
+  "categories": [
+    { "id": "semua", "name": "Semua", "icon": "Globe" },
+    { "id": "upacara", "name": "Upacara Adat", "icon": "Flame" },
+    { "id": "arsitektur", "name": "Arsitektur", "icon": "Building" },
+    { "id": "kerajinan", "name": "Kerajinan", "icon": "Palette" },
+    { "id": "tarian", "name": "Tarian", "icon": "Music" }
+  ],
+  "ethnicGroups": [
+    {
+      "id": "bugis",
+      "name": "Suku Bugis",
+      "region": "Bone, Wajo, Soppeng, Pinrang",
+      "image": "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=800",
+      "population": "± 6.5 juta jiwa",
+      "description": "Suku Bugis adalah suku pelaut dan pedagang ulung yang tersebar di seluruh Nusantara. Dikenal dengan aksara Lontara, sistem pemerintahan tradisional, dan filosofi hidup yang kuat. Masyarakat Bugis terkenal dengan etos kerja yang tinggi dan tradisi merantau.",
+      "traditions": ["Mappacci", "Tudang Sipulung", "Mappatettong Bola", "Mappenre Temme"]
+    },
+    {
+      "id": "makassar",
+      "name": "Suku Makassar",
+      "region": "Gowa, Takalar, Jeneponto, Bantaeng",
+      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800",
+      "population": "± 2.5 juta jiwa",
+      "description": "Suku Makassar adalah suku pejuang dengan sejarah maritim dan kerajaan yang kuat. Kerajaan Gowa-Tallo pernah menjadi salah satu kerajaan terkuat di Nusantara. Dikenal dengan semboyan 'Takunjunga Bangung Tallanga' yang berarti pantang mundur.",
+      "traditions": ["Accera Kalompoang", "Appalili", "Songka Bala", "Pattunuang"]
+    },
+    {
+      "id": "toraja",
+      "name": "Suku Toraja",
+      "region": "Tana Toraja, Toraja Utara",
+      "image": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800",
+      "population": "± 1.2 juta jiwa",
+      "description": "Suku Toraja adalah suku pegunungan dengan arsitektur rumah Tongkonan yang ikonik dan upacara kematian yang megah. Budaya Toraja sangat menghormati leluhur dan memiliki sistem kepercayaan Aluk Todolo. Seni ukir dan tenun Toraja terkenal hingga mancanegara.",
+      "traditions": ["Rambu Solo'", "Rambu Tuka'", "Ma'nene", "Mangrara Banua"]
+    },
+    {
+      "id": "mandar",
+      "name": "Suku Mandar",
+      "region": "Majene, Mamuju, Polewali Mandar",
+      "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+      "population": "± 500 ribu jiwa",
+      "description": "Suku Mandar adalah suku nelayan dengan tradisi perahu Sandeq yang legendaris. Dikenal dengan tarian Sayyang Pattu'du (kuda menari) dan tenun Lipaq Saqbe. Masyarakat Mandar sangat menjunjung tinggi adat dan solidaritas sosial.",
+      "traditions": ["Sayyang Pattu'du", "Pesta Nelayan", "Mappande Sasiq", "Mappatamma"]
+    }
+  ],
+  "traditions": [
+    {
+      "id": "rambu-solo",
+      "name": "Upacara Rambu Solo'",
+      "type": "Upacara Pemakaman",
+      "description": "Upacara pemakaman megah yang bisa berlangsung berhari-hari bahkan berminggu-minggu. Melibatkan pemotongan kerbau dan babi sebagai bekal perjalanan arwah ke alam baka (Puya). Semakin tinggi status sosial, semakin megah upacaranya.",
+      "image": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800",
+      "region": "Tana Toraja"
+    },
+    {
+      "id": "mappacci",
+      "name": "Mappacci",
+      "type": "Upacara Pernikahan",
+      "description": "Ritual pembersihan diri pengantin sebelum pernikahan menggunakan daun pacar (henna). Dilakukan sebagai simbol kesucian dan harapan untuk kehidupan baru yang penuh berkah.",
+      "image": "https://images.unsplash.com/photo-1519741497674-611481863552?w=800",
+      "region": "Bugis-Makassar"
+    },
+    {
+      "id": "accera-kalompoang",
+      "name": "Accera Kalompoang",
+      "type": "Upacara Kerajaan",
+      "description": "Ritual pembersihan pusaka kerajaan Gowa yang dilakukan setiap tahun. Melibatkan prosesi sakral dengan pakaian adat lengkap dan berbagai sesaji tradisional.",
+      "image": "https://images.unsplash.com/photo-1493707553966-283afac8c358?w=800",
+      "region": "Gowa"
+    },
+    {
+      "id": "sayyang-pattudu",
+      "name": "Sayyang Pattu'du",
+      "type": "Festival Budaya",
+      "description": "Festival unik di mana kuda-kuda dirias cantik dan dilatih untuk 'menari' mengikuti irama musik tradisional. Penunggang kuda biasanya gadis-gadis yang baru menyelesaikan pendidikan Al-Quran.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
+      "region": "Mandar"
+    },
+    {
+      "id": "manene",
+      "name": "Ma'nene",
+      "type": "Ritual Toraja",
+      "description": "Ritual membersihkan dan mengganti pakaian jenazah leluhur yang sudah meninggal. Dilakukan sebagai bentuk penghormatan dan menjaga hubungan dengan arwah keluarga.",
+      "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800",
+      "region": "Tana Toraja"
+    },
+    {
+      "id": "tudang-sipulung",
+      "name": "Tudang Sipulung",
+      "type": "Musyawarah Adat",
+      "description": "Tradisi musyawarah mufakat masyarakat Bugis untuk membahas masalah pertanian dan kemasyarakatan. Dilakukan dengan duduk bersama di balai adat.",
+      "image": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800",
+      "region": "Wajo"
+    }
+  ],
+  "dances": [
+    {
+      "id": "pakarena",
+      "name": "Tari Pa'karena",
+      "origin": "Gowa",
+      "description": "Tarian tradisional Makassar yang lemah gemulai, dibawakan oleh penari wanita dengan gerakan anggun dan penuh makna filosofis. Konon tarian ini diturunkan oleh bidadari dari kayangan.",
+      "image": "https://images.unsplash.com/photo-1545959570-a94084071b5d?w=800"
+    },
+    {
+      "id": "pagellu",
+      "name": "Tari Pa'gellu",
+      "origin": "Tana Toraja",
+      "description": "Tarian sukacita masyarakat Toraja yang dibawakan dalam upacara syukuran (Rambu Tuka). Penari bergerak dinamis mengikuti irama musik tradisional.",
+      "image": "https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=800"
+    },
+    {
+      "id": "paduppa",
+      "name": "Tari Paduppa",
+      "origin": "Bugis-Makassar",
+      "description": "Tarian penyambutan tamu kehormatan yang dibawakan oleh penari wanita dengan membawa baki berisi beras dan kelapa. Simbol penghormatan dan keramahan.",
+      "image": "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=800"
+    },
+    {
+      "id": "pattudu",
+      "name": "Tari Pattu'du",
+      "origin": "Mandar",
+      "description": "Tarian tradisional Mandar yang biasa ditampilkan dalam festival Sayyang Pattu'du. Penari menari di atas kuda yang juga ikut 'menari' mengikuti irama.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800"
+    },
+    {
+      "id": "ma-randing",
+      "name": "Tari Ma'randing",
+      "origin": "Tana Toraja",
+      "description": "Tarian perang Toraja yang menggambarkan keberanian dan kehebatan prajurit. Ditampilkan dalam upacara pemakaman bangsawan.",
+      "image": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800"
+    },
+    {
+      "id": "bosara",
+      "name": "Tari Bosara",
+      "origin": "Gowa",
+      "description": "Tarian yang terinspirasi dari wadah kue tradisional 'bosara'. Penari membawa bosara sambil menari dengan gerakan anggun.",
+      "image": "https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=800"
+    }
+  ],
+  "crafts": [
+    {
+      "id": "pinisi",
+      "name": "Kapal Pinisi",
+      "description": "Kapal layar tradisional yang dibangun dengan teknik turun-temurun tanpa gambar teknik. Diakui UNESCO sebagai Warisan Budaya Takbenda Manusia.",
+      "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800"
+    },
+    {
+      "id": "tenun-sengkang",
+      "name": "Tenun Sutra Sengkang",
+      "description": "Kain tenun sutra dengan motif geometris khas Bugis. Dibuat dengan alat tenun tradisional oleh pengrajin wanita di Kabupaten Wajo.",
+      "image": "https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=800"
+    },
+    {
+      "id": "ukiran-toraja",
+      "name": "Ukiran Toraja",
+      "description": "Seni ukir kayu dengan motif Pa'ssura yang sarat makna filosofis. Menghiasi rumah Tongkonan dan berbagai peralatan tradisional.",
+      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800"
+    },
+    {
+      "id": "lipaq-saqbe",
+      "name": "Lipaq Saqbe",
+      "description": "Kain tenun tradisional Mandar dengan motif kotak-kotak khas. Dibuat dengan pewarna alami dan teknik tenun ikat.",
+      "image": "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800"
+    },
+    {
+      "id": "keramik-takalar",
+      "name": "Keramik Takalar",
+      "description": "Gerabah dan keramik tradisional yang dibuat dengan teknik manual. Digunakan untuk keperluan rumah tangga dan upacara adat.",
+      "image": "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800"
+    },
+    {
+      "id": "anyaman-bambu",
+      "name": "Anyaman Bambu",
+      "description": "Kerajinan anyaman dari bambu untuk berbagai keperluan, dari wadah makanan hingga perabot rumah tangga tradisional.",
+      "image": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "Abad 9",
+      "event": "Kerajaan-kerajaan kecil mulai terbentuk di wilayah Sulawesi Selatan, termasuk Kerajaan Luwu yang legendaris"
+    },
+    {
+      "year": "Abad 14",
+      "event": "Kerajaan Gowa-Tallo didirikan dan mulai berkembang menjadi pusat perdagangan maritim yang penting"
+    },
+    {
+      "year": "1511",
+      "event": "Pedagang Portugis pertama tiba di Makassar, menandai awal hubungan dengan bangsa Eropa"
+    },
+    {
+      "year": "1605",
+      "event": "Kerajaan Gowa resmi memeluk Islam di bawah kepemimpinan Sultan Alauddin"
+    },
+    {
+      "year": "1669",
+      "event": "Perjanjian Bongaya ditandatangani, mengakhiri perang antara Gowa dan VOC Belanda"
+    },
+    {
+      "year": "1905",
+      "event": "Misionaris Belanda pertama tiba di Tana Toraja, memperkenalkan agama Kristen"
+    },
+    {
+      "year": "1957",
+      "event": "Provinsi Sulawesi Selatan resmi terbentuk sebagai bagian dari Republik Indonesia"
+    },
+    {
+      "year": "2009",
+      "event": "Seni pembuatan Kapal Pinisi diakui UNESCO sebagai Warisan Budaya Takbenda Manusia"
+    }
+  ]
+}
