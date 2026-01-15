@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph Users[PENGGUNA]
+        U1[Wisatawan]
+    end
+    
+    subgraph Platform[VISIT SULSEL]
+        T1[Booking Akomodasi]
+        T2[Marketplace UMKM]
+        T3[Jasa Guide/Kreator]
+        T4[Tiket Destinasi]
+    end
+    
+    subgraph Revenue[REVENUE]
+        R1["Fee 10-15%"]
+        R2["Komisi 5-15%"]
+        R3["Fee 10-15%"]
+        R4["Fee 10%"]
+    end
+    
+    subgraph Penerima[PENERIMA]
+        P1[Hotel/Resort]
+        P2[UMKM Lokal]
+        P3[Guide & Kreator]
+        P4[Pengelola Wisata]
+    end
+    
+    U1 --> T1 & T2 & T3 & T4
+    T1 --> R1 --> P1
+    T2 --> R2 --> P2
+    T3 --> R3 --> P3
+    T4 --> R4 --> P4

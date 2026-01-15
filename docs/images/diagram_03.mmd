@@ -1,0 +1,36 @@
+flowchart TB
+    subgraph Platform[VISIT SULSEL SUPER APP]
+        direction TB
+        
+        subgraph P1[PESAN]
+            P1A[Tiket Destinasi]
+            P1B[Booking Hotel]
+            P1C[Paket Wisata]
+        end
+        
+        subgraph P2[BELANJA]
+            P2A[Produk UMKM]
+            P2B[Oleh-oleh]
+            P2C[Kerajinan]
+        end
+        
+        subgraph P3[CREATOR HUB]
+            P3A[Fotografer]
+            P3B[Videografer]
+            P3C[Content Creator]
+        end
+        
+        subgraph P4[TOUR GUIDE]
+            P4A[Guide Budaya]
+            P4B[Guide Adventure]
+            P4C[Guide Kuliner]
+        end
+        
+        subgraph P5[KOMUNITAS]
+            P5A[Forum Diskusi]
+            P5B[Review]
+            P5C[Trip Buddy]
+        end
+    end
+    
+    User[Wisatawan] --> Platform

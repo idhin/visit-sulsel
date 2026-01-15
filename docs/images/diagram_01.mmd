@@ -1,0 +1,20 @@
+flowchart LR
+    subgraph Tahap1[TAHAP 1: PROPOSAL KE GUBERNUR]
+        A[Surat Resmi] --> B[Grand Design]
+        B --> C[Demo Mockup]
+        C --> D[Presentasi]
+    end
+    
+    subgraph Tahap2[TAHAP 2: PERSETUJUAN]
+        E[Review Dinas Terkait]
+        F[Audiensi Gubernur]
+        G[Persetujuan Prinsip]
+    end
+    
+    subgraph Tahap3[TAHAP 3: EKSEKUSI]
+        H[Pembentukan Tim]
+        I[Alokasi Anggaran]
+        J[Kick-off Project]
+    end
+    
+    Tahap1 --> Tahap2 --> Tahap3

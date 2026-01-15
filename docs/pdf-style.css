@@ -1,0 +1,225 @@
+/* Professional PDF Styling for Visit Sulsel Business Plan */
+
+@page {
+  size: A4;
+  margin: 15mm 18mm;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.5;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings */
+h1 {
+  color: #0A2540;
+  font-size: 22pt;
+  font-weight: 700;
+  border-bottom: 3px solid #D4AF37;
+  padding-bottom: 8px;
+  margin: 20px 0 15px 0;
+  page-break-after: avoid;
+}
+
+h1:first-of-type {
+  margin-top: 0;
+  text-align: center;
+  border-bottom: none;
+  font-size: 26pt;
+}
+
+h2 {
+  color: #0A2540;
+  font-size: 14pt;
+  font-weight: 600;
+  border-bottom: 2px solid #D4AF37;
+  padding-bottom: 5px;
+  margin: 18px 0 10px 0;
+  page-break-after: avoid;
+}
+
+h3 {
+  color: #0A2540;
+  font-size: 12pt;
+  font-weight: 600;
+  margin: 14px 0 8px 0;
+  page-break-after: avoid;
+}
+
+h4 {
+  color: #8B1A1A;
+  font-size: 10pt;
+  font-weight: 600;
+  margin: 10px 0 6px 0;
+  page-break-after: avoid;
+}
+
+/* Paragraphs */
+p {
+  margin: 6px 0;
+  text-align: justify;
+}
+
+/* Lists */
+ul, ol {
+  margin: 6px 0;
+  padding-left: 20px;
+}
+
+li {
+  margin: 3px 0;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 9pt;
+  page-break-inside: avoid;
+}
+
+th {
+  background-color: #0A2540;
+  color: white;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 9pt;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  vertical-align: top;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tr:hover {
+  background-color: #f1f3f4;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid #D4AF37;
+  background-color: #FDF8F3;
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-style: italic;
+  font-size: 9.5pt;
+  page-break-inside: avoid;
+}
+
+blockquote strong {
+  color: #8B1A1A;
+}
+
+/* Code blocks */
+code {
+  background-color: #f4f4f4;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  font-size: 8.5pt;
+}
+
+pre {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 8pt;
+  margin: 8px 0;
+  border: 1px solid #e0e0e0;
+}
+
+/* Images - Diagrams */
+img {
+  max-width: 100%;
+  max-height: 500px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 15px auto;
+  page-break-inside: avoid !important;
+  page-break-before: auto;
+  page-break-after: auto;
+  break-inside: avoid !important;
+}
+
+/* Ensure images with preceding content don't break */
+p + img, h3 + img, h4 + img {
+  page-break-before: auto;
+}
+
+/* Force page break before large sections if needed */
+img + h2 {
+  page-break-before: always;
+}
+
+/* Horizontal rules */
+hr {
+  border: none;
+  border-top: 1px solid #D4AF37;
+  margin: 15px 0;
+}
+
+/* Strong and emphasis */
+strong {
+  font-weight: 600;
+  color: #0A2540;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Links */
+a {
+  color: #0A2540;
+  text-decoration: none;
+}
+
+/* Page break controls */
+h2, h3 {
+  page-break-after: avoid;
+}
+
+table, img, blockquote, pre {
+  page-break-inside: avoid;
+}
+
+/* Special formatting for specific content */
+.header-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Compact spacing */
+p + p {
+  margin-top: 4px;
+}
+
+h3 + p, h4 + p {
+  margin-top: 4px;
+}
+
+ul + p, ol + p, table + p {
+  margin-top: 8px;
+}
+
+/* Make sure tables fit */
+table td:first-child {
+  font-weight: 500;
+}

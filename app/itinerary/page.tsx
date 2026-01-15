@@ -5,496 +5,593 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Calendar,
+  Search,
+  ArrowLeft,
+  X,
   MapPin,
   Clock,
-  ArrowRight,
+  Calendar,
   Plus,
   Minus,
+  ChevronRight,
   ChevronDown,
-  ChevronUp,
-  Calculator,
-  Download,
-  Share2,
-  CheckCircle,
   Sparkles,
+  Route,
+  Users,
+  Wallet,
+  Check,
+  Star,
+  Navigation,
+  Coffee,
+  Utensils,
+  Camera,
+  Bed,
+  Sun,
+  Sunset,
+  Moon,
 } from "lucide-react";
-import SectionHeader from "@/components/shared/SectionHeader";
-import MotionWrapper, { StaggerContainer, StaggerItem } from "@/components/animations/MotionWrapper";
 import { formatPrice } from "@/lib/utils";
 import itinerariesData from "@/data/itineraries.json";
+import destinationsData from "@/data/destinations.json";
+
+const quickTemplates = [
+  { id: "1day", label: "1 Hari", days: 1, icon: "☀️" },
+  { id: "weekend", label: "Weekend", days: 2, icon: "🌴" },
+  { id: "3days", label: "3 Hari", days: 3, icon: "🏝️" },
+  { id: "5days", label: "5 Hari", days: 5, icon: "🗺️" },
+  { id: "week", label: "1 Minggu", days: 7, icon: "✈️" },
+];
+
+const activityTypes = [
+  { id: "wisata", label: "Wisata", icon: Camera, color: "bg-blue-500" },
+  { id: "kuliner", label: "Kuliner", icon: Utensils, color: "bg-orange-500" },
+  { id: "hotel", label: "Hotel", icon: Bed, color: "bg-purple-500" },
+  { id: "transport", label: "Transport", icon: Navigation, color: "bg-green-500" },
+  { id: "istirahat", label: "Istirahat", icon: Coffee, color: "bg-amber-500" },
+];
+
+type Activity = {
+  id: string;
+  time: string;
+  title: string;
+  location: string;
+  type: string;
+  duration: string;
+};
+
+type DayPlan = {
+  day: number;
+  activities: Activity[];
+};
 
 export default function ItineraryPage() {
-  const [selectedItinerary, setSelectedItinerary] = useState<typeof itinerariesData.itineraries[0] | null>(null);
-  const [expandedDays, setExpandedDays] = useState<number[]>([1]);
+  const [activeTab, setActiveTab] = useState<"templates" | "custom">("templates");
+  const [selectedTemplate, setSelectedTemplate] = useState<typeof itinerariesData.itineraries[0] | null>(null);
+  const [expandedDay, setExpandedDay] = useState<number | null>(1);
+  
+  // Custom builder state
   const [showBuilder, setShowBuilder] = useState(false);
-  const [builderDays, setBuilderDays] = useState(3);
-  const [builderInterests, setBuilderInterests] = useState<string[]>([]);
+  const [tripDays, setTripDays] = useState(3);
+  const [tripName, setTripName] = useState("");
+  const [customPlan, setCustomPlan] = useState<DayPlan[]>([]);
+  const [showAddActivity, setShowAddActivity] = useState<number | null>(null);
 
-  const toggleDay = (day: number) => {
-    setExpandedDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-    );
+  const featuredItineraries = itinerariesData.itineraries.filter((i: typeof itinerariesData.itineraries[0]) => i.featured);
+
+  const initializeCustomPlan = (days: number) => {
+    const plan: DayPlan[] = [];
+    for (let i = 1; i <= days; i++) {
+      plan.push({
+        day: i,
+        activities: []
+      });
+    }
+    setCustomPlan(plan);
+    setShowBuilder(true);
   };
 
-  const interests = [
-    { id: "alam", label: "Wisata Alam", icon: "🏔️" },
-    { id: "pantai", label: "Pantai & Laut", icon: "🏖️" },
-    { id: "budaya", label: "Budaya & Sejarah", icon: "🏛️" },
-    { id: "kuliner", label: "Kuliner", icon: "🍜" },
-    { id: "adventure", label: "Petualangan", icon: "🎒" },
-    { id: "relaksasi", label: "Relaksasi", icon: "🧘" },
-  ];
+  const addActivity = (dayIndex: number, activity: Omit<Activity, 'id'>) => {
+    const newPlan = [...customPlan];
+    newPlan[dayIndex].activities.push({
+      ...activity,
+      id: `${dayIndex}-${Date.now()}`
+    });
+    setCustomPlan(newPlan);
+    setShowAddActivity(null);
+  };
 
-  const toggleInterest = (id: string) => {
-    setBuilderInterests((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
+  const removeActivity = (dayIndex: number, activityId: string) => {
+    const newPlan = [...customPlan];
+    newPlan[dayIndex].activities = newPlan[dayIndex].activities.filter(a => a.id !== activityId);
+    setCustomPlan(newPlan);
+  };
+
+  const getTimeIcon = (time: string) => {
+    const hour = parseInt(time.split(':')[0]);
+    if (hour >= 5 && hour < 12) return Sun;
+    if (hour >= 12 && hour < 17) return Sun;
+    if (hour >= 17 && hour < 20) return Sunset;
+    return Moon;
   };
 
   return (
-    <main className="pt-20">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-center">
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920"
-            alt="Itinerary Sulsel"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-deep-ocean/90 via-deep-ocean/70 to-deep-ocean/50" />
-        </div>
+    <main className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white sticky top-0 z-30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between py-3">
+            <div className="flex items-center gap-3">
+              <Link href="/" className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors">
+                <ArrowLeft className="w-5 h-5 text-gray-700" />
+              </Link>
+              <div>
+                <h1 className="text-lg font-bold text-gray-900">Itinerary Planner</h1>
+                <p className="text-xs text-gray-500">Rencanakan perjalananmu</p>
+              </div>
+            </div>
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                setShowBuilder(false);
+                setSelectedTemplate(null);
+              }}
+              className="p-2.5 hover:bg-gray-100 rounded-xl transition-colors"
+            >
+              <Route className="w-5 h-5 text-gray-600" />
+            </motion.button>
+          </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-1.5 bg-gold/20 text-gold text-sm font-medium rounded-full mb-4"
-          >
-            Rencanakan Perjalanan
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4"
-          >
-            Paket Wisata & Itinerary
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-white/80 max-w-2xl mx-auto mb-8"
-          >
-            Pilih paket wisata siap pakai atau buat itinerary custom sesuai
-            keinginan Anda
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-wrap gap-4 justify-center"
-          >
+          {/* Tabs */}
+          <div className="flex gap-2 pb-3">
             <button
-              onClick={() => setShowBuilder(true)}
-              className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-gold to-gold-light text-deep-ocean font-semibold rounded-full hover:shadow-lg hover:shadow-gold/30 transition-all"
+              onClick={() => setActiveTab("templates")}
+              className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                activeTab === "templates"
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-blue-500/30"
+                  : "bg-gray-100 text-gray-700"
+              }`}
             >
-              <Sparkles className="w-5 h-5" />
-              Buat Itinerary Custom
+              Template Populer
             </button>
-            <a
-              href="#paket"
-              className="flex items-center gap-2 px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition-all"
+            <button
+              onClick={() => setActiveTab("custom")}
+              className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                activeTab === "custom"
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-blue-500/30"
+                  : "bg-gray-100 text-gray-700"
+              }`}
             >
-              Lihat Paket Wisata
-            </a>
-          </motion.div>
+              Buat Sendiri
+            </button>
+          </div>
         </div>
-      </section>
+      </div>
 
-      {/* Itinerary Builder Modal */}
-      <AnimatePresence>
-        {showBuilder && (
+      {/* Content */}
+      <div className="max-w-7xl mx-auto">
+        {activeTab === "templates" && !selectedTemplate && (
+          <div className="px-4 py-4 space-y-6">
+            {/* Featured Template */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-1.5 bg-amber-100 rounded-lg">
+                  <Star className="w-4 h-4 text-amber-500" />
+                </div>
+                <h2 className="font-bold text-gray-900">Rekomendasi</h2>
+              </div>
+              <div className="space-y-3">
+                {featuredItineraries.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => setSelectedTemplate(item)}
+                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer group hover:shadow-md transition-all"
+                  >
+                    <div className="flex">
+                      <div className="relative w-28 h-32 flex-shrink-0">
+                        <Image src={item.image} alt={item.name} fill className="object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20" />
+                      </div>
+                      <div className="flex-1 p-4">
+                        <div className="flex items-start justify-between mb-1">
+                          <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{item.name}</h3>
+                          <span className="px-2 py-0.5 bg-blue-100 text-blue-600 text-xs font-semibold rounded-full">
+                            {item.duration}
+                          </span>
+                        </div>
+                        <p className="text-gray-500 text-xs line-clamp-2 mb-2">{item.description}</p>
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <Wallet className="w-3 h-3" />
+                            {formatPrice(item.price)}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Route className="w-3 h-3" />
+                            {item.difficulty}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center pr-3">
+                        <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-blue-500 transition-colors" />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* All Templates */}
+            <div>
+              <h2 className="font-bold text-gray-900 mb-3">Semua Template</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {itinerariesData.itineraries.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                    onClick={() => setSelectedTemplate(item)}
+                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer group"
+                  >
+                    <div className="relative h-28">
+                      <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-2 left-2 right-2">
+                        <h3 className="text-white font-bold text-sm line-clamp-1">{item.name}</h3>
+                        <p className="text-white/80 text-xs">{item.duration} • {item.difficulty}</p>
+                      </div>
+                    </div>
+                    <div className="p-3">
+                      <p className="text-blue-600 font-bold text-sm">{formatPrice(item.price)}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template Detail */}
+        {selectedTemplate && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setShowBuilder(false)}
-            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+            className="pb-24"
           >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl overflow-hidden max-w-2xl w-full max-h-[90vh] overflow-y-auto"
-            >
-              <div className="bg-gradient-to-r from-deep-ocean to-deep-ocean-light p-8 text-white">
-                <h2 className="font-heading text-2xl font-bold mb-2">
-                  Buat Itinerary Custom
-                </h2>
-                <p className="text-white/70">
-                  Sesuaikan perjalanan impian Anda di Sulawesi Selatan
-                </p>
+            {/* Hero */}
+            <div className="relative h-48">
+              <Image src={selectedTemplate.image} alt={selectedTemplate.name} fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              <button
+                onClick={() => setSelectedTemplate(null)}
+                className="absolute top-4 left-4 p-2 bg-white/20 backdrop-blur-sm rounded-full text-white"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <div className="absolute bottom-4 left-4 right-4">
+                <span className="inline-block px-3 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full mb-2">
+                  {selectedTemplate.duration}
+                </span>
+                <h2 className="text-2xl font-bold text-white">{selectedTemplate.name}</h2>
               </div>
+            </div>
 
-              <div className="p-8 space-y-8">
-                {/* Duration */}
-                <div>
-                  <label className="font-semibold text-deep-ocean mb-4 block">
-                    Durasi Perjalanan
-                  </label>
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={() => setBuilderDays(Math.max(1, builderDays - 1))}
-                      className="w-12 h-12 rounded-full bg-cream flex items-center justify-center hover:bg-cream-dark transition-colors"
-                    >
-                      <Minus className="w-5 h-5" />
-                    </button>
-                    <div className="text-center">
-                      <div className="font-heading text-4xl font-bold text-deep-ocean">
-                        {builderDays}
-                      </div>
-                      <div className="text-muted text-sm">Hari</div>
-                    </div>
-                    <button
-                      onClick={() => setBuilderDays(Math.min(14, builderDays + 1))}
-                      className="w-12 h-12 rounded-full bg-cream flex items-center justify-center hover:bg-cream-dark transition-colors"
-                    >
-                      <Plus className="w-5 h-5" />
-                    </button>
-                  </div>
+            {/* Info */}
+            <div className="px-4 py-4 bg-white border-b border-gray-100">
+              <p className="text-gray-600 text-sm mb-4">{selectedTemplate.description}</p>
+              <div className="flex gap-4">
+                <div className="flex-1 bg-blue-50 rounded-xl p-3 text-center">
+                  <Wallet className="w-5 h-5 text-blue-500 mx-auto mb-1" />
+                  <p className="text-xs text-gray-500">Budget</p>
+                  <p className="font-bold text-blue-600">{formatPrice(selectedTemplate.price)}</p>
                 </div>
-
-                {/* Interests */}
-                <div>
-                  <label className="font-semibold text-deep-ocean mb-4 block">
-                    Minat Wisata (Pilih beberapa)
-                  </label>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {interests.map((interest) => (
-                      <button
-                        key={interest.id}
-                        onClick={() => toggleInterest(interest.id)}
-                        className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all ${
-                          builderInterests.includes(interest.id)
-                            ? "border-gold bg-gold/10 text-deep-ocean"
-                            : "border-border hover:border-gold/50"
-                        }`}
-                      >
-                        <span className="text-xl">{interest.icon}</span>
-                        <span className="text-sm font-medium">{interest.label}</span>
-                      </button>
-                    ))}
-                  </div>
+                <div className="flex-1 bg-green-50 rounded-xl p-3 text-center">
+                  <Calendar className="w-5 h-5 text-green-500 mx-auto mb-1" />
+                  <p className="text-xs text-gray-500">Durasi</p>
+                  <p className="font-bold text-green-600">{selectedTemplate.duration}</p>
                 </div>
-
-                {/* Estimated Budget */}
-                <div className="bg-cream rounded-2xl p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Calculator className="w-6 h-6 text-gold" />
-                    <span className="font-semibold text-deep-ocean">Estimasi Budget</span>
-                  </div>
-                  <div className="font-heading text-3xl font-bold text-gold mb-2">
-                    {formatPrice(builderDays * 1500000)}
-                  </div>
-                  <p className="text-sm text-muted">
-                    *Termasuk akomodasi, transportasi, dan tiket masuk
-                  </p>
-                </div>
-
-                {/* Actions */}
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    onClick={() => {
-                      setShowBuilder(false);
-                      alert("Fitur ini akan segera hadir! Terima kasih atas minat Anda.");
-                    }}
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-gold to-gold-light text-deep-ocean font-semibold rounded-full hover:shadow-lg transition-all"
-                  >
-                    <Sparkles className="w-5 h-5" />
-                    Generate Itinerary
-                  </button>
-                  <button
-                    onClick={() => setShowBuilder(false)}
-                    className="px-6 py-4 border-2 border-border text-deep-ocean font-semibold rounded-full hover:bg-cream transition-all"
-                  >
-                    Batal
-                  </button>
+                <div className="flex-1 bg-purple-50 rounded-xl p-3 text-center">
+                  <Route className="w-5 h-5 text-purple-500 mx-auto mb-1" />
+                  <p className="text-xs text-gray-500">Level</p>
+                  <p className="font-bold text-purple-600">{selectedTemplate.difficulty}</p>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
 
-      {/* Ready-made Packages */}
-      <section id="paket" className="py-20 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            subtitle="Paket Siap Pakai"
-            title="Pilih Paket Wisata"
-            description="Itinerary yang sudah dirancang dengan sempurna untuk pengalaman terbaik"
-          />
+            {/* Highlights */}
+            <div className="px-4 py-4 bg-white border-b border-gray-100">
+              <h3 className="font-bold text-gray-900 mb-3">Highlights</h3>
+              <div className="flex flex-wrap gap-2">
+                {selectedTemplate.highlights.map((h, i) => (
+                  <span key={i} className="px-3 py-1.5 bg-gray-100 text-gray-700 text-sm rounded-full">
+                    {h}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {itinerariesData.itineraries.map((itinerary) => (
-              <StaggerItem key={itinerary.id}>
-                <motion.div
-                  whileHover={{ y: -8 }}
-                  className={`group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer ${
-                    selectedItinerary?.id === itinerary.id
-                      ? "ring-2 ring-gold"
-                      : ""
-                  }`}
-                  onClick={() => setSelectedItinerary(itinerary)}
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={itinerary.image}
-                      alt={itinerary.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-deep-ocean/70 via-transparent to-transparent" />
-
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-gold text-deep-ocean text-sm font-semibold rounded-full">
-                      {itinerary.duration} Hari
-                    </div>
-
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="font-heading text-xl font-bold text-white">
-                        {itinerary.title}
-                      </h3>
-                    </div>
-                  </div>
-
-                  <div className="p-5">
-                    <p className="text-muted text-sm line-clamp-2 mb-4">
-                      {itinerary.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {itinerary.highlights.slice(0, 3).map((highlight) => (
-                        <span
-                          key={highlight}
-                          className="px-2 py-1 bg-cream text-deep-ocean text-xs rounded-full"
-                        >
-                          {highlight}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-border">
-                      <div>
-                        <span className="text-xs text-muted">Estimasi Budget</span>
-                        <div className="font-heading text-xl font-bold text-gold">
-                          {formatPrice(itinerary.budget)}
+            {/* Day by Day */}
+            <div className="px-4 py-4">
+              <h3 className="font-bold text-gray-900 mb-3">Jadwal Perjalanan</h3>
+              <div className="space-y-3">
+                {selectedTemplate.days.map((day) => (
+                  <div key={day.day} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                    <button
+                      onClick={() => setExpandedDay(expandedDay === day.day ? null : day.day)}
+                      className="w-full flex items-center justify-between p-4"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold">
+                          {day.day}
+                        </div>
+                        <div className="text-left">
+                          <p className="font-semibold text-gray-900">Hari {day.day}</p>
+                          <p className="text-sm text-gray-500">{day.title}</p>
                         </div>
                       </div>
-                      <span className="flex items-center gap-1 text-deep-ocean font-medium text-sm group-hover:text-gold transition-colors">
-                        Lihat Detail
-                        <ArrowRight className="w-4 h-4" />
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-
-          {/* Selected Itinerary Detail */}
-          <AnimatePresence>
-            {selectedItinerary && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                className="bg-white rounded-3xl overflow-hidden shadow-lg"
-              >
-                {/* Header */}
-                <div className="relative h-64">
-                  <Image
-                    src={selectedItinerary.image}
-                    alt={selectedItinerary.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-deep-ocean/90 via-deep-ocean/40 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-8">
-                    <span className="inline-block px-4 py-1.5 bg-gold text-deep-ocean text-sm font-semibold rounded-full mb-3">
-                      {selectedItinerary.duration} Hari Perjalanan
-                    </span>
-                    <h2 className="font-heading text-3xl font-bold text-white mb-2">
-                      {selectedItinerary.title}
-                    </h2>
-                    <p className="text-white/80">{selectedItinerary.description}</p>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8">
-                  {/* Actions */}
-                  <div className="flex flex-wrap gap-3 mb-8">
-                    <button className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-gold to-gold-light text-deep-ocean font-semibold rounded-full hover:shadow-lg transition-all">
-                      <Download className="w-4 h-4" />
-                      Download PDF
+                      <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${expandedDay === day.day ? 'rotate-180' : ''}`} />
                     </button>
-                    <button className="flex items-center gap-2 px-5 py-2.5 border-2 border-deep-ocean text-deep-ocean font-semibold rounded-full hover:bg-cream transition-all">
-                      <Share2 className="w-4 h-4" />
-                      Bagikan
-                    </button>
-                  </div>
-
-                  {/* Days */}
-                  <div className="space-y-4">
-                    {selectedItinerary.days.map((day) => (
-                      <div
-                        key={day.day}
-                        className="border border-border rounded-2xl overflow-hidden"
-                      >
-                        <button
-                          onClick={() => toggleDay(day.day)}
-                          className="w-full flex items-center justify-between p-5 bg-cream hover:bg-cream-dark transition-colors"
+                    <AnimatePresence>
+                      {expandedDay === day.day && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden"
                         >
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-deep-ocean text-white rounded-xl flex items-center justify-center font-bold">
-                              {day.day}
-                            </div>
-                            <div className="text-left">
-                              <div className="font-heading text-lg font-bold text-deep-ocean">
-                                Hari {day.day}
-                              </div>
-                              <div className="text-sm text-muted">{day.title}</div>
+                          <div className="px-4 pb-4">
+                            <p className="text-gray-600 text-sm mb-3">{day.description}</p>
+                            <div className="space-y-2">
+                              {day.activities.map((activity, i) => (
+                                <div key={i} className="flex gap-3">
+                                  <div className="flex flex-col items-center">
+                                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                      <Sun className="w-4 h-4 text-blue-500" />
+                                    </div>
+                                    {i !== day.activities.length - 1 && (
+                                      <div className="w-0.5 flex-1 bg-blue-100 my-1" />
+                                    )}
+                                  </div>
+                                  <div className="flex-1 pb-3">
+                                    <p className="font-medium text-gray-900">{activity}</p>
+                                  </div>
+                                </div>
+                              ))}
                             </div>
                           </div>
-                          {expandedDays.includes(day.day) ? (
-                            <ChevronUp className="w-5 h-5 text-muted" />
-                          ) : (
-                            <ChevronDown className="w-5 h-5 text-muted" />
-                          )}
-                        </button>
-
-                        <AnimatePresence>
-                          {expandedDays.includes(day.day) && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="overflow-hidden"
-                            >
-                              <div className="p-5 space-y-4">
-                                {day.activities.map((activity, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex gap-4 items-start"
-                                  >
-                                    <div className="flex-shrink-0">
-                                      <div className="w-20 text-center">
-                                        <div className="text-sm font-semibold text-deep-ocean">
-                                          {activity.time}
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="flex-shrink-0 w-3 h-3 rounded-full bg-gold mt-1.5 relative">
-                                      {index < day.activities.length - 1 && (
-                                        <div className="absolute top-3 left-1/2 -translate-x-1/2 w-0.5 h-12 bg-gold/30" />
-                                      )}
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="font-medium text-deep-ocean">
-                                        {activity.activity}
-                                      </div>
-                                      <div className="flex items-center gap-1 text-sm text-muted">
-                                        <MapPin className="w-3 h-3" />
-                                        {activity.location}
-                                      </div>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
+                ))}
+              </div>
+            </div>
 
-                  {/* Budget Summary */}
-                  <div className="mt-8 p-6 bg-gradient-to-r from-deep-ocean to-deep-ocean-light rounded-2xl text-white">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                      <div>
-                        <div className="text-sm text-white/70 mb-1">Total Estimasi Budget</div>
-                        <div className="font-heading text-3xl font-bold">
-                          {formatPrice(selectedItinerary.budget)}
+            {/* Fixed CTA */}
+            <div className="fixed bottom-16 left-0 right-0 p-4 bg-white border-t border-gray-100 lg:bottom-0">
+              <button className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30">
+                Gunakan Template Ini
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Custom Builder Tab */}
+        {activeTab === "custom" && !showBuilder && (
+          <div className="px-4 py-6">
+            {/* Duration Selector */}
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-6">
+              <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-blue-500" />
+                Berapa lama perjalananmu?
+              </h3>
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <button
+                  onClick={() => setTripDays(Math.max(1, tripDays - 1))}
+                  className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-colors"
+                >
+                  <Minus className="w-5 h-5 text-gray-600" />
+                </button>
+                <div className="text-center">
+                  <span className="text-4xl font-bold text-blue-600">{tripDays}</span>
+                  <p className="text-gray-500 text-sm">Hari</p>
+                </div>
+                <button
+                  onClick={() => setTripDays(Math.min(14, tripDays + 1))}
+                  className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-colors"
+                >
+                  <Plus className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+              
+              {/* Quick Select */}
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                {quickTemplates.map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => setTripDays(t.days)}
+                    className={`flex-none px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                      tripDays === t.days
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    <span className="mr-1">{t.icon}</span>
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Trip Name */}
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-6">
+              <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-amber-500" />
+                Nama perjalananmu
+              </h3>
+              <input
+                type="text"
+                value={tripName}
+                onChange={(e) => setTripName(e.target.value)}
+                placeholder="Contoh: Liburan Toraja 2026"
+                className="w-full px-4 py-3 bg-gray-100 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            {/* Start Button */}
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={() => initializeCustomPlan(tripDays)}
+              className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2"
+            >
+              <Plus className="w-5 h-5" />
+              Mulai Buat Itinerary
+            </motion.button>
+          </div>
+        )}
+
+        {/* Custom Builder View */}
+        {activeTab === "custom" && showBuilder && (
+          <div className="pb-24">
+            {/* Header */}
+            <div className="px-4 py-4 bg-white border-b border-gray-100">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="font-bold text-gray-900">{tripName || "Trip Baru"}</h2>
+                <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-semibold rounded-full">
+                  {tripDays} Hari
+                </span>
+              </div>
+              <p className="text-sm text-gray-500">Tap pada hari untuk menambah aktivitas</p>
+            </div>
+
+            {/* Days */}
+            <div className="px-4 py-4 space-y-4">
+              {customPlan.map((dayPlan, dayIndex) => (
+                <div key={dayPlan.day} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                  <div className="p-4 border-b border-gray-100">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold">
+                          {dayPlan.day}
                         </div>
-                        <div className="text-sm text-white/70">
-                          *Termasuk akomodasi, transportasi, dan tiket masuk
+                        <div>
+                          <p className="font-semibold text-gray-900">Hari {dayPlan.day}</p>
+                          <p className="text-xs text-gray-500">{dayPlan.activities.length} aktivitas</p>
                         </div>
                       </div>
-                      <button className="px-8 py-4 bg-gold text-deep-ocean font-semibold rounded-full hover:shadow-lg transition-all">
-                        Pesan Paket Ini
+                      <button
+                        onClick={() => setShowAddActivity(showAddActivity === dayIndex ? null : dayIndex)}
+                        className="p-2 bg-blue-100 rounded-xl text-blue-600 hover:bg-blue-200 transition-colors"
+                      >
+                        <Plus className="w-5 h-5" />
                       </button>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
 
-      {/* Features */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            subtitle="Mengapa Memilih Kami"
-            title="Keuntungan Paket Wisata Kami"
-          />
+                  {/* Activities */}
+                  {dayPlan.activities.length > 0 && (
+                    <div className="p-4 space-y-3">
+                      {dayPlan.activities.map((act) => {
+                        const actType = activityTypes.find(t => t.id === act.type);
+                        return (
+                          <div key={act.id} className="flex items-center gap-3 bg-gray-50 rounded-xl p-3">
+                            <div className={`w-10 h-10 ${actType?.color || 'bg-gray-500'} rounded-xl flex items-center justify-center`}>
+                              {actType && <actType.icon className="w-5 h-5 text-white" />}
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-medium text-gray-900">{act.title}</p>
+                              <p className="text-xs text-gray-500">{act.time} • {act.location}</p>
+                            </div>
+                            <button
+                              onClick={() => removeActivity(dayIndex, act.id)}
+                              className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: CheckCircle,
-                title: "Itinerary Terencana",
-                desc: "Setiap menit perjalanan Anda sudah diatur dengan baik",
-              },
-              {
-                icon: Calculator,
-                title: "Harga Transparan",
-                desc: "Tidak ada biaya tersembunyi, semua sudah termasuk",
-              },
-              {
-                icon: MapPin,
-                title: "Lokasi Terbaik",
-                desc: "Destinasi pilihan yang tidak boleh dilewatkan",
-              },
-              {
-                icon: Calendar,
-                title: "Fleksibel",
-                desc: "Bisa disesuaikan dengan jadwal Anda",
-              },
-            ].map((feature, index) => (
-              <MotionWrapper key={feature.title} delay={index * 0.1}>
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="w-8 h-8 text-gold" />
-                  </div>
-                  <h3 className="font-heading text-lg font-bold text-deep-ocean mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted text-sm">{feature.desc}</p>
+                  {/* Add Activity Form */}
+                  <AnimatePresence>
+                    {showAddActivity === dayIndex && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden border-t border-gray-100"
+                      >
+                        <div className="p-4 bg-gray-50 space-y-3">
+                          <p className="font-medium text-gray-700 text-sm">Pilih tipe aktivitas</p>
+                          <div className="flex gap-2 flex-wrap">
+                            {activityTypes.map((type) => (
+                              <button
+                                key={type.id}
+                                onClick={() => {
+                                  addActivity(dayIndex, {
+                                    time: "08:00",
+                                    title: type.label,
+                                    location: "Lokasi",
+                                    type: type.id,
+                                    duration: "2 jam"
+                                  });
+                                }}
+                                className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-sm hover:shadow-md transition-all"
+                              >
+                                <div className={`w-6 h-6 ${type.color} rounded-lg flex items-center justify-center`}>
+                                  <type.icon className="w-3 h-3 text-white" />
+                                </div>
+                                <span className="text-sm font-medium text-gray-700">{type.label}</span>
+                              </button>
+                            ))}
+                          </div>
+                          
+                          {/* Quick Add from Destinations */}
+                          <p className="font-medium text-gray-700 text-sm mt-4">Atau pilih destinasi</p>
+                          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                            {destinationsData.destinations.slice(0, 5).map((dest) => (
+                              <button
+                                key={dest.id}
+                                onClick={() => {
+                                  addActivity(dayIndex, {
+                                    time: "09:00",
+                                    title: dest.name,
+                                    location: dest.location,
+                                    type: "wisata",
+                                    duration: "3 jam"
+                                  });
+                                }}
+                                className="flex-none flex items-center gap-2 px-3 py-2 bg-white rounded-xl shadow-sm"
+                              >
+                                <div className="relative w-8 h-8 rounded-lg overflow-hidden">
+                                  <Image src={dest.image} alt={dest.name} fill className="object-cover" />
+                                </div>
+                                <span className="text-xs font-medium text-gray-700 whitespace-nowrap">{dest.name}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-              </MotionWrapper>
-            ))}
+              ))}
+            </div>
+
+            {/* Fixed Save Button */}
+            <div className="fixed bottom-16 left-0 right-0 p-4 bg-white border-t border-gray-100 lg:bottom-0">
+              <button className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2">
+                <Check className="w-5 h-5" />
+                Simpan Itinerary
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+        )}
+      </div>
     </main>
   );
 }

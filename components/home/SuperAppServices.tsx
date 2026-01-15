@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Ticket,
@@ -10,58 +9,67 @@ import {
   Users,
   MessageSquare,
   ArrowRight,
+  Check,
 } from "lucide-react";
-import MotionWrapper, { StaggerContainer, StaggerItem } from "@/components/animations/MotionWrapper";
-import SectionHeader from "@/components/shared/SectionHeader";
 
 const services = [
   {
     id: "pesan",
     icon: Ticket,
-    title: "Pesan",
+    title: "PESAN",
+    subtitle: "Booking & Reservasi",
     description: "Tiket destinasi, akomodasi, paket wisata, dan transportasi dalam satu tempat",
-    color: "from-blue-500 to-cyan-500",
-    image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400",
+    features: ["Tiket Masuk Destinasi", "Hotel & Penginapan", "Paket Wisata", "Transportasi"],
+    color: "from-blue-600 to-cyan-500",
+    bgGlow: "bg-blue-500/20",
     href: "/pesan",
     stats: "500+ Layanan",
   },
   {
     id: "belanja",
     icon: ShoppingCart,
-    title: "Belanja",
+    title: "BELANJA",
+    subtitle: "Marketplace UMKM",
     description: "Produk UMKM lokal: tenun, kerajinan, kuliner, dan oleh-oleh khas Sulsel",
-    color: "from-green-500 to-emerald-500",
-    image: "https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=400",
+    features: ["Tenun Toraja", "Kerajinan Lokal", "Kuliner Khas", "Oleh-oleh"],
+    color: "from-emerald-600 to-teal-500",
+    bgGlow: "bg-emerald-500/20",
     href: "/belanja",
-    stats: "1500+ Produk",
+    stats: "15.000+ Produk",
   },
   {
     id: "kreator",
     icon: Camera,
-    title: "Creator Hub",
+    title: "CREATOR HUB",
+    subtitle: "Kreator Lokal",
     description: "Temukan fotografer, videografer, dan content creator lokal berbakat",
-    color: "from-purple-500 to-pink-500",
-    image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400",
+    features: ["Fotografer", "Videografer", "Content Creator", "Drone Pilot"],
+    color: "from-purple-600 to-pink-500",
+    bgGlow: "bg-purple-500/20",
     href: "/kreator",
     stats: "150+ Creator",
   },
   {
     id: "guide",
     icon: Users,
-    title: "Tour Guide",
+    title: "TOUR GUIDE",
+    subtitle: "Pemandu Wisata",
     description: "Pemandu wisata lokal bersertifikat dengan pengetahuan mendalam",
+    features: ["Guide Budaya", "Guide Adventure", "Guide Kuliner", "Guide Sejarah"],
     color: "from-orange-500 to-amber-500",
-    image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400",
+    bgGlow: "bg-orange-500/20",
     href: "/guide",
     stats: "100+ Guide",
   },
   {
     id: "komunitas",
     icon: MessageSquare,
-    title: "Komunitas",
+    title: "KOMUNITAS",
+    subtitle: "Forum & Review",
     description: "Forum diskusi, review autentik, dan cari teman perjalanan",
-    color: "from-red-500 to-rose-500",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400",
+    features: ["Forum Diskusi", "Review Autentik", "Trip Buddy", "Tips Lokal"],
+    color: "from-rose-600 to-red-500",
+    bgGlow: "bg-rose-500/20",
     href: "/komunitas",
     stats: "12K+ Member",
   },
@@ -69,7 +77,7 @@ const services = [
 
 export default function SuperAppServices() {
   return (
-    <section className="py-20 bg-cream relative overflow-hidden">
+    <section className="py-24 bg-cream relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-30">
         <div
@@ -81,71 +89,160 @@ export default function SuperAppServices() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          subtitle="Super App"
-          title="Satu Platform, Semua Kebutuhan"
-          description="Visit Sulsel bukan hanya portal wisata - ini adalah ekosistem lengkap yang menghubungkan wisatawan dengan seluruh layanan pariwisata Sulawesi Selatan"
-        />
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-2 bg-gold/10 text-gold rounded-full text-sm font-semibold tracking-wide mb-4">
+            5 PILAR LAYANAN
+          </span>
+          <h2 className="font-heading text-4xl lg:text-5xl font-bold text-deep-ocean mb-4">
+            Satu Platform, <span className="text-gradient">Semua Terintegrasi</span>
+          </h2>
+          <p className="text-muted text-lg max-w-3xl mx-auto">
+            Visit Sulsel bukan hanya portal wisata — ini adalah ekosistem lengkap yang 
+            menghubungkan wisatawan dengan seluruh layanan pariwisata Sulawesi Selatan
+          </p>
+        </motion.div>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <StaggerItem key={service.id}>
+        {/* Services Grid - Featured Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          {/* First two services - larger cards */}
+          {services.slice(0, 2).map((service, index) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className={index === 0 ? "lg:col-span-2" : ""}
+            >
               <Link href={service.href}>
-                <motion.div
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className={`group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all ${
-                    index === 0 ? "md:col-span-2 lg:col-span-1" : ""
-                  }`}
-                >
-                  {/* Image background */}
-                  <div className="relative h-40 overflow-hidden">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-80`} />
-                    
-                    {/* Icon */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                <div className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all h-full border border-gray-100">
+                  {/* Gradient background */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity`} />
+                  
+                  <div className="p-8">
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-6">
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg`}>
                         <service.icon className="w-8 h-8 text-white" />
                       </div>
+                      <span className="px-3 py-1 bg-gray-100 text-gray-600 text-sm font-medium rounded-full">
+                        {service.stats}
+                      </span>
                     </div>
 
-                    {/* Stats badge */}
-                    <span className="absolute top-4 right-4 px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full">
-                      {service.stats}
-                    </span>
-                  </div>
+                    {/* Title */}
+                    <div className="mb-4">
+                      <h3 className="font-heading text-2xl font-bold text-deep-ocean group-hover:text-gold transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-muted text-sm">{service.subtitle}</p>
+                    </div>
 
-                  {/* Content */}
-                  <div className="p-5">
-                    <h3 className="font-heading text-xl font-bold text-deep-ocean mb-2 group-hover:text-gold transition-colors flex items-center justify-between">
-                      {service.title}
-                      <ArrowRight className="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                    </h3>
-                    <p className="text-muted text-sm">{service.description}</p>
+                    {/* Description */}
+                    <p className="text-muted mb-6">{service.description}</p>
+
+                    {/* Features */}
+                    <div className="grid grid-cols-2 gap-2 mb-6">
+                      {service.features.map((feature) => (
+                        <div key={feature} className="flex items-center gap-2 text-sm text-gray-600">
+                          <Check className="w-4 h-4 text-emerald-500" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* CTA */}
+                    <div className="flex items-center gap-2 text-deep-ocean font-semibold group-hover:text-gold transition-colors">
+                      Jelajahi {service.title}
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                    </div>
                   </div>
-                </motion.div>
+                </div>
               </Link>
-            </StaggerItem>
+            </motion.div>
           ))}
-        </StaggerContainer>
+        </div>
 
-        {/* Bottom CTA */}
-        <MotionWrapper delay={0.6}>
-          <div className="mt-12 text-center">
-            <Link
-              href="/tentang"
-              className="inline-flex items-center gap-2 text-deep-ocean font-semibold hover:text-gold transition-colors"
+        {/* Remaining services - 3 column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {services.slice(2).map((service, index) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 + index * 0.1 }}
             >
-              Pelajari lebih lanjut tentang platform
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+              <Link href={service.href}>
+                <div className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all h-full border border-gray-100">
+                  {/* Gradient background */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity`} />
+                  
+                  <div className="p-6">
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg`}>
+                        <service.icon className="w-7 h-7 text-white" />
+                      </div>
+                      <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+                        {service.stats}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-heading text-xl font-bold text-deep-ocean mb-1 group-hover:text-gold transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-muted text-sm mb-3">{service.subtitle}</p>
+
+                    {/* Description */}
+                    <p className="text-muted text-sm mb-4">{service.description}</p>
+
+                    {/* CTA */}
+                    <div className="flex items-center gap-2 text-deep-ocean font-semibold text-sm group-hover:text-gold transition-colors">
+                      Lihat Detail
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom highlight */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 text-center"
+        >
+          <div className="inline-flex items-center gap-4 px-6 py-4 bg-deep-ocean/5 rounded-2xl">
+            <div className="flex -space-x-2">
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-gold-light border-2 border-white flex items-center justify-center"
+                >
+                  <span className="text-deep-ocean font-bold text-xs">
+                    {["P", "B", "C", "G"][i]}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="text-left">
+              <p className="font-semibold text-deep-ocean">Semua dalam Satu Platform</p>
+              <p className="text-sm text-muted">Revenue kembali ke PAD Sulawesi Selatan</p>
+            </div>
           </div>
-        </MotionWrapper>
+        </motion.div>
       </div>
     </section>
   );

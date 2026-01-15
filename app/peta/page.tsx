@@ -139,32 +139,56 @@ export default function PetaPage() {
   return (
     <main className="pt-20">
       {/* Hero */}
-      <section className="relative py-16 bg-gradient-to-br from-deep-ocean to-deep-ocean-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gold/20 rounded-full mb-4"
-          >
-            <MapPin className="w-5 h-5 text-gold" />
-            <span className="text-gold font-medium">Peta Interaktif</span>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="font-heading text-4xl sm:text-5xl font-bold text-white mb-4"
-          >
-            Jelajahi Sulawesi Selatan
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-white/70 max-w-2xl mx-auto"
-          >
-            Temukan destinasi wisata, kuliner, akomodasi, dan event menarik di peta interaktif
-          </motion.p>
+      <section className="relative py-12 bg-gradient-to-br from-deep-ocean to-deep-ocean-light">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gold/20 rounded-full mb-4"
+              >
+                <MapPin className="w-5 h-5 text-gold" />
+                <span className="text-gold font-medium">Peta Interaktif</span>
+              </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="font-heading text-3xl sm:text-4xl font-bold text-white mb-2"
+              >
+                Jelajahi Sulawesi Selatan
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-white/70"
+              >
+                Temukan destinasi, kuliner, akomodasi, dan event menarik
+              </motion.p>
+            </div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex gap-6"
+            >
+              {[
+                { value: destinationsData.destinations.length, label: "Destinasi" },
+                { value: culinaryData.culinary.length, label: "Kuliner" },
+                { value: accommodationsData.accommodations.length, label: "Akomodasi" },
+                { value: eventsData.events.length, label: "Event" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="font-heading text-2xl font-bold text-gold">{stat.value}</div>
+                  <div className="text-white/60 text-sm">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 

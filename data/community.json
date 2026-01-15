@@ -1,207 +1,114 @@
 {
-  "discussions": [
+  "posts": [
     {
-      "id": "toraja-tips-1",
-      "title": "Tips Perjalanan ke Toraja untuk Pemula",
-      "content": "Halo semua! Saya baru pertama kali mau ke Toraja bulan depan. Ada tips apa saja yang perlu dipersiapkan? Berapa lama idealnya di sana? Terima kasih!",
-      "author": {
+      "id": "post-1",
+      "user": {
         "id": "user-1",
-        "name": "Budi Santoso",
+        "name": "Rizky Pratama",
         "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100",
-        "badge": "Explorer"
+        "verified": true
       },
-      "category": "tips",
-      "tags": ["Toraja", "Tips", "Pemula"],
-      "likes": 45,
-      "replies": 23,
-      "views": 567,
-      "createdAt": "2026-01-08T10:30:00Z",
-      "lastReply": "2026-01-10T15:45:00Z",
-      "pinned": true
+      "content": "Baru balik dari Toraja, pengalaman yang luar biasa! Upacara Rambu Solo' benar-benar membuka mata tentang kekayaan budaya kita. Highly recommend untuk yang belum pernah ke sana.",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/9/90/Tongkonan%2C_Toraja_houses.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/d/d3/Tongkonan_traditionnal_Toraja_house.jpg"
+      ],
+      "location": "Tana Toraja",
+      "likes": 234,
+      "comments": 45,
+      "shares": 12,
+      "timestamp": "2026-01-10T08:30:00Z",
+      "tags": ["toraja", "budaya", "rambusoloo"]
     },
     {
-      "id": "kuliner-mks-2",
-      "title": "Rekomendasi Coto Makassar Paling Enak",
-      "content": "Menurut kalian coto Makassar paling enak di mana? Saya sudah coba beberapa tempat tapi belum ketemu yang pas. Share dong rekomendasi kalian!",
-      "author": {
+      "id": "post-2",
+      "user": {
         "id": "user-2",
-        "name": "Siti Rahayu",
+        "name": "Sarah Amelia",
         "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
-        "badge": "Foodie"
+        "verified": false
       },
-      "category": "kuliner",
-      "tags": ["Makassar", "Kuliner", "Coto"],
-      "likes": 89,
-      "replies": 56,
-      "views": 1234,
-      "createdAt": "2026-01-07T08:15:00Z",
-      "lastReply": "2026-01-11T09:20:00Z",
-      "pinned": false
+      "content": "Sunset di Pantai Losari selalu jadi favorit! Ga bosen-bosen menikmati pemandangan ini sambil makan pisang epe. Makassar never disappoints.",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/4/4d/Keindahan_sunset_di_pantai_losari.jpg"
+      ],
+      "location": "Pantai Losari, Makassar",
+      "likes": 567,
+      "comments": 89,
+      "shares": 34,
+      "timestamp": "2026-01-09T16:45:00Z",
+      "tags": ["losari", "sunset", "makassar"]
     },
     {
-      "id": "diving-bira-3",
-      "title": "Spot Diving Terbaik di Bira dan Sekitarnya",
-      "content": "Buat yang suka diving, share dong spot favorit kalian di sekitar Bira. Mau planning trip diving bulan Maret. Sekalian info dive operator yang recommended.",
-      "author": {
+      "id": "post-3",
+      "user": {
         "id": "user-3",
-        "name": "Andre Wijaya",
+        "name": "Andi Wijaya",
         "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100",
-        "badge": "Diver"
+        "verified": true
       },
-      "category": "aktivitas",
-      "tags": ["Bira", "Diving", "Snorkeling"],
-      "likes": 34,
-      "replies": 18,
-      "views": 345,
-      "createdAt": "2026-01-09T14:00:00Z",
-      "lastReply": "2026-01-10T16:30:00Z",
-      "pinned": false
+      "content": "Tips untuk yang mau ke Rammang-Rammang: datang pagi-pagi biar dapat cahaya bagus untuk foto, dan sewa perahu lokal langsung di dermaga. Lebih murah dari tour operator!",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/a/a2/KARST_RAMMANG_RAMMANG.jpg"
+      ],
+      "location": "Rammang-Rammang, Maros",
+      "likes": 189,
+      "comments": 67,
+      "shares": 23,
+      "timestamp": "2026-01-08T10:15:00Z",
+      "tags": ["rammang", "maros", "tips"]
     },
     {
-      "id": "budget-4",
-      "title": "Itinerary 5 Hari Budget 3 Juta - Bisa?",
-      "content": "Mau tanya, kalau budget 3 juta untuk 5 hari di Sulsel (Makassar + Toraja) bisa gak ya? Include transport dari Jakarta. Share breakdown budget kalian dong!",
-      "author": {
+      "id": "post-4",
+      "user": {
         "id": "user-4",
-        "name": "Dewi Lestari",
+        "name": "Dewi Putri",
         "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100",
-        "badge": "Backpacker"
+        "verified": false
       },
-      "category": "budget",
-      "tags": ["Budget", "Itinerary", "Tips"],
-      "likes": 67,
-      "replies": 42,
-      "views": 890,
-      "createdAt": "2026-01-06T11:45:00Z",
-      "lastReply": "2026-01-11T08:00:00Z",
-      "pinned": false
+      "content": "Weekend getaway ke Pantai Bira bareng keluarga. Air lautnya jernih banget, pasirnya putih. Snorkeling-nya mantap! Recommended banget untuk liburan keluarga.",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/6/6e/Pantai_Tanjung_Bira.jpg"
+      ],
+      "location": "Pantai Bira, Bulukumba",
+      "likes": 456,
+      "comments": 78,
+      "shares": 56,
+      "timestamp": "2026-01-07T14:20:00Z",
+      "tags": ["bira", "pantai", "snorkeling", "family"]
     },
     {
-      "id": "rambu-solo-5",
-      "title": "Pengalaman Menyaksikan Rambu Solo' - Luar Biasa!",
-      "content": "Baru pulang dari Toraja dan berkesempatan menyaksikan upacara Rambu Solo'. Pengalaman yang tidak akan terlupakan seumur hidup. Sharing pengalaman di sini...",
-      "author": {
+      "id": "post-5",
+      "user": {
         "id": "user-5",
-        "name": "Hendra Gunawan",
+        "name": "Budi Santoso",
         "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100",
-        "badge": "Culture Enthusiast"
+        "verified": true
       },
-      "category": "pengalaman",
-      "tags": ["Toraja", "Budaya", "Rambu Solo"],
-      "likes": 123,
-      "replies": 34,
-      "views": 1567,
-      "createdAt": "2026-01-05T16:20:00Z",
-      "lastReply": "2026-01-11T12:15:00Z",
-      "pinned": true
+      "content": "Kuliner Sul-Sel emang juara! Coto Makassar di Coto Daeng Sirua + Es Pisang Ijo di Pondok Santap = combo terbaik! Siapa yang setuju?",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/c/cb/Coto_Makassar.jpg"
+      ],
+      "location": "Makassar",
+      "likes": 789,
+      "comments": 123,
+      "shares": 45,
+      "timestamp": "2026-01-06T12:00:00Z",
+      "tags": ["coto", "kuliner", "makassar"]
     }
   ],
-  "reviews": [
-    {
-      "id": "review-1",
-      "destination": "Tana Toraja",
-      "rating": 5,
-      "title": "Surga Tersembunyi di Indonesia Timur",
-      "content": "Toraja adalah destinasi yang wajib dikunjungi setiap orang Indonesia. Keindahan alam, budaya yang unik, dan keramahan penduduk lokalnya luar biasa. Sangat recommended untuk 3-5 hari.",
-      "author": {
-        "id": "user-6",
-        "name": "Rina Kusuma",
-        "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100"
-      },
-      "photos": [
-        "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600",
-        "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600"
-      ],
-      "helpful": 89,
-      "visitDate": "2025-12-20",
-      "createdAt": "2026-01-02T10:00:00Z"
-    },
-    {
-      "id": "review-2",
-      "destination": "Pantai Bira",
-      "rating": 5,
-      "title": "Pantai Terbaik di Sulawesi!",
-      "content": "Pasir putihnya halus banget, air lautnya jernih. Sunset di sini amazing! Harga makanan seafood juga masih terjangkau. Wajib coba snorkeling ke pulau sekitar.",
-      "author": {
-        "id": "user-7",
-        "name": "Tommy Pratama",
-        "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100"
-      },
-      "photos": [
-        "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600"
-      ],
-      "helpful": 56,
-      "visitDate": "2025-11-15",
-      "createdAt": "2025-12-28T14:30:00Z"
-    },
-    {
-      "id": "review-3",
-      "destination": "Rammang-Rammang",
-      "rating": 5,
-      "title": "Karst yang Menakjubkan",
-      "content": "Pemandangan karst yang luar biasa! Susuri sungai dengan perahu tradisional, trekking di antara tebing-tebing batu. Jangan lupa bawa kamera, setiap sudut instagramable!",
-      "author": {
-        "id": "user-8",
-        "name": "Lisa Anggraini",
-        "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100"
-      },
-      "photos": [
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600"
-      ],
-      "helpful": 45,
-      "visitDate": "2025-12-10",
-      "createdAt": "2025-12-20T09:15:00Z"
-    }
+  "topics": [
+    { "id": "destinasi", "name": "Destinasi", "posts": 1234, "icon": "MapPin" },
+    { "id": "kuliner", "name": "Kuliner", "posts": 567, "icon": "UtensilsCrossed" },
+    { "id": "tips", "name": "Tips Travel", "posts": 890, "icon": "Lightbulb" },
+    { "id": "budaya", "name": "Budaya", "posts": 456, "icon": "Landmark" },
+    { "id": "foto", "name": "Photography", "posts": 2345, "icon": "Camera" }
   ],
-  "tripBuddies": [
-    {
-      "id": "buddy-1",
-      "title": "Cari Teman ke Toraja 15-18 Februari",
-      "description": "Solo traveler cewek cari teman untuk trip ke Toraja. Plan: 3 hari 2 malam, budget menengah. Sudah ada itinerary, tinggal cari teman biar lebih rame dan bisa share cost.",
-      "author": {
-        "id": "user-9",
-        "name": "Maya Putri",
-        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
-        "age": 27,
-        "gender": "Perempuan"
-      },
-      "destination": "Tana Toraja",
-      "dates": { "start": "2026-02-15", "end": "2026-02-18" },
-      "budget": "Menengah (2-4 juta)",
-      "lookingFor": "1-2 orang",
-      "interested": 5,
-      "createdAt": "2026-01-10T08:00:00Z"
-    },
-    {
-      "id": "buddy-2",
-      "title": "Road Trip Makassar-Bira Maret",
-      "description": "Planning road trip dari Makassar ke Bira sama mampir Bulukumba lihat pembuatan Pinisi. Cari 2-3 orang untuk share mobil rental. Trip sekitar 4-5 hari.",
-      "author": {
-        "id": "user-10",
-        "name": "Andi Fauzan",
-        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100",
-        "age": 30,
-        "gender": "Laki-laki"
-      },
-      "destination": "Bulukumba - Bira",
-      "dates": { "start": "2026-03-10", "end": "2026-03-14" },
-      "budget": "Menengah (2-4 juta)",
-      "lookingFor": "2-3 orang",
-      "interested": 8,
-      "createdAt": "2026-01-09T15:30:00Z"
-    }
-  ],
-  "categories": [
-    { "id": "tips", "name": "Tips & Trik", "icon": "Lightbulb", "count": 234 },
-    { "id": "kuliner", "name": "Kuliner", "icon": "UtensilsCrossed", "count": 189 },
-    { "id": "aktivitas", "name": "Aktivitas", "icon": "Compass", "count": 156 },
-    { "id": "budget", "name": "Budget & Itinerary", "icon": "Calculator", "count": 145 },
-    { "id": "pengalaman", "name": "Pengalaman", "icon": "Heart", "count": 278 }
-  ],
-  "stats": {
-    "totalMembers": 12456,
-    "totalDiscussions": 3456,
-    "totalReviews": 8934,
-    "activeToday": 234
-  }
+  "trending": [
+    { "tag": "toraja", "posts": 234 },
+    { "tag": "lovelydecember", "posts": 189 },
+    { "tag": "makassarfood", "posts": 156 },
+    { "tag": "birabira", "posts": 145 },
+    { "tag": "sunsetlosari", "posts": 123 }
+  ]
 }

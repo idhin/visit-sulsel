@@ -1,0 +1,27 @@
+flowchart TB
+    subgraph OpsiA[OPSI A: BUMD Digital]
+        A1[100% Milik Pemprov]
+        A2[Kontrol Penuh]
+        A3[Revenue 100% PAD]
+        A4[Perlu Investasi APBD Besar]
+    end
+    
+    subgraph OpsiB[OPSI B: PPP]
+        B1[51% Pemprov + 49% Swasta]
+        B2[Shared Control]
+        B3[Risk & Reward Terbagi]
+        B4[Eksekusi Lebih Agile]
+    end
+    
+    subgraph OpsiC[OPSI C: Kolaborasi BUMN]
+        C1[Pemprov + Telkom/BNI]
+        C2[Enterprise Capability]
+        C3[Jaringan Nasional]
+        C4[Dukungan Finansial Kuat]
+    end
+    
+    Decision{Keputusan<br/>Meeting}
+    
+    OpsiA --> Decision
+    OpsiB --> Decision
+    OpsiC --> Decision

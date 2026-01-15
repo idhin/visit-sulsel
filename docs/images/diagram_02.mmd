@@ -1,0 +1,35 @@
+flowchart TB
+    subgraph Sekarang[KONDISI SAAT INI]
+        direction LR
+        W1[Wisatawan] --> P1[Banyak Platform]
+        U1[UMKM] --> P2[Offline/Manual]
+        G1[Guide] --> P3[Mulut ke Mulut]
+        K1[Kreator] --> P4[Instagram/TikTok]
+        A1[Akomodasi] --> P5[OTA Luar Negeri]
+    end
+    
+    subgraph Masalah[MASALAH]
+        M1[Tidak Terintegrasi]
+        M2[Data Tidak Terukur]
+        M3[Revenue Keluar Daerah]
+    end
+    
+    subgraph Solusi[VISIT SULSEL - SOLUSI]
+        direction TB
+        VS[Platform Terintegrasi]
+        VS --> W2[Wisatawan]
+        VS --> U2[UMKM]
+        VS --> G2[Guide]
+        VS --> K2[Kreator]
+        VS --> A2[Akomodasi]
+    end
+    
+    subgraph Dampak[DAMPAK POSITIF]
+        D1[Satu Ekosistem]
+        D2[Data Terukur]
+        D3[Revenue untuk Daerah]
+    end
+    
+    Sekarang --> Masalah
+    Masalah -->|Solusi| Solusi
+    Solusi --> Dampak

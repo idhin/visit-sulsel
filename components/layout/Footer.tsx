@@ -78,8 +78,8 @@ export default function Footer() {
                 </div>
               </Link>
               <p className="text-white/70 mb-6 max-w-sm leading-relaxed">
-                Super App pariwisata Sulawesi Selatan yang menghubungkan wisatawan 
-                dengan destinasi, UMKM lokal, kreator, dan tour guide profesional.
+                Platform pariwisata digital terintegrasi untuk Sulawesi Selatan. 
+                Menghubungkan wisatawan dengan destinasi, UMKM, kreator, dan tour guide lokal.
               </p>
               <div className="space-y-3 text-white/70">
                 <a
@@ -193,14 +193,20 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="bg-black/20 py-4">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-white/50">
-            <p>
-              © {new Date().getFullYear()} Visit Sulsel. BUMD Digital Pariwisata Sulawesi Selatan.
-            </p>
-            <p className="flex items-center gap-1">
-              Dibuat dengan <Heart className="w-4 h-4 text-maroon fill-maroon" /> di Sulawesi Selatan
-            </p>
+        <div className="bg-black/20 py-5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col items-center gap-3 text-sm">
+              <p className="text-white/70 text-center">
+                by <span className="font-semibold text-gold">Dinas Pariwisata Provinsi Sulawesi Selatan</span>
+              </p>
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-white/50">
+                <p>© {new Date().getFullYear()} Visit Sulsel</p>
+                <span className="hidden sm:inline">•</span>
+                <p className="flex items-center gap-1">
+                  Dibuat dengan <Heart className="w-4 h-4 text-maroon fill-maroon" /> di Sulawesi Selatan
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

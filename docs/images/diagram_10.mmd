@@ -1,0 +1,23 @@
+flowchart TB
+    subgraph Sumber[SUMBER DANA]
+        S1[APBD Sulsel]
+        S2[Penyertaan Modal]
+        S3[DAK Pariwisata]
+    end
+    
+    subgraph Alokasi[ALOKASI DANA]
+        A1[Pengembangan Platform]
+        A2[Operasional Tim]
+        A3[Marketing & Subsidi]
+        A4[Onboarding UMKM/Guide]
+    end
+    
+    subgraph Return[RETURN KE DAERAH]
+        R1[Revenue Platform]
+        R2[PAD dari Pajak]
+        R3[Lapangan Kerja]
+        R4[Multiplier Effect]
+    end
+    
+    Sumber --> Alokasi --> Return
+    Return -->|Reinvestasi| Alokasi

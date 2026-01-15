@@ -6,7 +6,7 @@
       "description": "Sarung tenun sutra asli Sengkang dengan motif Bugis klasik. Dibuat dengan teknik tradisional turun-temurun oleh pengrajin lokal.",
       "price": 850000,
       "originalPrice": 1000000,
-      "image": "https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=600",
+      "image": "https://indonesiakaya.com/wp-content/uploads/2020/10/01_2.jpg",
       "category": "tenun",
       "seller": {
         "id": "tenun-andi",
@@ -27,7 +27,7 @@
       "description": "Biji kopi Arabika premium dari dataran tinggi Toraja. Diproses secara natural dengan cita rasa fruity dan earthy khas Toraja.",
       "price": 125000,
       "originalPrice": null,
-      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/90/Tongkonan%2C_Toraja_houses.jpg",
       "category": "kuliner",
       "seller": {
         "id": "toraja-coffee",
@@ -48,7 +48,7 @@
       "description": "Miniatur rumah adat Tongkonan dengan ukiran Pa'ssura tradisional. Ukuran 30x20cm, dibuat dari kayu jati pilihan.",
       "price": 450000,
       "originalPrice": 500000,
-      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600",
+      "image": "https://down-id.img.susercontent.com/file/1dbe7ee3b38343825caf664d194d8a8b_tn.webp",
       "category": "kerajinan",
       "seller": {
         "id": "ukir-toraja",
@@ -69,7 +69,7 @@
       "description": "Songkok Recca asli Bone, simbol kebangsawanan Bugis. Dibuat dari daun lontar dengan anyaman tradisional.",
       "price": 350000,
       "originalPrice": null,
-      "image": "https://images.unsplash.com/photo-1545959570-a94084071b5d?w=600",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/80/MTA-101270200/tidak_ada_merk_peci_bone__songkok_recca_kopiah_bone_premium_putih_emas_full03_biwucjgi.jpg",
       "category": "aksesoris",
       "seller": {
         "id": "recca-bone",
@@ -90,7 +90,7 @@
       "description": "Kue tradisional Bugis dari pisang dan santan. Dikemas frozen untuk menjaga kualitas. Tinggal kukus sebelum disajikan.",
       "price": 75000,
       "originalPrice": null,
-      "image": "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=600",
+      "image": "https://media.zcreators.id/crop/0x0:0x0/x/photo/p2/94/2023/08/22/FotoJet-2023-08-22T170247805-1100825654.jpg",
       "category": "kuliner",
       "seller": {
         "id": "dapur-bugis",
@@ -111,7 +111,7 @@
       "description": "Kain sutra Bugis dengan motif khas. Cocok untuk acara adat, pernikahan, atau koleksi. Panjang 2 meter.",
       "price": 1200000,
       "originalPrice": 1500000,
-      "image": "https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=600",
+      "image": "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/sinarharapan/2020/06/29/731-kain_sutera_bugis_reqnews.jpg",
       "category": "tenun",
       "seller": {
         "id": "sabbe-sengkang",
@@ -132,7 +132,7 @@
       "description": "Abon ikan tuna asli Makassar dengan bumbu rempah khas. Tanpa pengawet, cocok untuk lauk atau camilan.",
       "price": 65000,
       "originalPrice": null,
-      "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB2dmJ43i737-efHkmUYwaQMkUqhP6os9umg&s",
       "category": "kuliner",
       "seller": {
         "id": "oleh-oleh-mks",
@@ -153,7 +153,7 @@
       "description": "Tas tangan dari anyaman daun lontar. Produk ramah lingkungan dengan desain modern namun tetap tradisional.",
       "price": 185000,
       "originalPrice": 225000,
-      "image": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfnWhCca3eazRue2px7X0Nxj7JovZvjGp5fw&s",
       "category": "kerajinan",
       "seller": {
         "id": "craft-jeneponto",
@@ -169,33 +169,12 @@
       "featured": false
     },
     {
-      "id": "ballo",
-      "name": "Sirup Ballo (Aren) 500ml",
-      "description": "Sirup aren murni dari Toraja. Cocok untuk minuman, topping, atau bahan masakan. 100% alami tanpa pengawet.",
-      "price": 55000,
-      "originalPrice": null,
-      "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600",
-      "category": "kuliner",
-      "seller": {
-        "id": "toraja-palm",
-        "name": "Toraja Palm Sugar",
-        "location": "Rantepao, Toraja",
-        "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100",
-        "rating": 4.7,
-        "verified": true
-      },
-      "rating": 4.7,
-      "sold": 345,
-      "stock": 45,
-      "featured": false
-    },
-    {
       "id": "badik-makassar",
       "name": "Badik Makassar (Display)",
       "description": "Replika badik Makassar untuk pajangan. Dilengkapi stand kayu dan sertifikat keaslian dari pengrajin.",
       "price": 750000,
       "originalPrice": 850000,
-      "image": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600",
+      "image": "https://down-id.img.susercontent.com/file/id-11134207-7r98s-lyfbq4ab8c0ue3",
       "category": "kerajinan",
       "seller": {
         "id": "badik-gowa",
@@ -225,7 +204,7 @@
       "description": "Pengrajin tenun sutra Sengkang generasi ke-4. Mempertahankan teknik tenun tradisional dengan kualitas premium.",
       "location": "Sengkang, Wajo",
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
-      "cover": "https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=800",
+      "cover": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Silk_weaving_in_Sengkang_village.jpg",
       "rating": 4.9,
       "reviews": 234,
       "products": 12,

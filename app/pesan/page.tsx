@@ -1,411 +1,339 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  ArrowLeft,
   Ticket,
-  Hotel,
-  Map,
-  Car,
-  Camera,
-  Users,
-  ArrowRight,
-  Star,
+  Clock,
+  CheckCircle,
   MapPin,
   Calendar,
-  Clock,
-  Shield,
-  CreditCard,
-  CheckCircle,
-  Sparkles,
+  ChevronRight,
+  Package,
+  AlertCircle,
+  History,
+  Star,
+  MoreHorizontal,
 } from "lucide-react";
-import SectionHeader from "@/components/shared/SectionHeader";
-import MotionWrapper, { StaggerContainer, StaggerItem } from "@/components/animations/MotionWrapper";
 import { formatPrice } from "@/lib/utils";
 
-const bookingCategories = [
+const tabs = [
+  { id: "aktif", label: "Aktif", count: 2 },
+  { id: "selesai", label: "Selesai", count: 5 },
+  { id: "dibatalkan", label: "Dibatalkan", count: 1 },
+];
+
+const activeOrders = [
   {
-    id: "tiket",
-    icon: Ticket,
-    title: "Tiket Destinasi",
-    description: "Tiket masuk wisata, museum, dan taman nasional",
-    color: "from-blue-500 to-cyan-500",
-    count: 45,
-    featured: [
-      { name: "Taman Nasional Bantimurung", price: 30000, image: "https://images.unsplash.com/photo-1546587348-d12660c30c50?w=400" },
-      { name: "Rammang-Rammang", price: 50000, image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" },
-      { name: "Benteng Rotterdam", price: 10000, image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400" },
-    ]
+    id: "ORD001",
+    type: "tiket",
+    title: "Taman Nasional Bantimurung",
+    image: "https://images.unsplash.com/photo-1546587348-d12660c30c50?w=400",
+    date: "15 Jan 2026",
+    time: "09:00",
+    quantity: 2,
+    total: 60000,
+    status: "confirmed",
+    statusText: "Dikonfirmasi",
   },
   {
-    id: "akomodasi",
-    icon: Hotel,
-    title: "Akomodasi",
-    description: "Hotel, resort, homestay, dan villa",
-    color: "from-purple-500 to-pink-500",
-    count: 234,
-    featured: [
-      { name: "Aryaduta Makassar", price: 1500000, image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" },
-      { name: "Toraja Heritage Hotel", price: 950000, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" },
-      { name: "Bira Beach Resort", price: 650000, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400" },
-    ]
-  },
-  {
-    id: "paket",
-    icon: Map,
-    title: "Paket Wisata",
-    description: "Tur lengkap dengan guide dan transportasi",
-    color: "from-green-500 to-emerald-500",
-    count: 56,
-    featured: [
-      { name: "Toraja 3D2N", price: 2500000, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400" },
-      { name: "Makassar City Tour", price: 450000, image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=400" },
-      { name: "Bira Snorkeling Trip", price: 750000, image: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400" },
-    ]
-  },
-  {
-    id: "transportasi",
-    icon: Car,
-    title: "Transportasi",
-    description: "Rental mobil, motor, dan penyeberangan",
-    color: "from-orange-500 to-amber-500",
-    count: 78,
-    featured: [
-      { name: "Rental Avanza + Driver", price: 650000, image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400" },
-      { name: "Penyeberangan Samalona", price: 150000, image: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400" },
-      { name: "Rental Motor Harian", price: 100000, image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" },
-    ]
-  },
-  {
-    id: "kreator",
-    icon: Camera,
-    title: "Jasa Kreator",
-    description: "Fotografer, videografer, dan content creator",
-    color: "from-red-500 to-rose-500",
-    count: 156,
-    featured: [
-      { name: "Foto Half Day", price: 750000, image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400" },
-      { name: "Video Cinematic", price: 1500000, image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400" },
-      { name: "Drone Aerial", price: 1000000, image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400" },
-    ]
-  },
-  {
-    id: "guide",
-    icon: Users,
-    title: "Tour Guide",
-    description: "Pemandu wisata lokal bersertifikat",
-    color: "from-indigo-500 to-violet-500",
-    count: 138,
-    featured: [
-      { name: "Guide Toraja Full Day", price: 700000, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400" },
-      { name: "Guide Makassar City", price: 300000, image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=400" },
-      { name: "Guide Karst Maros", price: 500000, image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" },
-    ]
+    id: "ORD002",
+    type: "hotel",
+    title: "Aryaduta Makassar",
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400",
+    date: "20-22 Jan 2026",
+    time: "Check-in 14:00",
+    quantity: 1,
+    total: 3000000,
+    status: "pending",
+    statusText: "Menunggu Pembayaran",
   },
 ];
 
-const benefits = [
-  { icon: Shield, title: "Pembayaran Aman", desc: "Transaksi terproteksi dengan escrow system" },
-  { icon: CheckCircle, title: "Konfirmasi Instan", desc: "E-ticket langsung dikirim ke email" },
-  { icon: CreditCard, title: "Bayar Fleksibel", desc: "Transfer, QRIS, kartu kredit, cicilan" },
-  { icon: Clock, title: "Support 24/7", desc: "Tim kami siap membantu kapan saja" },
+const completedOrders = [
+  {
+    id: "ORD003",
+    type: "paket",
+    title: "Toraja Explorer 3D2N",
+    image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400",
+    date: "10-12 Des 2025",
+    total: 2500000,
+    status: "completed",
+    rating: 5,
+  },
+  {
+    id: "ORD004",
+    type: "tiket",
+    title: "Benteng Rotterdam",
+    image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400",
+    date: "5 Des 2025",
+    total: 20000,
+    status: "completed",
+    rating: 4,
+  },
+];
+
+const quickActions = [
+  { icon: Ticket, label: "Tiket", href: "/destinasi", color: "bg-blue-500" },
+  { icon: Package, label: "Paket", href: "/itinerary", color: "bg-green-500" },
+  { icon: History, label: "Riwayat", href: "#riwayat", color: "bg-purple-500" },
 ];
 
 export default function PesanPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState("aktif");
+  const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "confirmed": return "bg-green-100 text-green-700";
+      case "pending": return "bg-amber-100 text-amber-700";
+      case "completed": return "bg-blue-100 text-blue-700";
+      case "cancelled": return "bg-red-100 text-red-700";
+      default: return "bg-gray-100 text-gray-700";
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "confirmed": return CheckCircle;
+      case "pending": return Clock;
+      case "completed": return CheckCircle;
+      case "cancelled": return AlertCircle;
+      default: return Clock;
+    }
+  };
 
   return (
-    <main className="pt-20">
-      {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-gradient-to-br from-deep-ocean via-deep-ocean-light to-deep-ocean">
-        {/* Animated background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-maroon/10 rounded-full blur-3xl animate-pulse" />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 bg-gold/20 text-gold text-sm font-medium rounded-full mb-6"
-          >
-            <Sparkles className="w-4 h-4" />
-            Booking Hub Terintegrasi
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6"
-          >
-            Pesan Semua dalam{" "}
-            <span className="text-gradient">Satu Tempat</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-white/80 mb-10 max-w-2xl mx-auto"
-          >
-            Tiket destinasi, akomodasi, paket wisata, transportasi, hingga jasa 
-            kreator dan guide - semua bisa dipesan dengan mudah di sini.
-          </motion.p>
-
-          {/* Quick search */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="max-w-2xl mx-auto bg-white rounded-2xl p-4 shadow-2xl"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex items-center gap-3 p-3 bg-cream rounded-xl">
-                <MapPin className="w-5 h-5 text-gold" />
-                <div className="text-left">
-                  <div className="text-xs text-muted">Destinasi</div>
-                  <select className="bg-transparent font-medium text-deep-ocean focus:outline-none">
-                    <option>Semua Sulsel</option>
-                    <option>Makassar</option>
-                    <option>Tana Toraja</option>
-                    <option>Bulukumba</option>
-                  </select>
-                </div>
+    <main className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white sticky top-0 z-30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-3">
+              <Link href="/" className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors">
+                <ArrowLeft className="w-5 h-5 text-gray-700" />
+              </Link>
+              <div>
+                <h1 className="text-lg font-bold text-gray-900">Pesanan Saya</h1>
+                <p className="text-xs text-gray-500">Kelola semua pesananmu</p>
               </div>
-              <div className="flex items-center gap-3 p-3 bg-cream rounded-xl">
-                <Calendar className="w-5 h-5 text-gold" />
-                <div className="text-left">
-                  <div className="text-xs text-muted">Tanggal</div>
-                  <input 
-                    type="date" 
-                    className="bg-transparent font-medium text-deep-ocean focus:outline-none"
-                    defaultValue="2026-02-01"
-                  />
-                </div>
-              </div>
-              <button className="px-6 py-3 bg-gradient-to-r from-gold to-gold-light text-deep-ocean font-semibold rounded-xl hover:shadow-lg transition-all">
-                Cari
-              </button>
             </div>
-          </motion.div>
-        </div>
-      </section>
+            <button className="p-2 hover:bg-gray-100 rounded-full">
+              <MoreHorizontal className="w-5 h-5 text-gray-600" />
+            </button>
+          </div>
 
-      {/* Benefits */}
-      <section className="py-8 bg-cream border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {benefits.map((benefit, index) => (
+          {/* Tabs */}
+          <div className="flex gap-1 pb-3">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 py-2.5 px-3 rounded-xl text-sm font-medium transition-all relative ${
+                  activeTab === tab.id
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {tab.label}
+                {tab.count > 0 && (
+                  <span className={`ml-1.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                    activeTab === tab.id ? "bg-white/20" : "bg-gray-300 text-gray-700"
+                  }`}>
+                    {tab.count}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex gap-3">
+          {quickActions.map((action) => (
+            <Link
+              key={action.label}
+              href={action.href}
+              className="flex-1 flex items-center justify-center gap-2 py-3 bg-white rounded-xl shadow-sm border border-gray-100"
+            >
+              <div className={`w-8 h-8 ${action.color} rounded-lg flex items-center justify-center`}>
+                <action.icon className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-sm font-medium text-gray-700">{action.label}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="max-w-7xl mx-auto px-4 pb-8">
+        {/* Active Orders */}
+        {activeTab === "aktif" && (
+          <div className="space-y-3">
+            {activeOrders.length > 0 ? (
+              activeOrders.map((order, index) => {
+                const StatusIcon = getStatusIcon(order.status);
+                return (
+                  <motion.div
+                    key={order.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100"
+                  >
+                    {/* Order Header */}
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                      <div className="flex items-center gap-2">
+                        <Ticket className="w-4 h-4 text-blue-500" />
+                        <span className="text-sm font-medium text-gray-700">{order.id}</span>
+                      </div>
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 ${getStatusColor(order.status)}`}>
+                        <StatusIcon className="w-3 h-3" />
+                        {order.statusText}
+                      </span>
+                    </div>
+
+                    {/* Order Content */}
+                    <div className="p-4">
+                      <div className="flex gap-3">
+                        <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                          <Image src={order.image} alt={order.title} fill className="object-cover" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-gray-900 line-clamp-1">{order.title}</h3>
+                          <div className="flex items-center gap-2 mt-1 text-sm text-gray-500">
+                            <Calendar className="w-3.5 h-3.5" />
+                            <span>{order.date}</span>
+                          </div>
+                          <div className="flex items-center gap-2 mt-0.5 text-sm text-gray-500">
+                            <Clock className="w-3.5 h-3.5" />
+                            <span>{order.time}</span>
+                          </div>
+                          <div className="flex items-center justify-between mt-2">
+                            <span className="text-sm text-gray-500">{order.quantity}x</span>
+                            <span className="font-bold text-blue-600">{formatPrice(order.total)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Order Actions */}
+                    <div className="flex gap-2 px-4 pb-4">
+                      {order.status === "pending" ? (
+                        <>
+                          <button className="flex-1 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl">
+                            Bayar Sekarang
+                          </button>
+                          <button className="px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-xl">
+                            Batalkan
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button className="flex-1 py-2.5 bg-gray-100 text-gray-700 text-sm font-semibold rounded-xl">
+                            Lihat E-Ticket
+                          </button>
+                          <button className="px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-xl flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
+                            Arah
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })
+            ) : (
+              <EmptyState 
+                title="Belum ada pesanan aktif" 
+                description="Pesan tiket, hotel, atau paket wisata untuk memulai"
+              />
+            )}
+          </div>
+        )}
+
+        {/* Completed Orders */}
+        {activeTab === "selesai" && (
+          <div className="space-y-3" id="riwayat">
+            {completedOrders.map((order, index) => (
               <motion.div
-                key={benefit.title}
+                key={order.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-3"
+                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100"
               >
-                <div className="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-5 h-5 text-gold" />
+                <div className="p-4">
+                  <div className="flex gap-3">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                      <Image src={order.image} alt={order.title} fill className="object-cover" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-gray-900 line-clamp-1">{order.title}</h3>
+                      <p className="text-sm text-gray-500 mt-0.5">{order.date}</p>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              className={`w-3.5 h-3.5 ${i < order.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} 
+                            />
+                          ))}
+                        </div>
+                        <span className="font-bold text-gray-900">{formatPrice(order.total)}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-semibold text-deep-ocean text-sm">{benefit.title}</div>
-                  <div className="text-xs text-muted">{benefit.desc}</div>
+                <div className="flex gap-2 px-4 pb-4">
+                  <button className="flex-1 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl">
+                    Pesan Lagi
+                  </button>
+                  <button className="px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-xl">
+                    Detail
+                  </button>
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        )}
 
-      {/* Booking Categories */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            subtitle="Kategori Booking"
-            title="Pilih yang Anda Butuhkan"
-            description="Semua kebutuhan perjalanan Anda tersedia dalam satu platform"
+        {/* Cancelled Orders */}
+        {activeTab === "dibatalkan" && (
+          <EmptyState 
+            title="Tidak ada pesanan dibatalkan" 
+            description="Pesanan yang dibatalkan akan muncul di sini"
           />
-
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {bookingCategories.map((category) => (
-              <StaggerItem key={category.id}>
-                <motion.div
-                  whileHover={{ y: -8 }}
-                  className="group bg-cream rounded-2xl overflow-hidden hover:shadow-xl transition-all cursor-pointer"
-                  onClick={() => setSelectedCategory(selectedCategory === category.id ? null : category.id)}
-                >
-                  {/* Header */}
-                  <div className={`bg-gradient-to-r ${category.color} p-6 text-white`}>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
-                        <category.icon className="w-7 h-7" />
-                      </div>
-                      <span className="px-3 py-1 bg-white/20 rounded-full text-sm">
-                        {category.count} tersedia
-                      </span>
-                    </div>
-                    <h3 className="font-heading text-xl font-bold mb-1">{category.title}</h3>
-                    <p className="text-white/80 text-sm">{category.description}</p>
-                  </div>
-
-                  {/* Featured items */}
-                  <div className="p-4 space-y-3">
-                    {category.featured.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-3 p-2 bg-white rounded-xl hover:shadow-md transition-all"
-                      >
-                        <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium text-deep-ocean text-sm truncate">
-                            {item.name}
-                          </div>
-                          <div className="text-gold font-semibold text-sm">
-                            {formatPrice(item.price)}
-                          </div>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-muted group-hover:text-gold transition-colors" />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* CTA */}
-                  <div className="p-4 pt-0">
-                    <button className="w-full py-3 border-2 border-deep-ocean text-deep-ocean font-semibold rounded-xl hover:bg-deep-ocean hover:text-white transition-all">
-                      Lihat Semua
-                    </button>
-                  </div>
-                </motion.div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Popular Packages */}
-      <section className="py-16 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            subtitle="Paling Diminati"
-            title="Paket Populer Minggu Ini"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Toraja Explorer 4D3N",
-                image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600",
-                price: 4500000,
-                originalPrice: 5500000,
-                rating: 4.9,
-                reviews: 234,
-                includes: ["Hotel 3 malam", "Tour guide", "Transportasi", "Makan 3x sehari"],
-              },
-              {
-                title: "Makassar + Bira 5D4N",
-                image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600",
-                price: 5200000,
-                originalPrice: 6000000,
-                rating: 4.8,
-                reviews: 189,
-                includes: ["Hotel 4 malam", "Snorkeling trip", "City tour", "Seafood dinner"],
-              },
-              {
-                title: "Grand Tour Sulsel 7D6N",
-                image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600",
-                price: 8500000,
-                originalPrice: 10000000,
-                rating: 4.9,
-                reviews: 156,
-                includes: ["Hotel 6 malam", "Semua destinasi", "Guide", "All meals"],
-              },
-            ].map((pkg, index) => (
-              <MotionWrapper key={pkg.title} delay={index * 0.1}>
-                <motion.div
-                  whileHover={{ y: -8 }}
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all"
-                >
-                  <div className="relative h-48">
-                    <Image
-                      src={pkg.image}
-                      alt={pkg.title}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-maroon text-white text-sm font-bold rounded-full">
-                      {Math.round((1 - pkg.price / pkg.originalPrice) * 100)}% OFF
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-heading text-xl font-bold text-deep-ocean mb-2">
-                      {pkg.title}
-                    </h3>
-                    <div className="flex items-center gap-2 mb-4">
-                      <Star className="w-4 h-4 text-gold fill-gold" />
-                      <span className="font-medium text-deep-ocean">{pkg.rating}</span>
-                      <span className="text-muted text-sm">({pkg.reviews} ulasan)</span>
-                    </div>
-                    <div className="space-y-1 mb-4">
-                      {pkg.includes.map((item, i) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-muted">
-                          <CheckCircle className="w-4 h-4 text-green-500" />
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex items-center justify-between pt-4 border-t border-border">
-                      <div>
-                        <span className="text-muted text-sm line-through">{formatPrice(pkg.originalPrice)}</span>
-                        <div className="font-heading text-xl font-bold text-gold">
-                          {formatPrice(pkg.price)}
-                        </div>
-                      </div>
-                      <button className="px-5 py-2.5 bg-gradient-to-r from-gold to-gold-light text-deep-ocean font-semibold rounded-full hover:shadow-lg transition-all">
-                        Pesan
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              </MotionWrapper>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 bg-deep-ocean">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <MotionWrapper>
-            <h2 className="font-heading text-3xl font-bold text-white mb-4">
-              Butuh Bantuan Merencanakan Trip?
-            </h2>
-            <p className="text-white/70 mb-8">
-              Tim travel consultant kami siap membantu menyusun perjalanan impian Anda
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/itinerary"
-                className="px-8 py-4 bg-gradient-to-r from-gold to-gold-light text-deep-ocean font-semibold rounded-full hover:shadow-lg transition-all"
-              >
-                Buat Itinerary Custom
-              </Link>
-              <button className="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition-all">
-                Hubungi Konsultan
-              </button>
-            </div>
-          </MotionWrapper>
-        </div>
-      </section>
+        )}
+      </div>
     </main>
+  );
+}
+
+function EmptyState({ title, description }: { title: string; description: string }) {
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="text-center py-16"
+    >
+      <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <Ticket className="w-10 h-10 text-gray-300" />
+      </div>
+      <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-500 text-sm mb-6">{description}</p>
+      <Link 
+        href="/destinasi"
+        className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl"
+      >
+        Jelajahi Destinasi
+        <ChevronRight className="w-4 h-4" />
+      </Link>
+    </motion.div>
   );
 }

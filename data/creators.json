@@ -1,207 +1,177 @@
 {
   "creators": [
     {
-      "id": "andi-pratama",
-      "name": "Andi Pratama",
-      "username": "andipratama.visual",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
-      "cover": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800",
-      "location": "Makassar",
-      "bio": "Fotografer profesional spesialis landscape & budaya Sulawesi Selatan. 8 tahun pengalaman mendokumentasikan keindahan Toraja dan pesisir Sulsel.",
-      "specialization": ["Fotografi", "Drone"],
-      "rating": 4.9,
-      "reviews": 127,
-      "completedJobs": 245,
+      "id": "creator-1",
+      "name": "Arief Rahman",
+      "username": "@ariefsulsel",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
+      "bio": "Travel photographer | Documenting South Sulawesi beauty | Available for collaboration",
+      "followers": 125000,
+      "following": 892,
+      "posts": 456,
       "verified": true,
+      "category": "photographer",
       "featured": true,
-      "portfolio": [
-        "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600",
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600",
-        "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600"
-      ],
-      "services": [
-        { "name": "Foto Half Day (4 jam)", "price": 750000 },
-        { "name": "Foto Full Day (8 jam)", "price": 1200000 },
-        { "name": "Foto + Drone Package", "price": 1800000 },
-        { "name": "Wedding Pre-wedding", "price": 3500000 }
-      ],
-      "languages": ["Indonesia", "Bugis", "English"],
-      "responseTime": "< 1 jam",
-      "joinedDate": "2021-03-15"
+      "recentPosts": [
+        {
+          "id": "p1",
+          "image": "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+          "likes": 5600,
+          "comments": 234
+        },
+        {
+          "id": "p2",
+          "image": "https://sulselprov.go.id/upload/post/580497d2e70fa.jpg",
+          "likes": 4200,
+          "comments": 189
+        },
+        {
+          "id": "p3",
+          "image": "https://satyawinnie.com/wp-content/uploads/elementor/thumbs/67FA112C-0367-4AED-970B-8B38BD5D5EF7-oyx0zo4xsweejstfi4wpewcfwuwt2yxcaauwadsj9c.jpg",
+          "likes": 3800,
+          "comments": 156
+        }
+      ]
     },
     {
-      "id": "nurul-fadilah",
-      "name": "Nurul Fadilah",
-      "username": "nurulfadilah.creator",
-      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
-      "cover": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800",
-      "location": "Tana Toraja",
-      "bio": "Content creator & videografer asal Toraja. Spesialis dokumentasi upacara adat dan keindahan alam Toraja. Kolaborasi dengan berbagai brand nasional.",
-      "specialization": ["Videografi", "Content Creator"],
-      "rating": 4.8,
-      "reviews": 89,
-      "completedJobs": 156,
+      "id": "creator-2",
+      "name": "Putri Makassar",
+      "username": "@putri.mks",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400",
+      "bio": "Food & travel vlogger | Exploring hidden gems of Sul-Sel | Subscribe for more!",
+      "followers": 89000,
+      "following": 456,
+      "posts": 234,
       "verified": true,
+      "category": "vlogger",
       "featured": true,
-      "portfolio": [
-        "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600",
-        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600"
-      ],
-      "services": [
-        { "name": "Video Cinematic 1 Menit", "price": 1500000 },
-        { "name": "Video Dokumentasi Event", "price": 3000000 },
-        { "name": "Content Package (Foto+Video)", "price": 2500000 },
-        { "name": "Social Media Content", "price": 800000 }
-      ],
-      "languages": ["Indonesia", "Toraja", "English"],
-      "responseTime": "< 2 jam",
-      "joinedDate": "2022-01-10"
+      "recentPosts": [
+        {
+          "id": "p1",
+          "image": "https://cdn0-production-images-kly.akamaized.net/z_OYMIbKYR4ujnTwNLW-dqb0kxk=/1280x720/smart/filters:quality(75):strip_icc()/kly-media-production/medias/4893831/original/066496500_1721195157-pallubasa.jpg",
+          "likes": 8900,
+          "comments": 567
+        },
+        {
+          "id": "p2",
+          "image": "https://awsimages.detik.net.id/community/media/visual/2021/05/25/resep-pisang-epe-khas-makassar-1_43.jpeg?w=600&q=90",
+          "likes": 6700,
+          "comments": 345
+        },
+        {
+          "id": "p3",
+          "image": "https://awsimages.detik.net.id/community/media/visual/2022/01/18/resep-es-pisang-ijo_43.jpeg?w=1200",
+          "likes": 5400,
+          "comments": 234
+        }
+      ]
     },
     {
-      "id": "rahmat-hidayat",
-      "name": "Rahmat Hidayat",
-      "username": "rahmat.drone",
-      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200",
-      "cover": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
-      "location": "Makassar",
-      "bio": "Pilot drone bersertifikat dengan pengalaman 5 tahun. Spesialis aerial photography untuk pariwisata, properti, dan event besar di Sulawesi Selatan.",
-      "specialization": ["Drone", "Fotografi"],
-      "rating": 4.9,
-      "reviews": 76,
-      "completedJobs": 189,
+      "id": "creator-3",
+      "name": "Daeng Travel",
+      "username": "@daengtravel",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400",
+      "bio": "Your local guide to Sul-Sel adventures | Tips & recommendations | DM for tour inquiries",
+      "followers": 67000,
+      "following": 234,
+      "posts": 567,
       "verified": true,
+      "category": "guide",
       "featured": true,
-      "portfolio": [
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600",
-        "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=600"
-      ],
-      "services": [
-        { "name": "Aerial Photo Session", "price": 1000000 },
-        { "name": "Aerial Video 1 Menit", "price": 1500000 },
-        { "name": "Full Aerial Package", "price": 2500000 },
-        { "name": "Property/Real Estate", "price": 2000000 }
-      ],
-      "languages": ["Indonesia", "Makassar"],
-      "responseTime": "< 1 jam",
-      "joinedDate": "2020-08-20"
+      "recentPosts": [
+        {
+          "id": "p1",
+          "image": "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+          "likes": 3400,
+          "comments": 123
+        },
+        {
+          "id": "p2",
+          "image": "https://ik.imagekit.io/tvlk/blog/2024/08/eP8o7huA-image-3.png?tr=q-70,c-at_max,w-1000,h-600",
+          "likes": 2900,
+          "comments": 98
+        },
+        {
+          "id": "p3",
+          "image": "https://images.bisnis.com/posts/2018/07/11/815456/malino-gowa-1.jpg",
+          "likes": 2500,
+          "comments": 87
+        }
+      ]
     },
     {
-      "id": "sitti-aminah",
-      "name": "Sitti Aminah",
-      "username": "sitti.storyteller",
-      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200",
-      "cover": "https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=800",
-      "location": "Bone",
-      "bio": "Travel blogger & content writer spesialis budaya Bugis. Menulis untuk berbagai media nasional tentang keindahan dan tradisi Sulawesi Selatan.",
-      "specialization": ["Content Writer", "Travel Blogger"],
-      "rating": 4.7,
-      "reviews": 54,
-      "completedJobs": 98,
-      "verified": true,
+      "id": "creator-4",
+      "name": "Toraja Stories",
+      "username": "@torajastories",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
+      "bio": "Sharing the magic of Toraja | Culture | Traditions | Stories from the highlands",
+      "followers": 45000,
+      "following": 123,
+      "posts": 345,
+      "verified": false,
+      "category": "culture",
       "featured": false,
-      "portfolio": [
-        "https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?w=600"
-      ],
-      "services": [
-        { "name": "Travel Article (1000 kata)", "price": 500000 },
-        { "name": "Social Media Copywriting", "price": 300000 },
-        { "name": "Full Blog Package", "price": 1200000 },
-        { "name": "Destination Review", "price": 750000 }
-      ],
-      "languages": ["Indonesia", "Bugis", "English"],
-      "responseTime": "< 3 jam",
-      "joinedDate": "2022-06-01"
+      "recentPosts": [
+        {
+          "id": "p1",
+          "image": "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+          "likes": 2800,
+          "comments": 145
+        },
+        {
+          "id": "p2",
+          "image": "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+          "likes": 2300,
+          "comments": 112
+        },
+        {
+          "id": "p3",
+          "image": "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+          "likes": 1900,
+          "comments": 89
+        }
+      ]
     },
     {
-      "id": "muh-asrul",
-      "name": "Muh. Asrul",
-      "username": "asrul.makassar",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200",
-      "cover": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800",
-      "location": "Makassar",
-      "bio": "Fotografer street & kuliner Makassar. Dokumentasi autentik kehidupan kota dan wisata kuliner. Sudah bekerja sama dengan Dinas Pariwisata Makassar.",
-      "specialization": ["Fotografi", "Food Photography"],
-      "rating": 4.8,
-      "reviews": 112,
-      "completedJobs": 203,
+      "id": "creator-5",
+      "name": "Bugis Heritage",
+      "username": "@bugisheritage",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400",
+      "bio": "Preserving Bugis-Makassar heritage through content | History | Art | Traditions",
+      "followers": 34000,
+      "following": 567,
+      "posts": 234,
       "verified": true,
-      "featured": true,
-      "portfolio": [
-        "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600",
-        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600"
-      ],
-      "services": [
-        { "name": "Food Photography Session", "price": 600000 },
-        { "name": "Restaurant Full Coverage", "price": 1500000 },
-        { "name": "Street Photography Tour", "price": 800000 },
-        { "name": "Culinary Content Package", "price": 2000000 }
-      ],
-      "languages": ["Indonesia", "Makassar"],
-      "responseTime": "< 1 jam",
-      "joinedDate": "2021-09-12"
-    },
-    {
-      "id": "dewi-lestari",
-      "name": "Dewi Lestari",
-      "username": "dewi.visual",
-      "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200",
-      "cover": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
-      "location": "Makassar",
-      "bio": "Videografer & editor profesional. Spesialis video promosi pariwisata dan dokumentasi event. Pengalaman dengan berbagai klien pemerintah dan swasta.",
-      "specialization": ["Videografi", "Video Editor"],
-      "rating": 4.6,
-      "reviews": 67,
-      "completedJobs": 134,
-      "verified": true,
+      "category": "heritage",
       "featured": false,
-      "portfolio": [
-        "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600"
-      ],
-      "services": [
-        { "name": "Promo Video 30 Detik", "price": 1000000 },
-        { "name": "Event Documentation", "price": 2500000 },
-        { "name": "Tourism Promo Video", "price": 5000000 },
-        { "name": "Video Editing Only", "price": 500000 }
-      ],
-      "languages": ["Indonesia", "English"],
-      "responseTime": "< 2 jam",
-      "joinedDate": "2022-03-20"
+      "recentPosts": [
+        {
+          "id": "p1",
+          "image": "https://asset.kompas.com/crops/n6oRm9RSiw4ewhEAHnnGSMaTJQQ=/77x12:903x563/1200x800/data/photo/2022/05/28/6291c43d5cb5b.jpg",
+          "likes": 1800,
+          "comments": 78
+        },
+        {
+          "id": "p2",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Fort_Rotterdam%2C_Makassar%2C_Indonesia_-_20100227-02.jpg",
+          "likes": 1500,
+          "comments": 67
+        },
+        {
+          "id": "p3",
+          "image": "https://indonesiakaya.com/wp-content/uploads/2020/10/01_2.jpg",
+          "likes": 1200,
+          "comments": 56
+        }
+      ]
     }
   ],
-  "specializations": [
-    { "id": "fotografi", "name": "Fotografi", "icon": "Camera", "count": 45 },
-    { "id": "videografi", "name": "Videografi", "icon": "Video", "count": 32 },
-    { "id": "drone", "name": "Drone Pilot", "icon": "Plane", "count": 18 },
-    { "id": "content-creator", "name": "Content Creator", "icon": "Sparkles", "count": 28 },
-    { "id": "writer", "name": "Travel Writer", "icon": "PenTool", "count": 15 },
-    { "id": "food", "name": "Food Photography", "icon": "UtensilsCrossed", "count": 12 }
-  ],
-  "challenges": [
-    {
-      "id": "toraja-beauty",
-      "title": "Keindahan Toraja 2026",
-      "description": "Abadikan keindahan Tana Toraja dalam foto atau video terbaikmu. Hadiah total Rp 50 Juta!",
-      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800",
-      "prize": 50000000,
-      "deadline": "2026-03-31",
-      "participants": 234,
-      "status": "active"
-    },
-    {
-      "id": "kuliner-makassar",
-      "title": "Rasa Makassar",
-      "description": "Dokumentasikan kelezatan kuliner khas Makassar. Kategori foto dan video.",
-      "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800",
-      "prize": 25000000,
-      "deadline": "2026-02-28",
-      "participants": 156,
-      "status": "active"
-    }
-  ],
-  "stats": {
-    "totalCreators": 156,
-    "totalJobs": 1247,
-    "totalEarnings": 890000000,
-    "averageRating": 4.7
-  }
+  "categories": [
+    { "id": "semua", "name": "Semua Creator", "icon": "Users" },
+    { "id": "photographer", "name": "Photographer", "icon": "Camera" },
+    { "id": "vlogger", "name": "Vlogger", "icon": "Video" },
+    { "id": "guide", "name": "Local Guide", "icon": "MapPin" },
+    { "id": "culture", "name": "Culture", "icon": "Landmark" },
+    { "id": "heritage", "name": "Heritage", "icon": "BookOpen" }
+  ]
 }

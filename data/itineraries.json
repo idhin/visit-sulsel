@@ -1,142 +1,191 @@
 {
   "itineraries": [
     {
-      "id": "toraja-explorer",
-      "title": "Toraja Explorer",
-      "duration": 4,
-      "description": "Jelajahi keindahan dan keunikan Tana Toraja dengan mengunjungi situs-situs budaya ikonik dan menikmati keramahan lokal.",
-      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800",
-      "highlights": ["Tongkonan Kete Kesu", "Londa Burial Site", "Lemo Stone Graves", "Batutumonga"],
-      "budget": 4500000,
-      "difficulty": "Mudah",
-      "featured": true,
+      "id": "toraja-adventure",
+      "name": "Toraja Cultural Adventure",
+      "description": "Jelajahi keajaiban budaya Toraja dalam 4 hari penuh petualangan. Dari upacara adat hingga trekking ke desa-desa tradisional.",
+      "image": "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+      "duration": "4 Hari 3 Malam",
+      "difficulty": "Sedang",
+      "price": 3500000,
+      "rating": 4.9,
+      "reviews": 234,
+      "highlights": ["Upacara Rambu Solo'", "Tongkonan Villages", "Londa Burial Site", "Kete Kesu"],
+      "included": ["Transportasi", "Akomodasi", "Makan 3x sehari", "Guide lokal", "Tiket masuk"],
       "days": [
         {
           "day": 1,
-          "title": "Makassar - Toraja",
-          "activities": [
-            { "time": "06:00", "activity": "Berangkat dari Makassar", "location": "Makassar" },
-            { "time": "10:00", "activity": "Mampir di Bantimurung", "location": "Maros" },
-            { "time": "14:00", "activity": "Check-in hotel di Rantepao", "location": "Rantepao" }
-          ]
+          "title": "Makassar - Rantepao",
+          "description": "Perjalanan darat menuju Toraja melalui pemandangan indah. Berhenti di beberapa titik foto dan makan siang khas.",
+          "activities": ["Berangkat pagi dari Makassar", "Makan siang di Pare-Pare", "Tiba di Rantepao sore hari", "Check-in hotel"]
         },
         {
           "day": 2,
-          "title": "Tur Toraja Selatan",
-          "activities": [
-            { "time": "08:00", "activity": "Kunjungan Kete Kesu", "location": "Kete Kesu" },
-            { "time": "10:00", "activity": "Londa Burial Cave", "location": "Londa" },
-            { "time": "13:00", "activity": "Lemo Stone Graves", "location": "Lemo" },
-            { "time": "15:00", "activity": "Suaya Royal Cemetery", "location": "Suaya" }
-          ]
+          "title": "Explore Rantepao",
+          "description": "Full day tour mengunjungi situs budaya utama di sekitar Rantepao.",
+          "activities": ["Kunjungan Londa Burial Cave", "Ke'te Kesu Village", "Makan siang tradisional", "Pasar Bolu (jika hari pasar)"]
         },
         {
           "day": 3,
-          "title": "Tur Toraja Utara",
-          "activities": [
-            { "time": "05:00", "activity": "Batutumonga sunrise", "location": "Batutumonga" },
-            { "time": "09:00", "activity": "Sawah terasering", "location": "Batutumonga" },
-            { "time": "12:00", "activity": "Desa tradisional", "location": "Toraja" },
-            { "time": "15:00", "activity": "Pasar lokal", "location": "Rantepao" }
-          ]
+          "title": "Trekking & Ceremony",
+          "description": "Trekking ke desa-desa dan menyaksikan upacara adat (jika ada).",
+          "activities": ["Trekking Batutumonga", "Sarapan di bukit", "Kunjungan Sangalla", "Upacara Rambu Solo' (optional)"]
         },
         {
           "day": 4,
-          "title": "Kembali ke Makassar",
-          "activities": [
-            { "time": "08:00", "activity": "Belanja oleh-oleh", "location": "Rantepao" },
-            { "time": "10:00", "activity": "Perjalanan kembali ke Makassar", "location": "Toraja - Makassar" }
-          ]
+          "title": "Rantepao - Makassar",
+          "description": "Perjalanan kembali ke Makassar dengan rute berbeda.",
+          "activities": ["Sarapan dan checkout", "Perjalanan via Enrekang", "Makan siang di jalan", "Tiba di Makassar sore"]
         }
-      ]
+      ],
+      "featured": true
     },
     {
       "id": "makassar-city-tour",
-      "title": "Makassar City Tour",
-      "duration": 1,
-      "description": "Eksplorasi kota Makassar dari sisi sejarah, kuliner, dan modernitas dalam satu hari penuh.",
-      "image": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800",
-      "highlights": ["Fort Rotterdam", "Pantai Losari", "Trans Studio", "Kuliner Lokal"],
-      "budget": 450000,
+      "name": "Makassar City Explorer",
+      "description": "Kenali kota Makassar dalam sehari. Dari sejarah kolonial hingga kuliner khas yang legendaris.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Fort_Rotterdam%2C_Makassar%2C_Indonesia_-_20100227-02.jpg",
+      "duration": "1 Hari",
       "difficulty": "Mudah",
-      "featured": true,
+      "price": 500000,
+      "rating": 4.7,
+      "reviews": 156,
+      "highlights": ["Fort Rotterdam", "Pantai Losari", "Kuliner Coto & Pallubasa", "Trans Studio"],
+      "included": ["Transportasi", "Makan siang", "Guide lokal", "Tiket masuk"],
       "days": [
         {
           "day": 1,
-          "title": "Full Day Makassar",
-          "activities": [
-            { "time": "08:00", "activity": "Fort Rotterdam & Museum La Galigo", "location": "Fort Rotterdam" },
-            { "time": "11:00", "activity": "Pantai Losari", "location": "Pantai Losari" },
-            { "time": "12:30", "activity": "Kuliner Coto & Konro", "location": "Makassar" },
-            { "time": "14:00", "activity": "Masjid Amirul Mukminin", "location": "Pantai Losari" },
-            { "time": "17:00", "activity": "Sunset di Losari", "location": "Pantai Losari" }
-          ]
+          "title": "Makassar Full Day",
+          "description": "Tour lengkap kota Makassar dari pagi hingga malam.",
+          "activities": ["Fort Rotterdam & Museum", "Makan siang Coto", "Pantai Losari sore", "Sunset & Pisang Epe", "Trans Studio Mall (optional)"]
         }
-      ]
+      ],
+      "featured": true
     },
     {
       "id": "bira-beach-escape",
-      "title": "Bira Beach Escape",
-      "duration": 3,
-      "description": "Liburan pantai sempurna di Bira dengan snorkeling, diving, dan menikmati seafood segar.",
-      "image": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800",
-      "highlights": ["Pantai Bira", "Galangan Pinisi", "Snorkeling", "Sunset"],
-      "budget": 2800000,
+      "name": "Bira Beach Escape",
+      "description": "Liburan pantai santai di Bira. Snorkeling, sunset, dan melihat pembuatan perahu Pinisi.",
+      "image": "https://satyawinnie.com/wp-content/uploads/elementor/thumbs/67FA112C-0367-4AED-970B-8B38BD5D5EF7-oyx0zo4xsweejstfi4wpewcfwuwt2yxcaauwadsj9c.jpg",
+      "duration": "3 Hari 2 Malam",
       "difficulty": "Mudah",
-      "featured": true,
+      "price": 2000000,
+      "rating": 4.8,
+      "reviews": 189,
+      "highlights": ["Pantai Bira", "Snorkeling Liukang", "Desa Pinisi Ara", "Sunset Point"],
+      "included": ["Transportasi", "Akomodasi", "Makan 3x sehari", "Peralatan snorkeling"],
       "days": [
         {
           "day": 1,
           "title": "Makassar - Bira",
-          "activities": [
-            { "time": "07:00", "activity": "Perjalanan ke Bira", "location": "Makassar" },
-            { "time": "10:00", "activity": "Visit galangan Pinisi", "location": "Bulukumba" },
-            { "time": "13:00", "activity": "Check-in resort", "location": "Pantai Bira" },
-            { "time": "17:30", "activity": "Sunset di pantai", "location": "Pantai Bira" }
-          ]
+          "description": "Perjalanan menuju Bira dengan berhenti di tempat menarik.",
+          "activities": ["Berangkat pagi", "Mampir desa Kajang", "Tiba di Bira sore", "Sunset di pantai"]
         },
         {
           "day": 2,
-          "title": "Eksplorasi Bira",
-          "activities": [
-            { "time": "08:00", "activity": "Snorkeling trip ke Pulau Liukang", "location": "Pulau Liukang" },
-            { "time": "12:00", "activity": "Berenang di pantai", "location": "Pantai Bira" },
-            { "time": "18:00", "activity": "Seafood dinner", "location": "Pantai Bira" }
-          ]
+          "title": "Beach Day",
+          "description": "Full day aktivitas pantai dan eksplorasi.",
+          "activities": ["Snorkeling pagi", "Kunjungan desa Pinisi", "Makan seafood segar", "Free time di pantai"]
         },
         {
           "day": 3,
-          "title": "Kembali ke Makassar",
-          "activities": [
-            { "time": "05:30", "activity": "Sunrise view", "location": "Pantai Bira" },
-            { "time": "08:00", "activity": "Belanja oleh-oleh", "location": "Bulukumba" },
-            { "time": "10:00", "activity": "Perjalanan kembali", "location": "Bira - Makassar" }
-          ]
+          "title": "Bira - Makassar",
+          "description": "Kembali ke Makassar.",
+          "activities": ["Sarapan santai", "Check out", "Perjalanan kembali", "Tiba di Makassar sore"]
         }
-      ]
+      ],
+      "featured": true
     },
     {
-      "id": "karst-adventure",
-      "title": "Karst Adventure Maros",
-      "duration": 1,
-      "description": "Petualangan di kawasan karst Maros-Pangkep dengan trekking, susur sungai, dan eksplorasi gua.",
-      "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
-      "highlights": ["Rammang-Rammang", "Bantimurung", "Gua Prasejarah", "Sungai Pute"],
-      "budget": 550000,
+      "id": "maros-adventure",
+      "name": "Maros Nature Adventure",
+      "description": "Petualangan alam di kawasan karst Maros. Air terjun, gua prasejarah, dan perahu di Rammang-Rammang.",
+      "image": "https://ik.imagekit.io/tvlk/blog/2024/08/eP8o7huA-image-3.png?tr=q-70,c-at_max,w-1000,h-600",
+      "duration": "2 Hari 1 Malam",
       "difficulty": "Sedang",
-      "featured": false,
+      "price": 1500000,
+      "rating": 4.6,
+      "reviews": 98,
+      "highlights": ["Bantimurung Waterfall", "Gua Leang-Leang", "Rammang-Rammang", "Hutan Bambu"],
+      "included": ["Transportasi", "Akomodasi homestay", "Makan", "Guide lokal", "Tiket masuk"],
       "days": [
         {
           "day": 1,
-          "title": "Maros Karst Exploration",
-          "activities": [
-            { "time": "07:00", "activity": "Bantimurung Waterfall", "location": "Bantimurung" },
-            { "time": "10:00", "activity": "Susur sungai Rammang-Rammang", "location": "Rammang-Rammang" },
-            { "time": "13:00", "activity": "Trekking di karst", "location": "Rammang-Rammang" },
-            { "time": "15:00", "activity": "Gua Pattunuang", "location": "Maros" }
-          ]
+          "title": "Bantimurung & Leang-Leang",
+          "description": "Eksplorasi air terjun dan gua prasejarah.",
+          "activities": ["Taman Nasional Bantimurung", "Museum Kupu-kupu", "Gua Leang-Leang", "Menginap di homestay"]
+        },
+        {
+          "day": 2,
+          "title": "Rammang-Rammang",
+          "description": "Petualangan di kawasan karst terbesar kedua dunia.",
+          "activities": ["Perahu di Sungai Pute", "Trekking karst", "Hutan bambu", "Kembali ke Makassar"]
         }
-      ]
+      ],
+      "featured": false
+    },
+    {
+      "id": "sulsel-grand-tour",
+      "name": "South Sulawesi Grand Tour",
+      "description": "Tour komprehensif menjelajahi seluruh highlight Sulawesi Selatan. Dari kota hingga pegunungan, pantai hingga budaya.",
+      "image": "https://cdn.antaranews.com/cache/1200x800/2020/05/01/antarafoto-tempat-favorit-ngabuburit-di-makassar-sepi-010520-ap-4.jpg",
+      "duration": "7 Hari 6 Malam",
+      "difficulty": "Menengah",
+      "price": 7500000,
+      "rating": 4.9,
+      "reviews": 67,
+      "highlights": ["Makassar City", "Maros Karst", "Tana Toraja", "Pantai Bira", "Sengkang Silk"],
+      "included": ["Transportasi AC", "Akomodasi 3-4 star", "Makan 3x sehari", "Guide profesional", "Semua tiket masuk"],
+      "days": [
+        {
+          "day": 1,
+          "title": "Arrival Makassar",
+          "description": "Tiba di Makassar dan city tour.",
+          "activities": ["Airport pickup", "Fort Rotterdam", "Pantai Losari sunset", "Welcome dinner"]
+        },
+        {
+          "day": 2,
+          "title": "Makassar - Maros",
+          "description": "Eksplorasi Maros.",
+          "activities": ["Bantimurung", "Leang-Leang", "Rammang-Rammang", "Kembali Makassar"]
+        },
+        {
+          "day": 3,
+          "title": "Makassar - Toraja",
+          "description": "Perjalanan ke Toraja.",
+          "activities": ["Berangkat pagi", "Scenic route", "Tiba Rantepao sore"]
+        },
+        {
+          "day": 4,
+          "title": "Toraja Day 1",
+          "description": "Explore situs budaya.",
+          "activities": ["Londa", "Ke'te Kesu", "Pasar tradisional"]
+        },
+        {
+          "day": 5,
+          "title": "Toraja Day 2",
+          "description": "Trekking dan upacara.",
+          "activities": ["Batutumonga trekking", "Village visit", "Cultural show"]
+        },
+        {
+          "day": 6,
+          "title": "Toraja - Bira",
+          "description": "Perjalanan ke pantai Bira.",
+          "activities": ["Berangkat pagi", "Via Sengkang", "Tiba Bira sore", "Sunset pantai"]
+        },
+        {
+          "day": 7,
+          "title": "Bira - Makassar",
+          "description": "Hari terakhir.",
+          "activities": ["Beach morning", "Desa Pinisi", "Kembali Makassar", "Airport transfer"]
+        }
+      ],
+      "featured": true
     }
-  ]
+  ],
+  "filters": {
+    "duration": ["1 Hari", "2-3 Hari", "4-5 Hari", "6+ Hari"],
+    "difficulty": ["Mudah", "Sedang", "Menengah", "Sulit"],
+    "budget": ["Budget", "Standard", "Premium", "Luxury"]
+  }
 }

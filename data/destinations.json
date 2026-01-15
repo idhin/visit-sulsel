@@ -7,13 +7,14 @@
       "tagline": "Negeri di Atas Awan",
       "description": "Tana Toraja adalah destinasi wisata budaya yang menakjubkan dengan pemandangan pegunungan hijau, rumah adat Tongkonan yang ikonik, dan tradisi pemakaman yang unik. Nikmati keindahan alam dan kekayaan budaya yang tak ternilai.",
       "location": "Kabupaten Tana Toraja",
-      "category": "budaya",
-      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800",
-      "gallery": [
-        "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800",
-        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800"
-      ],
-      "highlights": ["Rumah Adat Tongkonan", "Londa Burial Site", "Kete Kesu", "Lemo Stone Graves"],
+"category": "budaya",
+    "image": "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+    "gallery": [
+      "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/d/d3/Tongkonan_traditionnal_Toraja_house.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/e/ed/Tongkonan_Toraja.jpg"
+    ],
+    "highlights": ["Rumah Adat Tongkonan", "Londa Burial Site", "Kete Kesu", "Lemo Stone Graves"],
       "rating": 4.8,
       "reviews": 1250,
       "price": "Gratis - Rp50.000",
@@ -27,12 +28,13 @@
       "tagline": "Ikon Kota Makassar",
       "description": "Pantai Losari adalah destinasi wajib di Makassar dengan pemandangan sunset yang memukau. Nikmati suasana pantai yang ramai dengan kuliner khas dan aktivitas seru sepanjang hari.",
       "location": "Kota Makassar",
-      "category": "pantai",
-      "image": "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800",
-      "gallery": [
-        "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800"
-      ],
-      "highlights": ["Sunset View", "Kuliner Pisang Epe", "Masjid Amirul Mukminin", "Trans Studio Mall"],
+"category": "pantai",
+    "image": "https://cdn.antaranews.com/cache/1200x800/2020/05/01/antarafoto-tempat-favorit-ngabuburit-di-makassar-sepi-010520-ap-4.jpg",
+    "gallery": [
+      "https://cdn.antaranews.com/cache/1200x800/2020/05/01/antarafoto-tempat-favorit-ngabuburit-di-makassar-sepi-010520-ap-4.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/7/72/Losari_Beach%2C_Makassar%2C_Indonesia.jpg"
+    ],
+    "highlights": ["Sunset View", "Kuliner Pisang Epe", "Masjid Amirul Mukminin", "Trans Studio Mall"],
       "rating": 4.6,
       "reviews": 3200,
       "price": "Gratis",
@@ -46,12 +48,14 @@
       "tagline": "Kerajaan Kupu-Kupu",
       "description": "Taman Nasional Bantimurung-Bulusaraung terkenal dengan air terjun yang indah dan keanekaragaman kupu-kupu. Tempat sempurna untuk pecinta alam dan fotografi.",
       "location": "Kabupaten Maros",
-      "category": "alam",
-      "image": "https://images.unsplash.com/photo-1546587348-d12660c30c50?w=800",
-      "gallery": [
-        "https://images.unsplash.com/photo-1546587348-d12660c30c50?w=800"
-      ],
-      "highlights": ["Air Terjun Bantimurung", "Taman Kupu-kupu", "Gua Prasejarah", "Kolam Renang Alami"],
+"category": "alam",
+    "image": "https://ik.imagekit.io/tvlk/blog/2024/08/eP8o7huA-image-3.png?tr=q-70,c-at_max,w-1000,h-600",
+    "gallery": [
+      "https://ik.imagekit.io/tvlk/blog/2024/08/eP8o7huA-image-3.png?tr=q-70,c-at_max,w-1000,h-600",
+      "https://upload.wikimedia.org/wikipedia/commons/4/4e/Air_terjun_Bantimurung.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/3/35/Bantimurung.jpg"
+    ],
+    "highlights": ["Air Terjun Bantimurung", "Taman Kupu-kupu", "Gua Prasejarah", "Kolam Renang Alami"],
       "rating": 4.5,
       "reviews": 890,
       "price": "Rp30.000",
@@ -59,17 +63,17 @@
       "featured": true
     },
     {
-      "id": "pulau-samalona",
-      "name": "Pulau Samalona",
-      "slug": "pulau-samalona",
-      "tagline": "Surga Snorkeling Makassar",
-      "description": "Pulau Samalona adalah pulau kecil yang cantik dengan terumbu karang yang masih terjaga. Ideal untuk snorkeling, diving, dan bersantai di pantai berpasir putih.",
-      "location": "Kepulauan Spermonde",
-      "category": "pantai",
-      "image": "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800",
-      "gallery": [
-        "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800"
-      ],
+"id": "pulau-samalona",
+    "name": "Pulau Samalona",
+    "slug": "pulau-samalona",
+    "tagline": "Surga Snorkeling Makassar",
+    "description": "Pulau Samalona adalah pulau kecil yang cantik dengan terumbu karang yang masih terjaga. Ideal untuk snorkeling, diving, dan bersantai di pantai berpasir putih.",
+    "location": "Kepulauan Spermonde",
+    "category": "pantai",
+    "image": "https://asset.kompas.com/crops/n6oRm9RSiw4ewhEAHnnGSMaTJQQ=/77x12:903x563/1200x800/data/photo/2022/05/28/6291c43d5cb5b.jpg",
+    "gallery": [
+      "https://asset.kompas.com/crops/n6oRm9RSiw4ewhEAHnnGSMaTJQQ=/77x12:903x563/1200x800/data/photo/2022/05/28/6291c43d5cb5b.jpg"
+    ],
       "highlights": ["Snorkeling", "Diving", "Pantai Pasir Putih", "Sunset Spot"],
       "rating": 4.7,
       "reviews": 560,
@@ -78,17 +82,17 @@
       "featured": false
     },
     {
-      "id": "malino",
-      "name": "Malino Highland",
-      "slug": "malino",
-      "tagline": "Sejuknya Dataran Tinggi",
-      "description": "Malino adalah kawasan dataran tinggi dengan udara sejuk dan pemandangan hutan pinus yang asri. Tempat favorit untuk melarikan diri dari panasnya kota.",
-      "location": "Kabupaten Gowa",
-      "category": "alam",
-      "image": "https://images.unsplash.com/photo-1511497584788-876760111969?w=800",
-      "gallery": [
-        "https://images.unsplash.com/photo-1511497584788-876760111969?w=800"
-      ],
+"id": "malino",
+    "name": "Malino Highland",
+    "slug": "malino",
+    "tagline": "Sejuknya Dataran Tinggi",
+    "description": "Malino adalah kawasan dataran tinggi dengan udara sejuk dan pemandangan hutan pinus yang asri. Tempat favorit untuk melarikan diri dari panasnya kota.",
+    "location": "Kabupaten Gowa",
+    "category": "alam",
+    "image": "https://images.bisnis.com/posts/2018/07/11/815456/malino-gowa-1.jpg",
+    "gallery": [
+      "https://images.bisnis.com/posts/2018/07/11/815456/malino-gowa-1.jpg"
+    ],
       "highlights": ["Hutan Pinus", "Air Terjun Takapala", "Kebun Teh", "Buah Markisa"],
       "rating": 4.4,
       "reviews": 720,
@@ -97,17 +101,17 @@
       "featured": false
     },
     {
-      "id": "rammang-rammang",
-      "name": "Rammang-Rammang",
-      "slug": "rammang-rammang",
-      "tagline": "Karst Terbesar Kedua di Dunia",
-      "description": "Rammang-Rammang adalah kawasan karst yang menakjubkan dengan formasi batuan kapur yang spektakuler. Jelajahi sungai dan gua-gua kuno dengan pemandangan yang memesona.",
-      "location": "Kabupaten Maros",
-      "category": "alam",
-      "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
-      "gallery": [
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"
-      ],
+"id": "rammang-rammang",
+    "name": "Rammang-Rammang",
+    "slug": "rammang-rammang",
+    "tagline": "Karst Terbesar Kedua di Dunia",
+    "description": "Rammang-Rammang adalah kawasan karst yang menakjubkan dengan formasi batuan kapur yang spektakuler. Jelajahi sungai dan gua-gua kuno dengan pemandangan yang memesona.",
+    "location": "Kabupaten Maros",
+    "category": "alam",
+    "image": "https://sulselprov.go.id/upload/post/580497d2e70fa.jpg",
+    "gallery": [
+      "https://sulselprov.go.id/upload/post/580497d2e70fa.jpg"
+    ],
       "highlights": ["Formasi Karst", "Sungai Pute", "Terowongan Batu", "Hutan Bambu"],
       "rating": 4.6,
       "reviews": 430,
@@ -116,17 +120,17 @@
       "featured": true
     },
     {
-      "id": "benteng-rotterdam",
-      "name": "Benteng Fort Rotterdam",
-      "slug": "benteng-rotterdam",
-      "tagline": "Saksi Sejarah Makassar",
-      "description": "Benteng Rotterdam adalah peninggalan bersejarah dari era Kerajaan Gowa yang kemudian dikuasai Belanda. Arsitektur megah dan museum di dalamnya menyimpan banyak kisah.",
-      "location": "Kota Makassar",
-      "category": "budaya",
-      "image": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800",
-      "gallery": [
-        "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800"
-      ],
+"id": "benteng-rotterdam",
+    "name": "Benteng Fort Rotterdam",
+    "slug": "benteng-rotterdam",
+    "tagline": "Saksi Sejarah Makassar",
+    "description": "Benteng Rotterdam adalah peninggalan bersejarah dari era Kerajaan Gowa yang kemudian dikuasai Belanda. Arsitektur megah dan museum di dalamnya menyimpan banyak kisah.",
+    "location": "Kota Makassar",
+    "category": "budaya",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Fort_Rotterdam%2C_Makassar%2C_Indonesia_-_20100227-02.jpg",
+    "gallery": [
+      "https://upload.wikimedia.org/wikipedia/commons/e/e0/Fort_Rotterdam%2C_Makassar%2C_Indonesia_-_20100227-02.jpg"
+    ],
       "highlights": ["Museum La Galigo", "Arsitektur Kolonial", "Taman Dalam Benteng", "Pertunjukan Seni"],
       "rating": 4.5,
       "reviews": 980,
@@ -135,17 +139,17 @@
       "featured": false
     },
     {
-      "id": "bira",
-      "name": "Pantai Bira",
-      "slug": "bira",
-      "tagline": "Pesona Pantai Selatan",
-      "description": "Pantai Bira adalah salah satu pantai terindah di Sulawesi Selatan dengan pasir putih halus dan air laut yang jernih. Sempurna untuk berenang, snorkeling, dan menikmati seafood segar.",
-      "location": "Kabupaten Bulukumba",
-      "category": "pantai",
-      "image": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800",
-      "gallery": [
-        "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800"
-      ],
+"id": "bira",
+    "name": "Pantai Bira",
+    "slug": "bira",
+    "tagline": "Pesona Pantai Selatan",
+    "description": "Pantai Bira adalah salah satu pantai terindah di Sulawesi Selatan dengan pasir putih halus dan air laut yang jernih. Sempurna untuk berenang, snorkeling, dan menikmati seafood segar.",
+    "location": "Kabupaten Bulukumba",
+    "category": "pantai",
+    "image": "https://satyawinnie.com/wp-content/uploads/elementor/thumbs/67FA112C-0367-4AED-970B-8B38BD5D5EF7-oyx0zo4xsweejstfi4wpewcfwuwt2yxcaauwadsj9c.jpg",
+    "gallery": [
+      "https://satyawinnie.com/wp-content/uploads/elementor/thumbs/67FA112C-0367-4AED-970B-8B38BD5D5EF7-oyx0zo4xsweejstfi4wpewcfwuwt2yxcaauwadsj9c.jpg"
+    ],
       "highlights": ["Pantai Pasir Putih", "Pembuatan Perahu Pinisi", "Snorkeling", "Sunset View"],
       "rating": 4.7,
       "reviews": 1100,
