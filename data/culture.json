@@ -1,4 +1,115 @@
 {
+  "ethnicGroups": [
+    {
+      "id": "bugis",
+      "name": "Suku Bugis",
+      "region": "Bone, Wajo, Soppeng, Sidrap",
+      "description": "Suku Bugis adalah salah satu suku terbesar di Sulawesi Selatan yang terkenal dengan jiwa pelaut dan pedagang. Mereka memiliki aksara Lontara dan filosofi hidup Passompe (merantau).",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/5/55/Building_pinisi_ship_in_South_Sulawesi.JPG",
+      "traditions": ["Mappacci", "Mappasilasa", "Tudang Sipulung", "I La Galigo"]
+    },
+    {
+      "id": "makassar",
+      "name": "Suku Makassar",
+      "region": "Gowa, Takalar, Jeneponto, Bantaeng",
+      "description": "Suku Makassar dikenal dengan keberaniannya dan memiliki sejarah kerajaan Gowa-Tallo yang pernah menguasai perdagangan di Nusantara. Tari Pa'karena adalah warisan budaya mereka yang terkenal.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/62/Beneteng_Fort_Rotterdam_Makassar.jpg",
+      "traditions": ["Pa'karena", "Accera Kalompoang", "Appalili", "Songkabala"]
+    },
+    {
+      "id": "toraja",
+      "name": "Suku Toraja",
+      "region": "Tana Toraja, Toraja Utara",
+      "description": "Suku Toraja terkenal dengan upacara pemakaman Rambu Solo' yang megah dan rumah adat Tongkonan. Budaya mereka sangat unik dan menjadi daya tarik wisata internasional.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/90/Tongkonan%2C_Toraja_houses.jpg",
+      "traditions": ["Rambu Solo'", "Rambu Tuka'", "Ma'nene", "Ma'badong"]
+    },
+    {
+      "id": "mandar",
+      "name": "Suku Mandar",
+      "region": "Majene, Polewali Mandar, Mamasa",
+      "description": "Suku Mandar adalah pelaut ulung dengan perahu Sandeq yang legendaris. Mereka memiliki tradisi unik dan kain tenun Mandar yang khas.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/5/55/Building_pinisi_ship_in_South_Sulawesi.JPG",
+      "traditions": ["Sayyang Pattu'du", "Mappatamma'", "Pattuddu", "Pakkacaping"]
+    }
+  ],
+  "traditions": [
+    {
+      "id": "rambu-solo",
+      "name": "Rambu Solo'",
+      "type": "Upacara Pemakaman",
+      "region": "Tana Toraja",
+      "description": "Upacara pemakaman adat Toraja yang sangat megah dengan pengorbanan kerbau dan babi sebagai penghormatan terakhir.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Tongkonan_traditionnal_Toraja_house.jpg"
+    },
+    {
+      "id": "mappacci",
+      "name": "Mappacci",
+      "type": "Upacara Pernikahan",
+      "region": "Bugis-Makassar",
+      "description": "Ritual pembersihan diri calon pengantin dengan daun pacar sebagai simbol kesucian sebelum pernikahan.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/62/Beneteng_Fort_Rotterdam_Makassar.jpg"
+    },
+    {
+      "id": "ma-nene",
+      "name": "Ma'nene",
+      "type": "Ritual Leluhur",
+      "region": "Tana Toraja",
+      "description": "Tradisi membersihkan dan mengganti pakaian jenazah leluhur sebagai bentuk penghormatan kepada yang telah meninggal.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/90/Tongkonan%2C_Toraja_houses.jpg"
+    }
+  ],
+  "dances": [
+    {
+      "id": "pakarena",
+      "name": "Tari Pa'karena",
+      "origin": "Gowa",
+      "description": "Tarian tradisional Makassar dengan gerakan lemah gemulai yang melambangkan kesopanan dan keanggunan wanita Makassar.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/62/Beneteng_Fort_Rotterdam_Makassar.jpg"
+    },
+    {
+      "id": "paduppa",
+      "name": "Tari Paduppa",
+      "origin": "Bugis",
+      "description": "Tarian penyambutan tamu yang menggambarkan keramahan masyarakat Bugis kepada pendatang.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/5/55/Building_pinisi_ship_in_South_Sulawesi.JPG"
+    },
+    {
+      "id": "ma-gellu",
+      "name": "Tari Ma'gellu",
+      "origin": "Toraja",
+      "description": "Tarian sukacita Toraja yang ditampilkan saat pesta syukuran dan perayaan panen.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/90/Tongkonan%2C_Toraja_houses.jpg"
+    }
+  ],
+  "crafts": [
+    {
+      "id": "tenun-sutra",
+      "name": "Tenun Sutra Sengkang",
+      "description": "Kain sutra berkualitas tinggi dengan motif khas Bugis yang ditenun secara tradisional.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Silk_weaving_in_Sengkang_village.jpg"
+    },
+    {
+      "id": "pinisi",
+      "name": "Perahu Pinisi",
+      "description": "Perahu layar tradisional kayu yang dibangun tanpa gambar teknis, hanya berdasarkan keahlian turun-temurun.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/5/55/Building_pinisi_ship_in_South_Sulawesi.JPG"
+    },
+    {
+      "id": "ukiran-toraja",
+      "name": "Ukiran Toraja",
+      "description": "Seni ukir khas Toraja dengan motif geometris yang memiliki makna filosofis mendalam.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/90/Tongkonan%2C_Toraja_houses.jpg"
+    }
+  ],
+  "timeline": [
+    { "year": "Abad ke-14", "event": "Berdirinya Kerajaan Gowa sebagai pusat perdagangan maritim" },
+    { "year": "1511", "event": "Kerajaan Gowa mulai menguasai jalur perdagangan rempah" },
+    { "year": "1605", "event": "Islam masuk ke Sulawesi Selatan melalui Kerajaan Gowa" },
+    { "year": "1667", "event": "Perjanjian Bungaya antara Gowa dan VOC" },
+    { "year": "1905", "event": "Ekspedisi Belanda ke Toraja" },
+    { "year": "1945", "event": "Perlawanan rakyat Sulsel dalam kemerdekaan Indonesia" }
+  ],
   "cultures": [
     {
       "id": "tongkonan",

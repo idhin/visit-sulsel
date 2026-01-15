@@ -3,11 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Star, MapPin, ArrowRight, Camera, Video, Plane, CheckCircle } from "lucide-react";
+import { ArrowRight, Camera, Video, Plane, CheckCircle } from "lucide-react";
 import MotionWrapper from "@/components/animations/MotionWrapper";
-import SectionHeader from "@/components/shared/SectionHeader";
 import creatorsData from "@/data/creators.json";
-import { formatPrice } from "@/lib/utils";
 
 export default function CreatorShowcase() {
   const featuredCreators = creatorsData.creators.filter((c) => c.featured).slice(0, 4);
@@ -94,33 +92,27 @@ export default function CreatorShowcase() {
                           <CheckCircle className="w-3 h-3 text-blue-500 flex-shrink-0" />
                         )}
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-muted">
-                        <MapPin className="w-3 h-3" />
-                        {creator.location}
-                      </div>
+                      <p className="text-xs text-muted truncate">
+                        {creator.username}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {creator.specialization.slice(0, 2).map((spec) => (
-                      <span
-                        key={spec}
-                        className="px-2 py-0.5 bg-white text-deep-ocean text-xs rounded-full"
-                      >
-                        {spec}
-                      </span>
-                    ))}
+                  <div className="mb-3">
+                    <span className="px-2 py-0.5 bg-white text-deep-ocean text-xs rounded-full capitalize">
+                      {creator.category}
+                    </span>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-3 h-3 text-gold fill-gold" />
-                      <span className="text-sm font-medium text-deep-ocean">
-                        {creator.rating}
+                    <div className="flex items-center gap-1 text-xs text-muted">
+                      <span className="font-medium text-deep-ocean">
+                        {(creator.followers / 1000).toFixed(0)}K
                       </span>
+                      followers
                     </div>
                     <span className="text-xs text-gold font-medium">
-                      Mulai {formatPrice(creator.services[0].price)}
+                      {creator.posts} posts
                     </span>
                   </div>
                 </motion.div>
