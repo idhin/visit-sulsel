@@ -23,9 +23,25 @@ import {
   Camera,
   Edit3,
   BadgeCheck,
+  LucideIcon,
 } from "lucide-react";
 
-const menuItems = [
+type MenuItem = {
+  icon: LucideIcon;
+  label: string;
+  href: string;
+  color: string;
+  badge?: string;
+  value?: string;
+  toggle?: boolean;
+};
+
+type MenuSection = {
+  category: string;
+  items: MenuItem[];
+};
+
+const menuItems: MenuSection[] = [
   {
     category: "Akun Saya",
     items: [
