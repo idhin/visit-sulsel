@@ -1899,11 +1899,9 @@ export default function RencanakanPage() {
                                               }
                                             }}
                                             disabled={isDisabled}
-                                            className={`relative rounded-xl overflow-hidden transition-all ${
-                                              isSelected ? "ring-2" : ""
-                                            } ${isDisabled ? "opacity-40 cursor-not-allowed grayscale" : ""} ${isSelectedElsewhere ? "ring-1 ring-orange-400" : ""}`}
+                                            className={`relative rounded-xl overflow-hidden transition-all ${isDisabled ? "opacity-40 cursor-not-allowed grayscale" : ""} ${isSelectedElsewhere ? "ring-1 ring-orange-400" : ""}`}
                                             style={{ 
-                                              ringColor: isSelected ? zone.color : undefined 
+                                              boxShadow: isSelected ? `0 0 0 2px ${zone.color}` : undefined 
                                             }}
                                           >
                                             <div className="relative h-24">
