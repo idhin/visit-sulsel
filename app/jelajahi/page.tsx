@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import {
   MapPin,
   Navigation,
@@ -12,58 +11,42 @@ import {
   ShoppingBag,
   Compass,
   Sun,
-  Cloud,
-  CloudRain,
-  Thermometer,
-  Wind,
   Clock,
   Star,
   ChevronRight,
-  ArrowLeft,
   Calendar,
   CheckCircle,
   Sunrise,
   Sunset,
   Moon,
-  Phone,
   Route,
-  Sparkles,
   Locate,
   ChevronDown,
   MapPinned,
   Loader2,
+  Search,
+  X,
+  Ticket,
+  Hotel,
+  Users,
+  Camera,
+  Map,
+  Heart,
+  Percent,
+  MessageCircle,
+  Play,
 } from "lucide-react";
 import destinationsData from "@/data/destinations.json";
 import culinaryData from "@/data/culinary.json";
 
-// Dynamic import for Leaflet map (client-side only)
-const MapContainer = dynamic(
-  () => import("react-leaflet").then((mod) => mod.MapContainer),
-  { ssr: false }
-);
-const TileLayer = dynamic(
-  () => import("react-leaflet").then((mod) => mod.TileLayer),
-  { ssr: false }
-);
-const Marker = dynamic(
-  () => import("react-leaflet").then((mod) => mod.Marker),
-  { ssr: false }
-);
-const Popup = dynamic(
-  () => import("react-leaflet").then((mod) => mod.Popup),
-  { ssr: false }
-);
-
 // Types
 type UserLocation = {
+  id?: string;
   lat: number;
   lng: number;
   name: string;
   zone: string;
 };
-
-type CulinaryItem = (typeof culinaryData.culinary)[0];
-type DestinationItem = (typeof destinationsData.destinations)[0];
 
 // Preset locations for demo
 const presetLocations: UserLocation[] = [
@@ -77,72 +60,19 @@ const presetLocations: UserLocation[] = [
   { id: "bira", name: "Pantai Bira", lat: -5.6167, lng: 120.4500, zone: "selatan-jauh" },
 ];
 
-// Souvenir shops data with coordinates
-const souvenirShops = [
-  {
-    id: "toko-oleh-oleh-losari",
-    name: "Toko Oleh-oleh Losari",
-    address: "Jl. Penghibur No. 12, Makassar",
-    zone: "makassar-kota",
-    coordinates: { lat: -5.1445, lng: 119.4085 },
-    rating: 4.5,
-    openHours: "08:00 - 22:00",
-    products: ["Kopi Toraja", "Dodol Maros", "Markisa"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/7/72/Losari_Beach%2C_Makassar%2C_Indonesia.jpg",
-    phone: "+62411123456",
-  },
-  {
-    id: "pusat-oleh-oleh-sulsel",
-    name: "Pusat Oleh-oleh Sulsel",
-    address: "Jl. Somba Opu No. 88, Makassar",
-    zone: "makassar-kota",
-    coordinates: { lat: -5.1489, lng: 119.4198 },
-    rating: 4.7,
-    openHours: "09:00 - 21:00",
-    products: ["Sutra Sengkang", "Kerajinan Toraja", "Songkok Recca"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Tongkonan_traditionnal_Toraja_house.jpg",
-    phone: "+62411234567",
-  },
-  {
-    id: "mall-ratu-indah",
-    name: "Mall Ratu Indah - Oleh-oleh Corner",
-    address: "Jl. Dr. Sam Ratulangi, Makassar",
-    zone: "makassar-kota",
-    coordinates: { lat: -5.1567, lng: 119.4234 },
-    rating: 4.3,
-    openHours: "10:00 - 22:00",
-    products: ["Kopi Toraja", "Cokelat Sulsel", "Kerajinan"],
-    image: "https://ik.imagekit.io/tvlk/blog/2024/08/eP8o7huA-image-3.png?tr=q-70,c-at_max,w-1000,h-600",
-    phone: "+62411345678",
-  },
-  {
-    id: "toko-toraja-art",
-    name: "Toraja Art Shop",
-    address: "Jl. Mappanyukki No. 5, Rantepao",
-    zone: "utara-jauh",
-    coordinates: { lat: -2.9712, lng: 119.8956 },
-    rating: 4.6,
-    openHours: "08:00 - 18:00",
-    products: ["Ukiran Toraja", "Kain Tenun", "Kopi Kalosi"],
-    image: "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
-    phone: "+62411456789",
-  },
-  {
-    id: "maros-souvenir",
-    name: "Toko Oleh-oleh Bantimurung",
-    address: "Jl. Poros Bantimurung, Maros",
-    zone: "maros",
-    coordinates: { lat: -4.9845, lng: 119.6678 },
-    rating: 4.2,
-    openHours: "08:00 - 17:00",
-    products: ["Kupu-kupu Frame", "Madu Hutan", "Gula Aren"],
-    image: "https://ik.imagekit.io/tvlk/blog/2024/08/eP8o7huA-image-3.png?tr=q-70,c-at_max,w-1000,h-600",
-    phone: "+62411567890",
-  },
-];
-
 // Demo itineraries by location
-const demoItineraries: Record<string, typeof demoTodayPlanMakassar> = {
+const demoItineraries: Record<string, {
+  tripCode: string;
+  day: number;
+  location: string;
+  schedule: Array<{
+    time: string;
+    activity: string;
+    type: string;
+    completed: boolean;
+    destinationId?: string;
+  }>;
+}> = {
   "makassar-kota": {
     tripCode: "VSS-MKS001",
     day: 1,
@@ -196,18 +126,25 @@ const demoItineraries: Record<string, typeof demoTodayPlanMakassar> = {
   },
 };
 
-const demoTodayPlanMakassar = demoItineraries["makassar-kota"];
-
-// Weather icons mapping
-const weatherIcons: Record<string, React.ReactNode> = {
-  sunny: <Sun className="w-8 h-8 text-yellow-500" />,
-  cloudy: <Cloud className="w-8 h-8 text-gray-500" />,
-  rainy: <CloudRain className="w-8 h-8 text-blue-500" />,
-};
+// Service menu items
+const serviceMenuItems = [
+  { id: "tiket", name: "Tiket", icon: Ticket, color: "bg-blue-500", href: "/layanan" },
+  { id: "hotel", name: "Hotel", icon: Hotel, color: "bg-amber-500", href: "/akomodasi" },
+  { id: "belanja", name: "Belanja", icon: ShoppingBag, color: "bg-green-500", href: "/belanja" },
+  { id: "guide", name: "Guide", icon: Users, color: "bg-purple-500", href: "/layanan/pemandu" },
+  { id: "creator", name: "Creator", icon: Camera, color: "bg-gray-200 text-gray-600", href: "/kreator" },
+  { id: "kuliner", name: "Kuliner", icon: UtensilsCrossed, color: "bg-red-100 text-red-500", href: "/kuliner" },
+  { id: "event", name: "Event", icon: Calendar, color: "bg-indigo-100 text-indigo-500", href: "/event" },
+  { id: "peta", name: "Peta", icon: Map, color: "bg-teal-100 text-teal-500", href: "/peta" },
+  { id: "itinerary", name: "Itinerary", icon: Route, color: "bg-orange-100 text-orange-500", href: "/rencanakan" },
+  { id: "wishlist", name: "Wishlist", icon: Heart, color: "bg-pink-100 text-pink-500", href: "/wishlist" },
+  { id: "promo", name: "Promo", icon: Percent, color: "bg-emerald-100 text-emerald-500", href: "/promo" },
+  { id: "komunitas", name: "Komunitas", icon: MessageCircle, color: "bg-cyan-100 text-cyan-500", href: "/komunitas" },
+];
 
 // Calculate distance between two coordinates (Haversine formula)
 const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
-  const R = 6371; // Earth's radius in km
+  const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLng = ((lng2 - lng1) * Math.PI) / 180;
   const a =
@@ -221,26 +158,20 @@ const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: numbe
 };
 
 export default function JelajahiPage() {
-  const [activeTab, setActiveTab] = useState<"kuliner" | "oleh-oleh" | "destinasi">("kuliner");
   const [userLocation, setUserLocation] = useState<UserLocation>(presetLocations[0]);
   const [isLocating, setIsLocating] = useState(false);
   const [showLocationPicker, setShowLocationPicker] = useState(false);
-  const [showMap, setShowMap] = useState(false);
-  const [mapReady, setMapReady] = useState(false);
-  const [weather, setWeather] = useState({
-    condition: "sunny",
-    temp: 32,
-    humidity: 75,
-    wind: 12,
-  });
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [hasActiveTrip, setHasActiveTrip] = useState(true); // Demo: user has active trip
+  const [showRecommendationBanner, setShowRecommendationBanner] = useState(true);
+  const [showTripDetails, setShowTripDetails] = useState(false);
 
   // Get current itinerary based on location zone
   const currentItinerary = useMemo(() => {
     return demoItineraries[userLocation.zone] || demoItineraries["makassar-kota"];
   }, [userLocation.zone]);
 
-  // Filter and sort items by distance
+  // Filter and sort kuliner items by distance
   const nearbyKuliner = useMemo(() => {
     return culinaryData.culinary
       .filter((item) => item.coordinates)
@@ -254,54 +185,13 @@ export default function JelajahiPage() {
         ),
       }))
       .sort((a, b) => a.distance - b.distance)
-      .slice(0, 8);
-  }, [userLocation]);
-
-  const nearbyShops = useMemo(() => {
-    return souvenirShops
-      .map((shop) => ({
-        ...shop,
-        distance: calculateDistance(
-          userLocation.lat,
-          userLocation.lng,
-          shop.coordinates.lat,
-          shop.coordinates.lng
-        ),
-      }))
-      .sort((a, b) => a.distance - b.distance);
-  }, [userLocation]);
-
-  const nearbyDestinations = useMemo(() => {
-    return destinationsData.destinations
-      .filter((dest) => dest.coordinates)
-      .map((dest) => ({
-        ...dest,
-        distance: calculateDistance(
-          userLocation.lat,
-          userLocation.lng,
-          dest.coordinates.lat,
-          dest.coordinates.lng
-        ),
-      }))
-      .sort((a, b) => a.distance - b.distance)
-      .slice(0, 6);
+      .slice(0, 4);
   }, [userLocation]);
 
   // Update time every minute
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);
     return () => clearInterval(timer);
-  }, []);
-
-  // Load Leaflet CSS
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
-      document.head.appendChild(link);
-      setMapReady(true);
-    }
   }, []);
 
   // Detect GPS location
@@ -311,7 +201,6 @@ export default function JelajahiPage() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          // Find nearest preset location to determine zone
           let nearestPreset = presetLocations[0];
           let minDist = Infinity;
           presetLocations.forEach((preset) => {
@@ -331,8 +220,7 @@ export default function JelajahiPage() {
           setIsLocating(false);
           setShowLocationPicker(false);
         },
-        (error) => {
-          console.error("GPS error:", error);
+        () => {
           alert("Tidak dapat mengakses lokasi. Silakan pilih lokasi manual.");
           setIsLocating(false);
           setShowLocationPicker(true);
@@ -346,76 +234,87 @@ export default function JelajahiPage() {
     }
   };
 
-  // Open Google Maps for directions
-  const openGoogleMapsDirection = (destLat: number, destLng: number, destName: string) => {
-    const url = `https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat},${userLocation.lng}&destination=${destLat},${destLng}&destination_place_id=${encodeURIComponent(destName)}&travelmode=driving`;
-    window.open(url, "_blank");
-  };
-
-  // Get time of day greeting
-  const getGreeting = () => {
+  // Get time of day greeting and contextual message
+  const getGreetingAndContext = () => {
     const hour = currentTime.getHours();
-    if (hour < 11) return { text: "Selamat Pagi", icon: <Sunrise className="w-5 h-5 text-orange-400" /> };
-    if (hour < 15) return { text: "Selamat Siang", icon: <Sun className="w-5 h-5 text-yellow-500" /> };
-    if (hour < 18) return { text: "Selamat Sore", icon: <Sunset className="w-5 h-5 text-orange-500" /> };
-    return { text: "Selamat Malam", icon: <Moon className="w-5 h-5 text-indigo-400" /> };
+    const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+    const timeStr = `${hour.toString().padStart(2, "0")}.${minutes}`;
+    
+    if (hour < 11) {
+      return {
+        greeting: "Selamat Pagi",
+        emoji: "👋",
+        icon: <Sunrise className="w-5 h-5" />,
+        contextTitle: "Selamat Pagi!",
+        contextMessage: "Awali hari dengan sarapan khas Sulsel",
+        contextSubMessage: "Berikut rekomendasi tempat sarapan terdekat dari lokasimu",
+        time: timeStr,
+        mealType: "sarapan",
+      };
+    }
+    if (hour < 15) {
+      return {
+        greeting: "Selamat Siang",
+        emoji: "☀️",
+        icon: <Sun className="w-5 h-5" />,
+        contextTitle: "Selamat Siang!",
+        contextMessage: "Waktunya makan siang yang nikmat",
+        contextSubMessage: "Temukan kuliner lezat untuk makan siangmu",
+        time: timeStr,
+        mealType: "makan-siang",
+      };
+    }
+    if (hour < 18) {
+      return {
+        greeting: "Selamat Sore",
+        emoji: "🌅",
+        icon: <Sunset className="w-5 h-5" />,
+        contextTitle: "Selamat Sore!",
+        contextMessage: "Nikmati camilan sore khas Sulsel",
+        contextSubMessage: "Rekomendasi jajanan dan minuman segar untukmu",
+        time: timeStr,
+        mealType: "snack",
+      };
+    }
+    return {
+      greeting: "Selamat Malam",
+      emoji: "🌙",
+      icon: <Moon className="w-5 h-5" />,
+      contextTitle: "Selamat Malam!",
+      contextMessage: "Tutup hari dengan makan malam istimewa",
+      contextSubMessage: "Kuliner malam terbaik di sekitarmu",
+      time: timeStr,
+      mealType: "makan-malam",
+    };
   };
 
-  const greeting = getGreeting();
+  const context = getGreetingAndContext();
+
+  // Get next activity from itinerary
+  const getNextActivity = () => {
+    const nextItem = currentItinerary.schedule.find((item) => !item.completed);
+    return nextItem;
+  };
+
+  const nextActivity = getNextActivity();
 
   return (
-    <main className="min-h-screen bg-gray-50 pb-24">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 pt-4 pb-6">
-          <div className="flex items-center justify-between mb-4">
-            <Link href="/" className="p-2 -ml-2 hover:bg-white/10 rounded-full transition-colors">
-              <ArrowLeft className="w-5 h-5" />
-            </Link>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm font-medium">Mode Di Lokasi</span>
-            </div>
-          </div>
-
-          {/* Greeting & Weather */}
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                {greeting.icon}
-                <span className="text-white/80 text-sm">{greeting.text}</span>
-              </div>
-              <h1 className="text-2xl font-bold mb-1">Jelajahi Sekitar</h1>
-              
-              {/* Location Selector */}
-              <button
-                onClick={() => setShowLocationPicker(!showLocationPicker)}
-                className="flex items-center gap-1 text-white/90 text-sm hover:text-white transition-colors"
-              >
-                <Navigation className="w-4 h-4" />
-                <span>{userLocation.name}</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${showLocationPicker ? "rotate-180" : ""}`} />
-              </button>
-            </div>
-
-            {/* Weather Card */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 text-center">
-              {weatherIcons[weather.condition]}
-              <p className="text-2xl font-bold">{weather.temp}°C</p>
-              <p className="text-xs text-white/70">Cerah</p>
-            </div>
-          </div>
-
-          {/* Weather Details */}
-          <div className="flex gap-4 mt-4">
-            <div className="flex items-center gap-2 text-sm text-white/80">
-              <Thermometer className="w-4 h-4" />
-              <span>Terasa {weather.temp + 2}°C</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-white/80">
-              <Wind className="w-4 h-4" />
-              <span>{weather.wind} km/jam</span>
-            </div>
+    <main className="min-h-screen bg-gray-100 pb-24">
+      {/* Header - Greeting Card */}
+      <div className="bg-white rounded-b-3xl shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 pt-6 pb-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-gray-900">
+              {context.greeting} {context.emoji}
+            </h1>
+            <button
+              onClick={() => setShowLocationPicker(!showLocationPicker)}
+              className="flex items-center gap-1 text-sm text-gray-600 bg-gray-100 px-3 py-1.5 rounded-full"
+            >
+              <MapPin className="w-4 h-4 text-emerald-600" />
+              <span className="max-w-[120px] truncate">{userLocation.name}</span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${showLocationPicker ? "rotate-180" : ""}`} />
+            </button>
           </div>
         </div>
       </div>
@@ -424,13 +323,12 @@ export default function JelajahiPage() {
       <AnimatePresence>
         {showLocationPicker && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="bg-white border-b border-gray-200 overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="absolute left-0 right-0 z-50 bg-white shadow-lg border-t border-gray-100"
           >
             <div className="max-w-7xl mx-auto px-4 py-4">
-              {/* GPS Button */}
               <button
                 onClick={detectLocation}
                 disabled={isLocating}
@@ -448,10 +346,7 @@ export default function JelajahiPage() {
                   </>
                 )}
               </button>
-
               <p className="text-xs text-gray-500 text-center mb-3">atau pilih lokasi demo:</p>
-
-              {/* Preset Locations */}
               <div className="grid grid-cols-2 gap-2">
                 {presetLocations.map((location) => (
                   <button
@@ -480,432 +375,317 @@ export default function JelajahiPage() {
         )}
       </AnimatePresence>
 
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Today's Guide */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 -mt-4 mb-4 relative z-10"
-        >
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
-                <Calendar className="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <p className="font-semibold text-gray-900">Panduan Hari Ini</p>
-                <p className="text-xs text-gray-500">
-                  {currentItinerary.location} - Hari {currentItinerary.day}
-                </p>
-              </div>
-            </div>
-            <span className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-full font-medium">
-              {currentItinerary.tripCode}
-            </span>
-          </div>
-
-          {/* Schedule Timeline */}
-          <div className="space-y-3">
-            {currentItinerary.schedule.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
-                className={`flex items-start gap-3 ${item.completed ? "opacity-60" : ""}`}
-              >
-                <div className="flex flex-col items-center">
-                  <div
-                    className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                      item.completed
-                        ? "bg-green-100 text-green-600"
-                        : item.type === "meal"
-                          ? "bg-orange-100 text-orange-600"
-                          : item.type === "travel"
-                            ? "bg-gray-100 text-gray-600"
-                            : "bg-blue-100 text-blue-600"
-                    }`}
-                  >
-                    {item.completed ? (
-                      <CheckCircle className="w-4 h-4" />
-                    ) : item.type === "meal" ? (
-                      <UtensilsCrossed className="w-3 h-3" />
-                    ) : item.type === "travel" ? (
-                      <Route className="w-3 h-3" />
-                    ) : (
-                      <MapPin className="w-3 h-3" />
-                    )}
-                  </div>
-                  {index < currentItinerary.schedule.length - 1 && (
-                    <div className={`w-0.5 h-6 ${item.completed ? "bg-green-200" : "bg-gray-200"}`} />
-                  )}
-                </div>
-                <div className="flex-1 pb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-gray-500 font-medium">{item.time}</span>
-                    {item.completed && <span className="text-xs text-green-600">Selesai</span>}
-                  </div>
-                  <p className={`text-sm ${item.completed ? "line-through text-gray-400" : "text-gray-900"}`}>
-                    {item.activity}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Mini Map Toggle */}
-        <div className="mb-4">
-          <button
-            onClick={() => setShowMap(!showMap)}
-            className="w-full py-3 bg-white rounded-xl border border-gray-200 flex items-center justify-center gap-2 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
-          >
-            <MapPinned className="w-5 h-5 text-emerald-600" />
-            {showMap ? "Sembunyikan Peta" : "Tampilkan Peta Sekitar"}
+      <div className="max-w-7xl mx-auto px-4 mt-4">
+        {/* Search Bar */}
+        <div className="bg-white rounded-2xl shadow-sm p-3 mb-4 flex items-center gap-3">
+          <Search className="w-5 h-5 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Cari destinasi, kuliner, event..."
+            className="flex-1 outline-none text-gray-700 placeholder-gray-400"
+          />
+          <button className="bg-blue-500 text-white p-2 rounded-xl">
+            <Search className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Mini Map */}
-        <AnimatePresence>
-          {showMap && mapReady && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 250 }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mb-4 rounded-2xl overflow-hidden border border-gray-200"
-            >
-              <MapContainer
-                center={[userLocation.lat, userLocation.lng]}
-                zoom={14}
-                style={{ height: "250px", width: "100%" }}
-                key={`${userLocation.lat}-${userLocation.lng}`}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {/* User Location Marker */}
-                <Marker position={[userLocation.lat, userLocation.lng]}>
-                  <Popup>
-                    <div className="text-center">
-                      <p className="font-semibold">{userLocation.name}</p>
-                      <p className="text-xs text-gray-500">Lokasi Anda</p>
-                    </div>
-                  </Popup>
-                </Marker>
-                {/* Nearby places markers based on active tab */}
-                {activeTab === "kuliner" &&
-                  nearbyKuliner.slice(0, 5).map((item) => (
-                    <Marker key={item.id} position={[item.coordinates.lat, item.coordinates.lng]}>
-                      <Popup>
-                        <div>
-                          <p className="font-semibold">{item.name}</p>
-                          <p className="text-xs text-gray-500">{item.distance.toFixed(1)} km</p>
-                          <button
-                            onClick={() => openGoogleMapsDirection(item.coordinates.lat, item.coordinates.lng, item.name)}
-                            className="mt-1 text-xs text-blue-600 hover:underline"
-                          >
-                            Petunjuk Arah →
-                          </button>
-                        </div>
-                      </Popup>
-                    </Marker>
-                  ))}
-                {activeTab === "oleh-oleh" &&
-                  nearbyShops.slice(0, 5).map((shop) => (
-                    <Marker key={shop.id} position={[shop.coordinates.lat, shop.coordinates.lng]}>
-                      <Popup>
-                        <div>
-                          <p className="font-semibold">{shop.name}</p>
-                          <p className="text-xs text-gray-500">{shop.distance.toFixed(1)} km</p>
-                          <button
-                            onClick={() => openGoogleMapsDirection(shop.coordinates.lat, shop.coordinates.lng, shop.name)}
-                            className="mt-1 text-xs text-blue-600 hover:underline"
-                          >
-                            Petunjuk Arah →
-                          </button>
-                        </div>
-                      </Popup>
-                    </Marker>
-                  ))}
-                {activeTab === "destinasi" &&
-                  nearbyDestinations.slice(0, 5).map((dest) => (
-                    <Marker key={dest.id} position={[dest.coordinates.lat, dest.coordinates.lng]}>
-                      <Popup>
-                        <div>
-                          <p className="font-semibold">{dest.name}</p>
-                          <p className="text-xs text-gray-500">{dest.distance.toFixed(1)} km</p>
-                          <button
-                            onClick={() => openGoogleMapsDirection(dest.coordinates.lat, dest.coordinates.lng, dest.name)}
-                            className="mt-1 text-xs text-blue-600 hover:underline"
-                          >
-                            Petunjuk Arah →
-                          </button>
-                        </div>
-                      </Popup>
-                    </Marker>
-                  ))}
-              </MapContainer>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setActiveTab("kuliner")}
-            className={`p-4 rounded-2xl flex flex-col items-center gap-2 transition-all ${
-              activeTab === "kuliner"
-                ? "bg-orange-500 text-white shadow-lg shadow-orange-200"
-                : "bg-white text-gray-700 border border-gray-100"
-            }`}
+        {/* Panduan Hari Ini - Highlighted if has active trip */}
+        {hasActiveTrip && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-4 mb-4 text-white relative overflow-hidden"
           >
-            <UtensilsCrossed className="w-6 h-6" />
-            <span className="text-sm font-medium">Kuliner</span>
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setActiveTab("oleh-oleh")}
-            className={`p-4 rounded-2xl flex flex-col items-center gap-2 transition-all ${
-              activeTab === "oleh-oleh"
-                ? "bg-pink-500 text-white shadow-lg shadow-pink-200"
-                : "bg-white text-gray-700 border border-gray-100"
-            }`}
-          >
-            <ShoppingBag className="w-6 h-6" />
-            <span className="text-sm font-medium">Oleh-oleh</span>
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setActiveTab("destinasi")}
-            className={`p-4 rounded-2xl flex flex-col items-center gap-2 transition-all ${
-              activeTab === "destinasi"
-                ? "bg-blue-500 text-white shadow-lg shadow-blue-200"
-                : "bg-white text-gray-700 border border-gray-100"
-            }`}
-          >
-            <Compass className="w-6 h-6" />
-            <span className="text-sm font-medium">Destinasi</span>
-          </motion.button>
-        </div>
-
-        {/* Content based on active tab */}
-        <AnimatePresence mode="wait">
-          {/* Kuliner Tab */}
-          {activeTab === "kuliner" && (
-            <motion.div
-              key="kuliner"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-gray-900">Kuliner Terdekat</h2>
-                <Link href="/kuliner" className="text-sm text-orange-600 font-medium flex items-center gap-1">
-                  Lihat Semua <ChevronRight className="w-4 h-4" />
-                </Link>
+            {/* Background decoration */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12" />
+            
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                    <Calendar className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="font-bold">Panduan Hari Ini</p>
+                    <p className="text-xs text-white/80">
+                      {currentItinerary.location} - Hari {currentItinerary.day}
+                    </p>
+                  </div>
+                </div>
+                <span className="text-xs bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                  {currentItinerary.tripCode}
+                </span>
               </div>
 
-              <div className="space-y-3">
-                {nearbyKuliner.map((food, index) => (
-                  <motion.div
-                    key={food.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 flex gap-3"
-                  >
-                    <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
-                      <Image src={food.image} alt={food.name} fill className="object-cover" />
+              {/* Next Activity */}
+              {nextActivity && (
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 mb-3">
+                  <p className="text-xs text-white/70 mb-1">Aktivitas selanjutnya:</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                      {nextActivity.type === "meal" ? (
+                        <UtensilsCrossed className="w-4 h-4" />
+                      ) : nextActivity.type === "travel" ? (
+                        <Route className="w-4 h-4" />
+                      ) : (
+                        <MapPin className="w-4 h-4" />
+                      )}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900">{food.name}</h3>
-                      <div className="flex items-center gap-2 text-xs text-gray-500 mb-1">
-                        <span className="flex items-center gap-0.5">
-                          <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                          {food.rating}
-                        </span>
-                        <span>•</span>
-                        <span>{food.address}</span>
-                      </div>
-                      <p className="text-sm font-semibold text-orange-600">{food.price}</p>
-                      <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
-                        <Navigation className="w-3 h-3" />
-                        <span>{food.distance.toFixed(1)} km</span>
-                        <span>•</span>
-                        <Clock className="w-3 h-3" />
-                        <span>{food.openHours}</span>
-                      </div>
+                      <p className="font-semibold">{nextActivity.activity}</p>
+                      <p className="text-xs text-white/70">{nextActivity.time}</p>
                     </div>
-                    <button
-                      onClick={() => openGoogleMapsDirection(food.coordinates.lat, food.coordinates.lng, food.name)}
-                      className="self-center p-2 bg-orange-50 rounded-full hover:bg-orange-100 transition-colors"
-                    >
-                      <Route className="w-5 h-5 text-orange-600" />
+                    <button className="bg-white text-blue-600 px-3 py-1.5 rounded-lg text-sm font-medium">
+                      Mulai
                     </button>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
+                  </div>
+                </div>
+              )}
 
-          {/* Oleh-oleh Tab */}
-          {activeTab === "oleh-oleh" && (
-            <motion.div
-              key="oleh-oleh"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-gray-900">Toko Oleh-oleh Terdekat</h2>
+              {/* Progress */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="flex -space-x-1">
+                    {currentItinerary.schedule.slice(0, 4).map((item, i) => (
+                      <div
+                        key={i}
+                        className={`w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center text-xs ${
+                          item.completed ? "bg-green-400" : "bg-white/20"
+                        }`}
+                      >
+                        {item.completed && <CheckCircle className="w-4 h-4 text-white" />}
+                      </div>
+                    ))}
+                  </div>
+                  <span className="text-xs text-white/80">
+                    {currentItinerary.schedule.filter((i) => i.completed).length}/{currentItinerary.schedule.length} selesai
+                  </span>
+                </div>
+                <button
+                  onClick={() => setShowTripDetails(!showTripDetails)}
+                  className="text-xs text-white/80 flex items-center gap-1 hover:text-white"
+                >
+                  Lihat Detail <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
 
-              <div className="space-y-3">
-                {nearbyShops.map((shop, index) => (
+              {/* Trip Details Dropdown */}
+              <AnimatePresence>
+                {showTripDetails && (
                   <motion.div
-                    key={shop.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-3 pt-3 border-t border-white/20 space-y-2"
                   >
-                    <div className="flex gap-3 mb-3">
-                      <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                        <Image src={shop.image} alt={shop.name} fill className="object-cover" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900">{shop.name}</h3>
-                        <p className="text-xs text-gray-500">{shop.address}</p>
-                        <div className="flex items-center gap-3 mt-1">
-                          <span className="flex items-center gap-0.5 text-xs">
-                            <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                            {shop.rating}
-                          </span>
-                          <span className="flex items-center gap-0.5 text-xs text-gray-500">
-                            <Navigation className="w-3 h-3" />
-                            {shop.distance.toFixed(1)} km
-                          </span>
-                          <span className="flex items-center gap-0.5 text-xs text-gray-500">
-                            <Clock className="w-3 h-3" />
-                            {shop.openHours}
-                          </span>
+                    {currentItinerary.schedule.map((item, index) => (
+                      <div
+                        key={index}
+                        className={`flex items-center gap-3 ${item.completed ? "opacity-60" : ""}`}
+                      >
+                        <div
+                          className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                            item.completed
+                              ? "bg-green-400"
+                              : item.type === "meal"
+                                ? "bg-orange-400"
+                                : "bg-white/20"
+                          }`}
+                        >
+                          {item.completed ? (
+                            <CheckCircle className="w-4 h-4" />
+                          ) : (
+                            <span className="text-xs">{index + 1}</span>
+                          )}
                         </div>
+                        <div className="flex-1">
+                          <p className={`text-sm ${item.completed ? "line-through" : ""}`}>
+                            {item.activity}
+                          </p>
+                        </div>
+                        <span className="text-xs text-white/70">{item.time}</span>
                       </div>
-                    </div>
-
-                    {/* Products */}
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {shop.products.map((product) => (
-                        <span key={product} className="px-2 py-0.5 bg-pink-50 text-pink-700 text-xs rounded-full">
-                          {product}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex gap-2">
-                      <a
-                        href={`tel:${shop.phone}`}
-                        className="flex-1 py-2 border border-gray-200 rounded-xl flex items-center justify-center gap-2 text-sm text-gray-700 hover:bg-gray-50"
-                      >
-                        <Phone className="w-4 h-4" />
-                        Telepon
-                      </a>
-                      <button
-                        onClick={() => openGoogleMapsDirection(shop.coordinates.lat, shop.coordinates.lng, shop.name)}
-                        className="flex-1 py-2 bg-pink-500 text-white rounded-xl flex items-center justify-center gap-2 text-sm font-medium hover:bg-pink-600"
-                      >
-                        <Route className="w-4 h-4" />
-                        Petunjuk Arah
-                      </button>
-                    </div>
+                    ))}
                   </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        )}
 
-          {/* Destinasi Tab */}
-          {activeTab === "destinasi" && (
-            <motion.div
-              key="destinasi"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-gray-900">Destinasi Sekitar</h2>
-                <Link href="/destinasi" className="text-sm text-blue-600 font-medium flex items-center gap-1">
-                  Lihat Semua <ChevronRight className="w-4 h-4" />
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                {nearbyDestinations.map((dest, index) => (
-                  <motion.div
-                    key={dest.id}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100"
-                  >
-                    <Link href={`/destinasi/${dest.slug}`}>
-                      <div className="relative h-28">
-                        <Image src={dest.image} alt={dest.name} fill className="object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                        <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full flex items-center gap-1">
-                          <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                          <span className="text-xs font-medium">{dest.rating}</span>
-                        </div>
-                        <div className="absolute bottom-2 left-2 right-2">
-                          <p className="text-white font-semibold text-sm line-clamp-1">{dest.name}</p>
-                        </div>
-                      </div>
-                    </Link>
-                    <div className="p-3">
-                      <div className="flex items-center gap-1 text-xs text-gray-500 mb-2">
-                        <Navigation className="w-3 h-3" />
-                        <span>{dest.distance.toFixed(1)} km</span>
-                        <span className="mx-1">•</span>
-                        <span className="truncate">{dest.location}</span>
-                      </div>
-                      <button
-                        onClick={() => openGoogleMapsDirection(dest.coordinates.lat, dest.coordinates.lng, dest.name)}
-                        className="w-full py-2 bg-blue-50 text-blue-600 rounded-lg text-xs font-medium hover:bg-blue-100 flex items-center justify-center gap-1"
-                      >
-                        <Route className="w-3 h-3" />
-                        Petunjuk Arah
-                      </button>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* CTA for trip planning */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mt-6 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white text-center"
-        >
-          <Sparkles className="w-10 h-10 mx-auto mb-3 text-yellow-300" />
-          <h3 className="text-lg font-bold mb-2">Ingin jelajahi lebih banyak?</h3>
-          <p className="text-white/80 text-sm mb-4">
-            Buat itinerary lengkap untuk perjalananmu di Sulawesi Selatan!
-          </p>
-          <Link
-            href="/rencanakan"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl"
+        {/* Contextual Recommendation Banner */}
+        {showRecommendationBanner && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-gradient-to-br from-orange-400 via-orange-500 to-amber-500 rounded-2xl p-4 mb-4 text-white relative overflow-hidden"
           >
-            <Route className="w-5 h-5" />
-            Rencanakan Perjalanan
-          </Link>
-        </motion.div>
+            <button
+              onClick={() => setShowRecommendationBanner(false)}
+              className="absolute top-3 right-3 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-2 mb-2">
+              {context.icon}
+              <span className="font-bold">{context.contextTitle}</span>
+              <span className="text-white/80 text-sm">⏰ {context.time}</span>
+            </div>
+
+            <h3 className="text-lg font-bold mb-1">{context.contextMessage}</h3>
+            <p className="text-sm text-white/80 mb-4 flex items-center gap-1">
+              <MapPin className="w-4 h-4" />
+              {context.contextSubMessage}
+            </p>
+
+            {/* Food Recommendations */}
+            <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">
+              {nearbyKuliner.slice(0, 2).map((food) => (
+                <div
+                  key={food.id}
+                  className="bg-white/20 backdrop-blur-sm rounded-xl p-2 flex items-center gap-2 min-w-[180px]"
+                >
+                  <div className="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                    <Image src={food.image} alt={food.name} fill className="object-cover" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm truncate">{food.name}</p>
+                    <p className="text-xs text-white/70 truncate">{food.restaurants?.[0] || "Restoran"}</p>
+                    <p className="text-xs">
+                      Rp{(food.priceMin / 1000).toFixed(0)}rb • {food.distance.toFixed(1)} km
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/kuliner"
+              className="mt-3 flex items-center gap-1 text-sm font-medium hover:underline"
+            >
+              Lihat Semua Kuliner <ChevronRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
+        )}
+
+        {/* Service Menu Grid */}
+        <div className="bg-white rounded-2xl shadow-sm p-4 mb-4">
+          <div className="grid grid-cols-4 gap-4">
+            {serviceMenuItems.slice(0, 4).map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${item.color}`}>
+                  <item.icon className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-xs font-medium text-gray-700">{item.name}</span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="border-t border-gray-100 my-4" />
+
+          <div className="grid grid-cols-4 gap-4">
+            {serviceMenuItems.slice(4, 8).map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${item.color}`}>
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <span className="text-xs font-medium text-gray-700">{item.name}</span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="border-t border-gray-100 my-4" />
+
+          <div className="grid grid-cols-4 gap-4">
+            {serviceMenuItems.slice(8, 12).map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${item.color}`}>
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <span className="text-xs font-medium text-gray-700">{item.name}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Nearby Destinations Quick View */}
+        <div className="bg-white rounded-2xl shadow-sm p-4 mb-4">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-bold text-gray-900">Destinasi Terdekat</h2>
+            <Link href="/destinasi" className="text-sm text-blue-600 font-medium flex items-center gap-1">
+              Lihat Semua <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">
+            {destinationsData.destinations
+              .filter((d) => d.coordinates)
+              .slice(0, 4)
+              .map((dest) => {
+                const distance = calculateDistance(
+                  userLocation.lat,
+                  userLocation.lng,
+                  dest.coordinates.lat,
+                  dest.coordinates.lng
+                );
+                return (
+                  <Link
+                    key={dest.id}
+                    href={`/destinasi/${dest.slug}`}
+                    className="min-w-[140px] flex-shrink-0"
+                  >
+                    <div className="relative h-24 rounded-xl overflow-hidden mb-2">
+                      <Image src={dest.image} alt={dest.name} fill className="object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-2 left-2 right-2">
+                        <p className="text-white font-semibold text-sm line-clamp-1">{dest.name}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-gray-500">
+                      <Navigation className="w-3 h-3" />
+                      <span>{distance.toFixed(1)} km</span>
+                      <span className="mx-1">•</span>
+                      <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                      <span>{dest.rating}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+          </div>
+        </div>
+
+        {/* Quick CTA */}
+        <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-4 text-white">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+              <Play className="w-6 h-6" />
+            </div>
+            <div className="flex-1">
+              <p className="font-bold">Belum punya rencana?</p>
+              <p className="text-sm text-white/80">Buat itinerary perjalananmu sekarang</p>
+            </div>
+            <Link
+              href="/rencanakan"
+              className="bg-white text-emerald-600 px-4 py-2 rounded-xl text-sm font-bold"
+            >
+              Mulai
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );
