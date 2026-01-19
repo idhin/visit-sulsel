@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -322,7 +322,7 @@ const createDemoScenario = (): TripPlan => {
   };
 };
 
-export default function RencanakanPage() {
+function RencanakanContent() {
   const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedTemplate, setSelectedTemplate] = useState<Itinerary | null>(null);
@@ -2338,5 +2338,25 @@ export default function RencanakanPage() {
         </div>
       )}
     </main>
+  );
+}
+
+// Loading fallback for Suspense
+function RencanakanLoading() {
+  return (
+    <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-gray-600">Memuat halaman...</p>
+      </div>
+    </main>
+  );
+}
+
+export default function RencanakanPage() {
+  return (
+    <Suspense fallback={<RencanakanLoading />}>
+      <RencanakanContent />
+    </Suspense>
   );
 }
