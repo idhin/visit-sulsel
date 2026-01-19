@@ -58,7 +58,7 @@ const services = [
     features: ["Guide Budaya", "Guide Adventure", "Guide Kuliner", "Guide Sejarah"],
     color: "from-orange-500 to-amber-500",
     bgGlow: "bg-orange-500/20",
-    href: "/guide",
+    href: "/layanan/pemandu",
     stats: "100+ Guide",
   },
   {

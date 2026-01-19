@@ -1,0 +1,171 @@
+{
+  "origins": [
+    {
+      "id": "jakarta",
+      "name": "Jakarta",
+      "province": "DKI Jakarta",
+      "airport": "Soekarno-Hatta (CGK)",
+      "flightDuration": "2 jam 15 menit",
+      "flightPriceMin": 800000,
+      "flightPriceMax": 1500000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Citilink", "Batik Air"],
+      "flightsPerDay": 15,
+      "tips": "Penerbangan pagi (05:00-08:00) biasanya lebih murah. Book 2-3 minggu sebelumnya untuk harga terbaik."
+    },
+    {
+      "id": "bandung",
+      "name": "Bandung",
+      "province": "Jawa Barat",
+      "airport": "Husein Sastranegara (BDO)",
+      "flightDuration": "2 jam 30 menit",
+      "flightPriceMin": 850000,
+      "flightPriceMax": 1600000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Citilink"],
+      "flightsPerDay": 5,
+      "tips": "Penerbangan terbatas, sebaiknya book jauh hari. Alternatif: transit via Jakarta."
+    },
+    {
+      "id": "surabaya",
+      "name": "Surabaya",
+      "province": "Jawa Timur",
+      "airport": "Juanda (SUB)",
+      "flightDuration": "1 jam 30 menit",
+      "flightPriceMin": 600000,
+      "flightPriceMax": 1200000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Citilink", "Wings Air"],
+      "flightsPerDay": 12,
+      "tips": "Banyak pilihan penerbangan langsung. Harga kompetitif terutama weekday."
+    },
+    {
+      "id": "yogyakarta",
+      "name": "Yogyakarta",
+      "province": "DI Yogyakarta",
+      "airport": "Adisucipto (JOG) / YIA",
+      "flightDuration": "1 jam 45 menit",
+      "flightPriceMin": 700000,
+      "flightPriceMax": 1300000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Batik Air"],
+      "flightsPerDay": 6,
+      "tips": "Dari YIA (bandara baru) lebih banyak pilihan. Musim liburan harga naik signifikan."
+    },
+    {
+      "id": "bali",
+      "name": "Bali (Denpasar)",
+      "province": "Bali",
+      "airport": "Ngurah Rai (DPS)",
+      "flightDuration": "1 jam 20 menit",
+      "flightPriceMin": 550000,
+      "flightPriceMax": 1100000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Citilink", "AirAsia"],
+      "flightsPerDay": 10,
+      "tips": "Penerbangan terdekat dan termurah. Banyak promo dari maskapai LCC."
+    },
+    {
+      "id": "semarang",
+      "name": "Semarang",
+      "province": "Jawa Tengah",
+      "airport": "Ahmad Yani (SRG)",
+      "flightDuration": "1 jam 40 menit",
+      "flightPriceMin": 650000,
+      "flightPriceMax": 1200000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Citilink"],
+      "flightsPerDay": 4,
+      "tips": "Penerbangan terbatas. Alternatif: via Surabaya atau Jakarta."
+    },
+    {
+      "id": "medan",
+      "name": "Medan",
+      "province": "Sumatera Utara",
+      "airport": "Kualanamu (KNO)",
+      "flightDuration": "3 jam 30 menit",
+      "flightPriceMin": 1200000,
+      "flightPriceMax": 2500000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Citilink"],
+      "flightsPerDay": 3,
+      "tips": "Biasanya transit di Jakarta. Direct flight terbatas."
+    },
+    {
+      "id": "palembang",
+      "name": "Palembang",
+      "province": "Sumatera Selatan",
+      "airport": "Sultan Mahmud Badaruddin II (PLM)",
+      "flightDuration": "2 jam 45 menit",
+      "flightPriceMin": 900000,
+      "flightPriceMax": 1800000,
+      "airlines": ["Garuda Indonesia", "Lion Air"],
+      "flightsPerDay": 2,
+      "tips": "Direct flight jarang, biasanya transit Jakarta."
+    },
+    {
+      "id": "balikpapan",
+      "name": "Balikpapan",
+      "province": "Kalimantan Timur",
+      "airport": "Sultan Aji Muhammad Sulaiman (BPN)",
+      "flightDuration": "1 jam 15 menit",
+      "flightPriceMin": 500000,
+      "flightPriceMax": 1000000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Citilink", "Sriwijaya"],
+      "flightsPerDay": 8,
+      "tips": "Penerbangan dekat dan murah. Banyak direct flight."
+    },
+    {
+      "id": "manado",
+      "name": "Manado",
+      "province": "Sulawesi Utara",
+      "airport": "Sam Ratulangi (MDC)",
+      "flightDuration": "2 jam",
+      "flightPriceMin": 700000,
+      "flightPriceMax": 1400000,
+      "airlines": ["Garuda Indonesia", "Lion Air", "Wings Air"],
+      "flightsPerDay": 4,
+      "tips": "Direct flight tersedia. Bisa kombinasi trip Sulawesi Utara & Selatan."
+    },
+    {
+      "id": "pontianak",
+      "name": "Pontianak",
+      "province": "Kalimantan Barat",
+      "airport": "Supadio (PNK)",
+      "flightDuration": "2 jam 30 menit",
+      "flightPriceMin": 800000,
+      "flightPriceMax": 1600000,
+      "airlines": ["Garuda Indonesia", "Lion Air"],
+      "flightsPerDay": 2,
+      "tips": "Penerbangan terbatas. Transit Jakarta untuk lebih banyak pilihan."
+    },
+    {
+      "id": "pekanbaru",
+      "name": "Pekanbaru",
+      "province": "Riau",
+      "airport": "Sultan Syarif Kasim II (PKU)",
+      "flightDuration": "3 jam",
+      "flightPriceMin": 1000000,
+      "flightPriceMax": 2000000,
+      "airlines": ["Garuda Indonesia", "Lion Air"],
+      "flightsPerDay": 2,
+      "tips": "Direct flight jarang. Transit di Jakarta lebih praktis."
+    }
+  ],
+  "destinationAirport": {
+    "name": "Sultan Hasanuddin International Airport",
+    "code": "UPG",
+    "city": "Makassar",
+    "distanceToCity": "20 km",
+    "transferOptions": [
+      {
+        "type": "Taksi Bandara",
+        "price": "Rp150.000 - Rp200.000",
+        "duration": "30-45 menit"
+      },
+      {
+        "type": "Grab/Gojek",
+        "price": "Rp80.000 - Rp120.000",
+        "duration": "30-45 menit"
+      },
+      {
+        "type": "Bus DAMRI",
+        "price": "Rp25.000",
+        "duration": "45-60 menit"
+      }
+    ]
+  }
+}

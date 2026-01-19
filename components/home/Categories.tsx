@@ -62,7 +62,7 @@ const categories = [
     icon: Map,
     title: "Paket Wisata",
     description: "Itinerary lengkap untuk perjalanan Anda",
-    href: "/itinerary",
+    href: "/rencanakan",
     color: "from-teal-500 to-green-600",
   },
   {

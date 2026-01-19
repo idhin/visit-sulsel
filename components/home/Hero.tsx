@@ -9,7 +9,7 @@ const quickLinks = [
   { icon: MapPin, label: "Destinasi", href: "/destinasi" },
   { icon: Store, label: "Belanja", href: "/belanja" },
   { icon: Camera, label: "Creator", href: "/kreator" },
-  { icon: Users, label: "Guide", href: "/guide" },
+  { icon: Users, label: "Pemandu", href: "/layanan/pemandu" },
 ];
 
 const stats = [

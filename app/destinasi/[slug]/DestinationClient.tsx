@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   MapPin,
   Star,
@@ -22,9 +23,11 @@ import {
   Camera,
   Phone,
   MessageCircle,
+  Check,
 } from "lucide-react";
 import WishlistButton from "@/components/shared/WishlistButton";
 import ShareButton from "@/components/shared/ShareButton";
+import { addPendingDestination } from "@/lib/tripPlanner";
 
 interface Destination {
   id: string;
@@ -50,11 +53,34 @@ interface Props {
 }
 
 export default function DestinationClient({ destination, relatedDestinations }: Props) {
+  const router = useRouter();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [showFullDesc, setShowFullDesc] = useState(false);
+  const [showAddedToast, setShowAddedToast] = useState(false);
 
   const allImages = [destination.image, ...destination.gallery];
+
+  // Handle add to trip
+  const handleAddToTrip = () => {
+    // Add destination to pending list
+    addPendingDestination({
+      id: destination.id,
+      name: destination.name,
+      slug: destination.slug,
+      image: destination.image,
+      location: destination.location,
+      addedAt: new Date().toISOString(),
+    });
+
+    // Show toast
+    setShowAddedToast(true);
+
+    // Redirect to rencanakan page after short delay
+    setTimeout(() => {
+      router.push("/rencanakan?from=destination&dest=" + destination.slug);
+    }, 1000);
+  };
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
@@ -277,14 +303,48 @@ export default function DestinationClient({ destination, relatedDestinations }: 
           <button className="p-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
             <Navigation className="w-5 h-5 text-gray-600" />
           </button>
-          <Link
-            href="/itinerary"
-            className="flex-1 py-3 bg-blue-600 text-white font-semibold rounded-xl text-center hover:bg-blue-700 transition-colors"
+          <button
+            onClick={handleAddToTrip}
+            disabled={showAddedToast}
+            className={`flex-1 py-3 font-semibold rounded-xl text-center transition-all flex items-center justify-center gap-2 ${
+              showAddedToast
+                ? "bg-green-500 text-white"
+                : "bg-blue-600 text-white hover:bg-blue-700"
+            }`}
           >
-            Tambah ke Trip
-          </Link>
+            {showAddedToast ? (
+              <>
+                <Check className="w-5 h-5" />
+                Ditambahkan!
+              </>
+            ) : (
+              "Tambah ke Trip"
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {showAddedToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="fixed bottom-36 left-4 right-4 z-50 pointer-events-none"
+          >
+            <div className="bg-green-600 text-white rounded-2xl p-4 shadow-lg shadow-green-600/30 flex items-center gap-3 max-w-md mx-auto">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <CheckCircle className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <p className="font-semibold">{destination.name}</p>
+                <p className="text-sm text-green-100">Ditambahkan ke rencana trip</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Lightbox */}
       <AnimatePresence>

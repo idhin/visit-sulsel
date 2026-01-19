@@ -28,7 +28,7 @@ const services = [
       { icon: Ticket, label: "Tiket Wisata", href: "/destinasi", color: "from-blue-500 to-blue-600", desc: "Pesan tiket destinasi" },
       { icon: Hotel, label: "Hotel & Penginapan", href: "/akomodasi", color: "from-orange-500 to-orange-600", desc: "Booking akomodasi" },
       { icon: ShoppingBag, label: "Belanja UMKM", href: "/belanja", color: "from-pink-500 to-pink-600", desc: "Produk lokal Sulsel" },
-      { icon: Users, label: "Tour Guide", href: "/guide", color: "from-green-500 to-green-600", desc: "Pemandu wisata resmi" },
+      { icon: Users, label: "Pemandu Wisata", href: "/layanan/pemandu", color: "from-green-500 to-green-600", desc: "Layanan pemandu resmi pemerintah" },
     ],
   },
   {
@@ -43,7 +43,7 @@ const services = [
   {
     category: "Lainnya",
     items: [
-      { icon: Compass, label: "Itinerary", href: "/itinerary", color: "from-cyan-500 to-cyan-600", desc: "Rencana perjalanan" },
+      { icon: Compass, label: "Rencanakan", href: "/rencanakan", color: "from-cyan-500 to-cyan-600", desc: "Rencana perjalanan" },
       { icon: Heart, label: "Wishlist", href: "/wishlist", color: "from-rose-500 to-rose-600", desc: "Destinasi favorit" },
       { icon: Gift, label: "Promo", href: "/promo", color: "from-amber-500 to-amber-600", desc: "Penawaran spesial" },
       { icon: MessageCircle, label: "Komunitas", href: "/komunitas", color: "from-emerald-500 to-emerald-600", desc: "Forum diskusi" },

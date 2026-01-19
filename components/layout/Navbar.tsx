@@ -19,7 +19,7 @@ const servicesLinks = [
   { href: "/pesan", label: "Pesan", icon: Ticket, desc: "Tiket, hotel, paket wisata" },
   { href: "/belanja", label: "Belanja", icon: ShoppingCart, desc: "Produk UMKM lokal" },
   { href: "/kreator", label: "Creator Hub", icon: Camera, desc: "Fotografer & videografer" },
-  { href: "/guide", label: "Tour Guide", icon: Users, desc: "Pemandu wisata lokal" },
+  { href: "/layanan/pemandu", label: "Pemandu", icon: Users, desc: "Layanan pemandu resmi" },
   { href: "/komunitas", label: "Komunitas", icon: MessageSquare, desc: "Forum & review" },
 ];
 
@@ -27,7 +27,7 @@ const aboutLinks = [
   { href: "/tentang", label: "Tentang Platform" },
   { href: "/dampak", label: "Dampak Ekonomi" },
   { href: "/akomodasi", label: "Akomodasi" },
-  { href: "/itinerary", label: "Itinerary" },
+  { href: "/rencanakan", label: "Rencanakan" },
   { href: "/peta", label: "Peta Wisata" },
 ];
 

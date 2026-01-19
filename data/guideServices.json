@@ -1,0 +1,132 @@
+{
+  "services": [
+    {
+      "id": "pemandu-toraja",
+      "area": "Tana Toraja",
+      "areaSlug": "toraja",
+      "image": "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+      "description": "Jelajahi keajaiban budaya Toraja dengan pemandu berpengalaman",
+      "highlights": ["Upacara adat", "Tongkonan", "Londa & Kete Kesu", "Trekking desa"],
+      "pricePerDay": 500000,
+      "priceHalfDay": 300000,
+      "includes": [
+        "Pendampingan sesuai durasi",
+        "Penjelasan budaya & sejarah",
+        "Rekomendasi spot foto",
+        "Tips kuliner lokal"
+      ],
+      "languages": ["Indonesia", "English", "Toraja"],
+      "maxGroupSize": 10,
+      "meetingPoint": "Hotel atau lokasi pilihan Anda di Rantepao"
+    },
+    {
+      "id": "pemandu-makassar",
+      "area": "Makassar",
+      "areaSlug": "makassar",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Fort_Rotterdam%2C_Makassar%2C_Indonesia_-_20100227-02.jpg",
+      "description": "Kenali kota Makassar dari sisi sejarah, kuliner, dan budaya",
+      "highlights": ["Fort Rotterdam", "Pantai Losari", "Kuliner khas", "Pasar tradisional"],
+      "pricePerDay": 400000,
+      "priceHalfDay": 250000,
+      "includes": [
+        "Pendampingan sesuai durasi",
+        "Penjelasan sejarah kota",
+        "Rekomendasi kuliner terbaik",
+        "Navigasi ke hidden gems"
+      ],
+      "languages": ["Indonesia", "English"],
+      "maxGroupSize": 15,
+      "meetingPoint": "Hotel atau bandara Sultan Hasanuddin"
+    },
+    {
+      "id": "pemandu-bira",
+      "area": "Pantai Bira",
+      "areaSlug": "bira",
+      "image": "https://satyawinnie.com/wp-content/uploads/elementor/thumbs/67FA112C-0367-4AED-970B-8B38BD5D5EF7-oyx0zo4xsweejstfi4wpewcfwuwt2yxcaauwadsj9c.jpg",
+      "description": "Nikmati keindahan pantai dan budaya pembuatan perahu Pinisi",
+      "highlights": ["Pantai Bira", "Desa Pinisi Ara", "Snorkeling", "Sunset point"],
+      "pricePerDay": 450000,
+      "priceHalfDay": 275000,
+      "includes": [
+        "Pendampingan sesuai durasi",
+        "Penjelasan budaya Pinisi",
+        "Koordinasi snorkeling",
+        "Tips pantai terbaik"
+      ],
+      "languages": ["Indonesia", "English"],
+      "maxGroupSize": 10,
+      "meetingPoint": "Hotel di Bira atau Bulukumba"
+    },
+    {
+      "id": "pemandu-maros",
+      "area": "Maros-Pangkep",
+      "areaSlug": "maros",
+      "image": "https://ik.imagekit.io/tvlk/blog/2024/08/eP8o7huA-image-3.png?tr=q-70,c-at_max,w-1000,h-600",
+      "description": "Eksplorasi keajaiban alam karst, gua, dan air terjun",
+      "highlights": ["Bantimurung", "Rammang-Rammang", "Gua prasejarah", "Karst landscape"],
+      "pricePerDay": 400000,
+      "priceHalfDay": 250000,
+      "includes": [
+        "Pendampingan sesuai durasi",
+        "Penjelasan geologi karst",
+        "Navigasi trekking aman",
+        "Info flora & fauna"
+      ],
+      "languages": ["Indonesia", "English"],
+      "maxGroupSize": 12,
+      "meetingPoint": "Hotel di Makassar atau gerbang Bantimurung"
+    },
+    {
+      "id": "pemandu-bone",
+      "area": "Bone",
+      "areaSlug": "bone",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
+      "description": "Telusuri jejak kerajaan Bugis dan tradisi yang masih lestari",
+      "highlights": ["Museum Bone", "Makam Raja", "Tenun Bugis", "Tradisi lokal"],
+      "pricePerDay": 350000,
+      "priceHalfDay": 200000,
+      "includes": [
+        "Pendampingan sesuai durasi",
+        "Penjelasan sejarah kerajaan",
+        "Akses ke pengrajin tenun",
+        "Interaksi budaya lokal"
+      ],
+      "languages": ["Indonesia", "Bugis"],
+      "maxGroupSize": 10,
+      "meetingPoint": "Hotel atau terminal Watampone"
+    },
+    {
+      "id": "pemandu-palopo",
+      "area": "Palopo & Luwu",
+      "areaSlug": "palopo",
+      "image": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=800",
+      "description": "Jelajahi budaya Luwu, danau, dan wisata kopi",
+      "highlights": ["Istana Luwu", "Danau Matano", "Kebun kopi", "Pantai Palopo"],
+      "pricePerDay": 375000,
+      "priceHalfDay": 225000,
+      "includes": [
+        "Pendampingan sesuai durasi",
+        "Penjelasan budaya Luwu",
+        "Tour kebun kopi",
+        "Akses ke spot tersembunyi"
+      ],
+      "languages": ["Indonesia", "English"],
+      "maxGroupSize": 10,
+      "meetingPoint": "Hotel di Palopo atau bandara Bua"
+    }
+  ],
+  "durations": [
+    { "id": "half", "label": "Half Day (4-5 jam)", "multiplier": "priceHalfDay" },
+    { "id": "full", "label": "Full Day (8-10 jam)", "multiplier": "pricePerDay" }
+  ],
+  "governmentInfo": {
+    "title": "Layanan Resmi Dinas Pariwisata",
+    "description": "Semua pemandu adalah mitra terverifikasi dengan harga standar yang telah ditetapkan pemerintah.",
+    "guarantees": [
+      "Pemandu tersertifikasi",
+      "Harga transparan",
+      "Jaminan layanan",
+      "Asuransi wisata"
+    ]
+  }
+}

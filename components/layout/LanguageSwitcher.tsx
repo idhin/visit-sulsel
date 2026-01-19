@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Check } from "lucide-react";
 
 interface LanguageSwitcherProps {
   className?: string;
+  variant?: "light" | "dark";
 }
 
 const languages = [
@@ -13,16 +14,24 @@ const languages = [
   { code: "en", name: "English", flag: "🇺🇸" },
 ];
 
-export default function LanguageSwitcher({ className }: LanguageSwitcherProps) {
+export default function LanguageSwitcher({ className, variant = "light" }: LanguageSwitcherProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("id");
+
+  useEffect(() => {
+    // Load saved locale
+    const saved = localStorage.getItem("locale");
+    if (saved && (saved === "id" || saved === "en")) {
+      setCurrentLang(saved);
+    }
+  }, []);
 
   const handleChange = (code: string) => {
     setCurrentLang(code);
     localStorage.setItem("locale", code);
     setIsOpen(false);
-    // Trigger page refresh or state update
-    window.dispatchEvent(new CustomEvent("localeChange", { detail: code }));
+    // Reload page to apply new language
+    window.location.reload();
   };
 
   const current = languages.find((l) => l.code === currentLang);
@@ -31,10 +40,14 @@ export default function LanguageSwitcher({ className }: LanguageSwitcherProps) {
     <div className={`relative ${className}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 hover:bg-white/10 rounded-full transition-colors"
+        className={`flex items-center gap-2 px-3 py-2 rounded-full transition-colors ${
+          variant === "dark" 
+            ? "hover:bg-white/10" 
+            : "hover:bg-gray-100 border border-gray-200"
+        }`}
       >
         <span className="text-lg">{current?.flag}</span>
-        <Globe className="w-4 h-4 text-white/70" />
+        <Globe className={`w-4 h-4 ${variant === "dark" ? "text-white/70" : "text-gray-500"}`} />
       </button>
 
       <AnimatePresence>

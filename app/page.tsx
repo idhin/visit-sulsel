@@ -5,52 +5,38 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Search,
   MapPin,
-  Ticket,
-  Hotel,
-  ShoppingBag,
-  Users,
-  Camera,
-  UtensilsCrossed,
-  Calendar,
-  Map,
   Star,
   ChevronRight,
-  Flame,
   Percent,
   Heart,
-  Navigation,
-  Sparkles,
-  TrendingUp,
-  Clock,
-  ArrowRight,
+  Calendar,
+  Mountain,
+  Waves,
+  Landmark,
+  TreePine,
+  Plane,
+  Hotel,
+  UtensilsCrossed,
+  ShoppingBag,
+  Users,
+  Map,
   Sun,
-  Sunset,
-  Moon,
-  Coffee,
-  Utensils,
-  Compass,
-  Route,
-  CloudRain,
-  Cloud,
   CloudSun,
+  Cloud,
+  CloudRain,
   Loader2,
-  X,
-  LocateFixed,
+  Navigation,
+  Route,
+  Sparkles,
+  Compass,
 } from "lucide-react";
 import destinationsData from "@/data/destinations.json";
 import eventsData from "@/data/events.json";
-import culinaryData from "@/data/culinary.json";
-
-type LocationState = {
-  status: "checking" | "idle" | "requesting" | "granted" | "denied" | "error";
-  latitude: number | null;
-  longitude: number | null;
-  district: string; // Kecamatan
-  city: string;
-  error?: string;
-};
+import itinerariesData from "@/data/itineraries.json";
+import { formatPrice } from "@/lib/utils";
+import OnboardingModal from "@/components/shared/OnboardingModal";
+import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 
 type WeatherState = {
   temperature: number | null;
@@ -58,24 +44,25 @@ type WeatherState = {
   isLoading: boolean;
 };
 
-const mainServices = [
-  { icon: Ticket, label: "Tiket", href: "/destinasi", color: "from-blue-500 to-blue-600", bgColor: "bg-blue-50" },
-  { icon: Hotel, label: "Hotel", href: "/akomodasi", color: "from-orange-500 to-orange-600", bgColor: "bg-orange-50" },
-  { icon: ShoppingBag, label: "Belanja", href: "/belanja", color: "from-pink-500 to-pink-600", bgColor: "bg-pink-50" },
-  { icon: Users, label: "Guide", href: "/guide", color: "from-green-500 to-green-600", bgColor: "bg-green-50" },
+// Kota asal untuk trip planning
+const originCities = [
+  { id: "jakarta", name: "Jakarta", flightDuration: "2 jam 15 menit", flightPrice: "Rp800.000 - Rp1.500.000" },
+  { id: "bandung", name: "Bandung", flightDuration: "2 jam 30 menit", flightPrice: "Rp850.000 - Rp1.600.000" },
+  { id: "surabaya", name: "Surabaya", flightDuration: "1 jam 30 menit", flightPrice: "Rp600.000 - Rp1.200.000" },
+  { id: "yogyakarta", name: "Yogyakarta", flightDuration: "1 jam 45 menit", flightPrice: "Rp700.000 - Rp1.300.000" },
+  { id: "bali", name: "Bali", flightDuration: "1 jam 20 menit", flightPrice: "Rp550.000 - Rp1.100.000" },
+  { id: "semarang", name: "Semarang", flightDuration: "1 jam 40 menit", flightPrice: "Rp650.000 - Rp1.200.000" },
 ];
 
-const moreServices = [
-  { icon: Camera, label: "Creator", href: "/kreator", color: "text-purple-500", bg: "bg-purple-50" },
-  { icon: UtensilsCrossed, label: "Kuliner", href: "/kuliner", color: "text-red-500", bg: "bg-red-50" },
-  { icon: Calendar, label: "Event", href: "/event", color: "text-indigo-500", bg: "bg-indigo-50" },
-  { icon: Map, label: "Peta", href: "/peta", color: "text-teal-500", bg: "bg-teal-50" },
-  { icon: Route, label: "Itinerary", href: "/itinerary", color: "text-cyan-500", bg: "bg-cyan-50" },
-  { icon: Heart, label: "Wishlist", href: "/wishlist", color: "text-rose-500", bg: "bg-rose-50" },
-  { icon: Percent, label: "Promo", href: "/promo", color: "text-amber-500", bg: "bg-amber-50" },
-  { icon: Users, label: "Komunitas", href: "/komunitas", color: "text-emerald-500", bg: "bg-emerald-50" },
+// Kategori wisata
+const categories = [
+  { id: "alam", name: "Alam", icon: Mountain, color: "from-green-500 to-emerald-600", bgColor: "bg-green-50" },
+  { id: "pantai", name: "Pantai", icon: Waves, color: "from-blue-500 to-cyan-600", bgColor: "bg-blue-50" },
+  { id: "budaya", name: "Budaya", icon: Landmark, color: "from-amber-500 to-orange-600", bgColor: "bg-amber-50" },
+  { id: "sejarah", name: "Sejarah", icon: TreePine, color: "from-purple-500 to-indigo-600", bgColor: "bg-purple-50" },
 ];
 
+// Promo tetap ada
 const promos = [
   {
     id: 1,
@@ -100,112 +87,95 @@ const promos = [
   },
 ];
 
-const getTimeContext = () => {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 10) {
-    return {
-      greeting: "Selamat Pagi",
-      icon: Sun,
-      message: "Awali hari dengan sarapan khas Sulsel",
-      subtitle: "Berikut rekomendasi tempat sarapan terdekat dari lokasimu",
-      color: "from-amber-400 to-orange-500",
-      bgColor: "bg-amber-50",
-      textColor: "text-amber-700",
-      type: "breakfast",
-      foodTypes: ["Coto Makassar", "Pallubasa", "Kopi Toraja"],
-    };
-  } else if (hour >= 10 && hour < 14) {
-    return {
-      greeting: "Selamat Siang",
-      icon: Sun,
-      message: "Waktunya makan siang!",
-      subtitle: "Kami rekomendasikan resto terdekat dari lokasimu",
-      color: "from-orange-500 to-red-500",
-      bgColor: "bg-orange-50",
-      textColor: "text-orange-700",
-      type: "lunch",
-      foodTypes: ["Sop Konro", "Coto Makassar", "Pa'lu Butung"],
-    };
-  } else if (hour >= 14 && hour < 17) {
-    return {
-      greeting: "Selamat Sore",
-      icon: Sunset,
-      message: "Waktunya ngemil sore!",
-      subtitle: "Berikut camilan khas Makassar di sekitarmu",
-      color: "from-orange-400 to-pink-500",
-      bgColor: "bg-pink-50",
-      textColor: "text-pink-700",
-      type: "snack",
-      foodTypes: ["Pisang Epe", "Es Pisang Ijo", "Kopi Toraja"],
-    };
-  } else if (hour >= 17 && hour < 21) {
-    return {
-      greeting: "Selamat Malam",
-      icon: Sunset,
-      message: "Sudah waktunya makan malam!",
-      subtitle: "Berikut rekomendasi resto terdekat dari lokasimu",
-      color: "from-purple-500 to-indigo-600",
-      bgColor: "bg-purple-50",
-      textColor: "text-purple-700",
-      type: "dinner",
-      foodTypes: ["Sop Konro", "Pallubasa", "Kapurung"],
-    };
-  } else {
-    return {
-      greeting: "Selamat Malam",
-      icon: Moon,
-      message: "Lapar tengah malam?",
-      subtitle: "Cari makanan yang masih buka di sekitarmu",
-      color: "from-indigo-600 to-purple-700",
-      bgColor: "bg-indigo-50",
-      textColor: "text-indigo-700",
-      type: "night",
-      foodTypes: ["Coto Makassar", "Pisang Epe", "Es Pisang Ijo"],
-    };
-  }
-};
+// Hero carousel slides
+const heroSlides = [
+  {
+    image: "https://www.gotravelaindonesia.com/wp-content/uploads/Tana-Toraja-Sulawesi.jpg",
+    title: "Tana Toraja",
+    description: "Destinasi budaya dengan rumah adat Tongkonan dan tradisi unik",
+    badge: "Warisan Budaya",
+  },
+  {
+    image: "https://satyawinnie.com/wp-content/uploads/elementor/thumbs/67FA112C-0367-4AED-970B-8B38BD5D5EF7-oyx0zo4xsweejstfi4wpewcfwuwt2yxcaauwadsj9c.jpg",
+    title: "Pantai Bira",
+    description: "Surga tersembunyi dengan pasir putih dan pembuatan perahu Pinisi",
+    badge: "Pantai Eksotis",
+  },
+  {
+    image: "https://ik.imagekit.io/tvlk/blog/2024/08/eP8o7huA-image-3.png?tr=q-70,c-at_max,w-1000,h-600",
+    title: "Bantimurung",
+    description: "Kerajaan kupu-kupu dengan air terjun spektakuler",
+    badge: "Wisata Alam",
+  },
+  {
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Fort_Rotterdam%2C_Makassar%2C_Indonesia_-_20100227-02.jpg",
+    title: "Fort Rotterdam",
+    description: "Benteng bersejarah peninggalan Kerajaan Gowa",
+    badge: "Situs Sejarah",
+  },
+];
+
+// Layanan lainnya (di bawah)
+const otherServices = [
+  { icon: Hotel, label: "Akomodasi", href: "/akomodasi", color: "text-orange-500", bg: "bg-orange-50" },
+  { icon: UtensilsCrossed, label: "Kuliner", href: "/kuliner", color: "text-red-500", bg: "bg-red-50" },
+  { icon: ShoppingBag, label: "Oleh-oleh", href: "/belanja", color: "text-pink-500", bg: "bg-pink-50" },
+  { icon: Users, label: "Pemandu", href: "/layanan/pemandu", color: "text-green-500", bg: "bg-green-50" },
+  { icon: Map, label: "Peta Wisata", href: "/peta", color: "text-teal-500", bg: "bg-teal-50" },
+  { icon: Calendar, label: "Event", href: "/event", color: "text-indigo-500", bg: "bg-indigo-50" },
+];
 
 export default function Home() {
+  const [selectedOrigin, setSelectedOrigin] = useState(originCities[0]);
   const [currentPromo, setCurrentPromo] = useState(0);
-  const [searchFocused, setSearchFocused] = useState(false);
-  const [timeContext, setTimeContext] = useState(getTimeContext());
-  const [showContextBanner, setShowContextBanner] = useState(true);
-  
-  const [location, setLocation] = useState<LocationState>({
-    status: "checking", // Start with checking localStorage
-    latitude: null,
-    longitude: null,
-    district: "",
-    city: "Makassar",
-  });
-  
-  const [hasAskedPermission, setHasAskedPermission] = useState(true); // Default true to hide popup initially
-  
   const [weather, setWeather] = useState<WeatherState>({
     temperature: null,
     weatherCode: null,
-    isLoading: false,
+    isLoading: true,
   });
+  const [activeMode, setActiveMode] = useState<"planning" | "onlocation">("planning");
+  const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
 
-  const topDestinations = destinationsData.destinations
-    .filter((d) => d.featured)
-    .slice(0, 6);
-  
-  const recommendedFood = culinaryData.culinary
-    .filter(food => timeContext.foodTypes.some(type => food.name.includes(type.split(" ")[0])))
-    .slice(0, 3);
+  // Hero carousel auto-slide
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
+  // Load saved mode preference
+  useEffect(() => {
+    const savedMode = localStorage.getItem("visitsulsel_mode") as "planning" | "onlocation" | null;
+    if (savedMode) {
+      setActiveMode(savedMode);
+    }
+  }, []);
+
+  // Handle mode change
+  const handleModeChange = (mode: "planning" | "onlocation") => {
+    setActiveMode(mode);
+    localStorage.setItem("visitsulsel_mode", mode);
+  };
+
+  // Get destinations
+  const featuredDestinations = destinationsData.destinations.filter((d) => d.featured);
+  const allDestinations = destinationsData.destinations;
+
+  // Get itineraries
+  const featuredItineraries = itinerariesData.itineraries.filter((i) => i.featured).slice(0, 3);
+
+  // Get upcoming events
   const upcomingEvents = eventsData.events
     .filter((e) => new Date(e.date) > new Date())
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .slice(0, 3);
 
-  // Fetch weather data
-  const fetchWeather = useCallback(async (lat: number, lon: number) => {
-    setWeather(prev => ({ ...prev, isLoading: true }));
+  // Fetch weather
+  const fetchWeather = useCallback(async () => {
     try {
       const res = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`
+        `https://api.open-meteo.com/v1/forecast?latitude=-5.1477&longitude=119.4327&current=temperature_2m,weather_code`
       );
       const data = await res.json();
       setWeather({
@@ -218,135 +188,11 @@ export default function Home() {
     }
   }, []);
 
-  // Reverse geocoding to get location details
-  const getLocationDetails = useCallback(async (lat: number, lon: number) => {
-    try {
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=id&zoom=18`
-      );
-      const data = await res.json();
-      const address = data.address || {};
-      
-      // Get district (kecamatan) - try multiple fields
-      const district = address.suburb || address.village || address.neighbourhood || address.district || "";
-      
-      // Get city
-      const city = address.city || address.town || address.county || address.state || "Sulawesi Selatan";
-      
-      setLocation(prev => ({ 
-        ...prev, 
-        district: district,
-        city: city,
-      }));
-    } catch {
-      // Keep default values
-    }
-  }, []);
-
-  // Request location permission
-  const requestLocation = useCallback((fromPopup = false) => {
-    if (fromPopup) {
-      // Mark that we've asked permission
-      localStorage.setItem("visitsulsel_location_asked", "true");
-      setHasAskedPermission(true);
-    }
-    
-    setLocation(prev => ({ ...prev, status: "requesting" }));
-    
-    if (!navigator.geolocation) {
-      setLocation(prev => ({ 
-        ...prev, 
-        status: "error", 
-        error: "Geolocation tidak didukung browser Anda" 
-      }));
-      fetchWeather(-5.1477, 119.4327);
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setLocation(prev => ({
-          ...prev,
-          status: "granted",
-          latitude,
-          longitude,
-        }));
-        // Always fetch Makassar weather
-        fetchWeather(-5.1477, 119.4327);
-        getLocationDetails(latitude, longitude);
-      },
-      (error) => {
-        let errorMsg = "Tidak dapat mengakses lokasi";
-        if (error.code === error.PERMISSION_DENIED) {
-          errorMsg = "Akses lokasi ditolak";
-        }
-        setLocation(prev => ({ 
-          ...prev, 
-          status: "denied", 
-          error: errorMsg 
-        }));
-        // Use default Makassar coordinates
-        fetchWeather(-5.1477, 119.4327);
-      },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
-    );
-  }, [fetchWeather, getLocationDetails]);
-
-  // Check localStorage and handle location on mount
   useEffect(() => {
-    const hasAsked = localStorage.getItem("visitsulsel_location_asked") === "true";
-    setHasAskedPermission(hasAsked);
-    
-    // Always fetch Makassar weather first
-    fetchWeather(-5.1477, 119.4327);
-    
-    if (hasAsked) {
-      // Already asked before, try to get location silently
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setLocation(prev => ({
-              ...prev,
-              status: "granted",
-              latitude,
-              longitude,
-            }));
-            getLocationDetails(latitude, longitude);
-          },
-          () => {
-            // Permission denied or error, just set to denied silently
-            setLocation(prev => ({ ...prev, status: "denied" }));
-          },
-          { enableHighAccuracy: true, timeout: 5000, maximumAge: 300000 }
-        );
-      } else {
-        setLocation(prev => ({ ...prev, status: "denied" }));
-      }
-    } else {
-      // First time, show popup after a short delay
-      const timer = setTimeout(() => {
-        setLocation(prev => ({ ...prev, status: "idle" }));
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [fetchWeather, getLocationDetails]);
+    fetchWeather();
+  }, [fetchWeather]);
 
-  // Get weather icon based on weather code
-  const getWeatherIcon = (code: number | null) => {
-    if (code === null) return Sun;
-    if (code === 0) return Sun; // Clear sky
-    if (code >= 1 && code <= 3) return CloudSun; // Partly cloudy
-    if (code >= 45 && code <= 48) return Cloud; // Foggy
-    if (code >= 51 && code <= 67) return CloudRain; // Drizzle/Rain
-    if (code >= 71 && code <= 77) return Cloud; // Snow
-    if (code >= 80 && code <= 99) return CloudRain; // Rain showers
-    return Sun;
-  };
-
-  const WeatherIcon = getWeatherIcon(weather.weatherCode);
-
+  // Promo slider
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentPromo((prev) => (prev + 1) % promos.length);
@@ -354,102 +200,36 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    // Update time context every minute
-    const interval = setInterval(() => {
-      setTimeContext(getTimeContext());
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  // Weather icon
+  const getWeatherIcon = (code: number | null) => {
+    if (code === null) return Sun;
+    if (code === 0) return Sun;
+    if (code >= 1 && code <= 3) return CloudSun;
+    if (code >= 45 && code <= 48) return Cloud;
+    if (code >= 51 && code <= 99) return CloudRain;
+    return Sun;
+  };
+
+  const WeatherIcon = getWeatherIcon(weather.weatherCode);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Onboarding Modal for New Visitors */}
+      <OnboardingModal />
+      
       <div className="max-w-7xl mx-auto">
-        {/* Location Permission Modal - Only show once */}
-        <AnimatePresence>
-          {location.status === "idle" && !hasAskedPermission && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-4"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 100 }}
-                className="bg-white rounded-2xl sm:rounded-3xl p-6 w-full max-w-sm shadow-2xl"
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mb-4">
-                    <MapPin className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Aktifkan Lokasi
-                  </h3>
-                  <p className="text-gray-500 text-sm mb-6">
-                    Izinkan akses lokasi untuk rekomendasi destinasi, cuaca, dan pengalaman yang lebih personal
-                  </p>
-                  <button 
-                    onClick={() => requestLocation(true)}
-                    className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity mb-3"
-                  >
-                    Izinkan Lokasi
-                  </button>
-                  <button 
-                    onClick={() => {
-                      localStorage.setItem("visitsulsel_location_asked", "true");
-                      setHasAskedPermission(true);
-                      setLocation(prev => ({ ...prev, status: "denied" }));
-                    }}
-                    className="text-gray-400 text-sm hover:text-gray-600 transition-colors"
-                  >
-                    Nanti saja
-                  </button>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Requesting Location Overlay - Only show when user clicks the button */}
-        <AnimatePresence>
-          {location.status === "requesting" && !hasAskedPermission && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center"
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-2xl"
-              >
-                <Loader2 className="w-10 h-10 text-blue-500 animate-spin mb-3" />
-                <p className="text-gray-600 font-medium">Mengakses lokasi...</p>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Header Section */}
-        <div className="px-4 pt-5 pb-4">
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            {/* Top Row: Brand + Weather */}
-            <div className="flex items-start justify-between mb-5">
-              <div>
-                <h1 className="text-[22px] font-bold text-gray-900 tracking-tight">Visit Sulsel</h1>
-                <p className="text-[11px] text-gray-400 font-medium">
-                  Dinas Pariwisata Provinsi Sulawesi Selatan
-                </p>
-              </div>
+        {/* Header */}
+        <div className="px-4 pt-4 pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-bold text-gray-900">Visit Sulsel</h1>
+              <p className="text-[10px] text-gray-400">Dinas Pariwisata Sulawesi Selatan</p>
+            </div>
+            <div className="flex items-center gap-2">
+              {/* Language Switcher */}
+              <LanguageSwitcher variant="light" />
               
-              {/* Weather - Compact */}
+              {/* Weather */}
               <div className="flex items-center gap-1.5 bg-white border border-gray-100 shadow-sm px-2.5 py-1.5 rounded-lg">
                 <div className="w-6 h-6 bg-gradient-to-br from-amber-400 to-orange-500 rounded-md flex items-center justify-center">
                   {weather.isLoading ? (
@@ -466,176 +246,403 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Greeting Card */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 mb-4 border border-blue-100/50">
-              <p className="text-[15px] text-gray-700 leading-relaxed">
-                <span className="font-semibold text-gray-900">{timeContext.greeting}</span> 👋
-                {location.status === "granted" && (location.district || location.city) && (
-                  <>
-                    <br />
-                    <span className="text-gray-500 text-sm">Kamu sekarang berada di </span>
-                    <span className="font-semibold text-blue-600 text-sm">
-                      {location.district ? `${location.district}, ${location.city}` : location.city}
-                    </span>
-                  </>
-                )}
-                {location.status === "requesting" && (
-                  <>
-                    <br />
-                    <span className="text-gray-400 text-sm">Mengakses lokasi...</span>
-                  </>
-                )}
-              </p>
-            </div>
-
-            {/* Search Bar */}
-            <div className={`relative transition-all duration-300 ${searchFocused ? 'scale-[1.01]' : ''}`}>
-              <div className="flex items-center bg-white rounded-xl shadow-sm border border-gray-200 hover:border-gray-300 transition-colors">
-                <Search className="w-4 h-4 text-gray-400 ml-4" />
-                <input
-                  type="text"
-                  placeholder="Cari destinasi, kuliner, event..."
-                  onFocus={() => setSearchFocused(true)}
-                  onBlur={() => setSearchFocused(false)}
-                  className="flex-1 px-3 py-3.5 text-sm text-gray-900 placeholder-gray-400 bg-transparent focus:outline-none"
-                />
-                <button className="mr-2 p-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors">
-                  <Search className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Contextual Time Banner */}
-        <AnimatePresence>
-          {showContextBanner && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="px-4 mb-4"
+        {/* Mode Toggle - Switch between Planning and On-Location */}
+        <div className="px-4 mb-4">
+          <div className="bg-gray-100 rounded-xl p-1 flex relative">
+            {/* Animated Background Indicator */}
+            <motion.div
+              layout
+              className="absolute top-1 bottom-1 bg-white rounded-lg shadow-sm"
+              style={{ width: "calc(50% - 4px)" }}
+              animate={{
+                left: activeMode === "planning" ? "4px" : "calc(50%)",
+              }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
+            
+            <button
+              onClick={() => handleModeChange("planning")}
+              className={`flex-1 py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 text-sm font-medium transition-all relative z-10 ${
+                activeMode === "planning" ? "text-gray-900" : "text-gray-500"
+              }`}
             >
-              <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${timeContext.color} p-4`}>
-                <div className="absolute -right-6 -top-6 w-24 h-24 bg-white/10 rounded-full" />
-                <div className="absolute -right-2 -bottom-8 w-20 h-20 bg-white/10 rounded-full" />
-                
-                <button 
-                  onClick={() => setShowContextBanner(false)}
-                  className="absolute top-2 right-2 p-1 bg-white/20 rounded-full text-white/80 hover:bg-white/30"
-                >
-                  <span className="text-xs">✕</span>
-                </button>
+              <Route className={`w-4 h-4 ${activeMode === "planning" ? "text-blue-600" : "text-gray-400"}`} />
+              Perencanaan
+            </button>
+            <Link
+              href="/jelajahi"
+              onClick={() => handleModeChange("onlocation")}
+              className={`flex-1 py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 text-sm font-medium transition-all relative z-10 ${
+                activeMode === "onlocation" ? "text-gray-900" : "text-gray-500"
+              }`}
+            >
+              <Compass className={`w-4 h-4 ${activeMode === "onlocation" ? "text-green-600" : "text-gray-400"}`} />
+              Di Lokasi
+            </Link>
+          </div>
+          <p className="text-xs text-gray-400 text-center mt-2">
+            {activeMode === "planning" 
+              ? "Rencanakan perjalanan dari kota asalmu ke Sulawesi Selatan"
+              : "Sudah di Sulsel? Temukan kuliner & oleh-oleh terdekat"}
+          </p>
+        </div>
 
-                <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-1">
-                    <timeContext.icon className="w-5 h-5 text-white" />
-                    <span className="text-white font-semibold">{timeContext.greeting}!</span>
-                    <span className="text-white/80 text-sm flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
-                    </span>
-                  </div>
-                  <p className="text-white font-medium mb-1">{timeContext.message}</p>
-                  <p className="text-white/80 text-xs mb-3 flex items-center gap-1">
-                    <MapPin className="w-3 h-3" />
-                    {timeContext.subtitle}
-                  </p>
-                  
-                  {/* Food Recommendations */}
-                  <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-                    {recommendedFood.map((food, index) => (
-                      <Link 
-                        key={food.id} 
-                        href="/kuliner"
-                        className="flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-xl px-3 py-2 flex-shrink-0 hover:bg-white/30 transition-colors"
+        {/* Hero Section - Trip Planning CTA with Image Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="px-4 mb-6"
+        >
+          <div className="relative overflow-hidden rounded-3xl">
+            {/* Background Image Carousel */}
+            <div className="absolute inset-0">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentHeroSlide}
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.7 }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={heroSlides[currentHeroSlide].image}
+                    alt={heroSlides[currentHeroSlide].title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 p-6 min-h-[320px] flex flex-col justify-between">
+              {/* Top Section */}
+              <div>
+                <motion.div
+                  key={`badge-${currentHeroSlide}`}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 mb-3"
+                >
+                  <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full flex items-center gap-1.5">
+                    <Sparkles className="w-3 h-3 text-yellow-300" />
+                    {heroSlides[currentHeroSlide].badge}
+                  </span>
+                </motion.div>
+                
+                <motion.h2
+                  key={`title-${currentHeroSlide}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="text-2xl font-bold text-white mb-2"
+                >
+                  {heroSlides[currentHeroSlide].title}
+                </motion.h2>
+                <motion.p
+                  key={`desc-${currentHeroSlide}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-white/80 text-sm max-w-[280px]"
+                >
+                  {heroSlides[currentHeroSlide].description}
+                </motion.p>
+              </div>
+
+              {/* Bottom Section */}
+              <div>
+                {/* Slide Indicators */}
+                <div className="flex gap-1.5 mb-4">
+                  {heroSlides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentHeroSlide(index)}
+                      className={`h-1 rounded-full transition-all ${
+                        index === currentHeroSlide ? "w-6 bg-white" : "w-1.5 bg-white/40"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Origin Selector */}
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 mb-4">
+                  <p className="text-white/70 text-xs mb-2">Dari mana kamu akan berkunjung?</p>
+                  <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+                    {originCities.map((city) => (
+                      <button
+                        key={city.id}
+                        onClick={() => setSelectedOrigin(city)}
+                        className={`flex-none px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          selectedOrigin.id === city.id
+                            ? "bg-white text-blue-600 shadow-lg"
+                            : "bg-white/20 text-white hover:bg-white/30"
+                        }`}
                       >
-                        <div className="relative w-12 h-12 rounded-lg overflow-hidden">
-                          <Image src={food.image} alt={food.name} fill className="object-cover" />
-                        </div>
-                        <div>
-                          <p className="text-white text-xs font-semibold line-clamp-1">{food.name}</p>
-                          <p className="text-white/70 text-[10px]">{food.restaurants[0]}</p>
-                          <div className="flex items-center gap-1 mt-0.5">
-                            <span className="text-white/90 text-[10px] font-medium">{food.price.split(" - ")[0]}</span>
-                            <span className="text-white/60 text-[10px]">• {(index + 1) * 0.5 + 0.3} km</span>
-                          </div>
-                        </div>
-                      </Link>
+                        {city.name}
+                      </button>
                     ))}
                   </div>
-
-                  <Link 
-                    href="/kuliner" 
-                    className="inline-flex items-center gap-1 mt-3 text-white text-xs font-medium hover:underline"
-                  >
-                    Lihat Semua Kuliner <ChevronRight className="w-3 h-3" />
-                  </Link>
+                  {selectedOrigin && (
+                    <div className="flex items-center gap-4 mt-3 text-white/80 text-xs">
+                      <span className="flex items-center gap-1">
+                        <Plane className="w-3 h-3" />
+                        {selectedOrigin.flightDuration}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <span className="font-medium">{selectedOrigin.flightPrice}</span>
+                      </span>
+                    </div>
+                  )}
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
-        {/* All Services */}
-        <motion.div 
+                <Link
+                  href="/rencanakan"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors shadow-lg"
+                >
+                  <Route className="w-5 h-5" />
+                  Mulai Rencanakan Trip
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Destinasi Populer - Bento Grid Layout */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="px-4 mb-6"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="font-bold text-gray-900 text-lg">Destinasi Populer</h2>
+              <p className="text-gray-500 text-xs">Tempat wisata terfavorit di Sul-Sel</p>
+            </div>
+            <Link href="/destinasi" className="text-sm text-blue-600 font-medium flex items-center gap-1">
+              Lihat Semua <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Bento Grid Layout */}
+          <div className="grid grid-cols-2 gap-3">
+            {/* Featured Large Card - Spans 2 columns */}
+            {featuredDestinations[0] && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 }}
+                className="col-span-2"
+              >
+                <Link href={`/destinasi/${featuredDestinations[0].slug}`}>
+                  <div className="relative h-44 rounded-2xl overflow-hidden group">
+                    <Image
+                      src={featuredDestinations[0].image}
+                      alt={featuredDestinations[0].name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    
+                    {/* Rating Badge */}
+                    <div className="absolute top-3 left-3 flex items-center gap-1 px-2.5 py-1 bg-white/95 backdrop-blur-sm rounded-full shadow-sm">
+                      <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
+                      <span className="text-sm font-bold text-gray-900">{featuredDestinations[0].rating}</span>
+                    </div>
+
+                    {/* Category Badge */}
+                    <div className="absolute top-3 right-3">
+                      <span className="px-2.5 py-1 bg-blue-500/90 backdrop-blur-sm text-white text-xs font-medium rounded-full capitalize">
+                        {featuredDestinations[0].category}
+                      </span>
+                    </div>
+
+                    {/* Info */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="text-xl font-bold text-white mb-1">{featuredDestinations[0].name}</h3>
+                      <div className="flex items-center justify-between">
+                        <p className="text-white/90 text-sm flex items-center gap-1.5">
+                          <MapPin className="w-4 h-4" />
+                          {featuredDestinations[0].location}
+                        </p>
+                        <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
+                          {featuredDestinations[0].price}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            )}
+
+            {/* Grid Cards - 2x2 Layout */}
+            {featuredDestinations.slice(1, 5).map((dest, index) => (
+              <motion.div
+                key={dest.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 + index * 0.05 }}
+              >
+                <Link href={`/destinasi/${dest.slug}`}>
+                  <div className="relative h-40 rounded-xl overflow-hidden group">
+                    <Image
+                      src={dest.image}
+                      alt={dest.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                    {/* Rating */}
+                    <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 bg-white/95 backdrop-blur-sm rounded-full">
+                      <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                      <span className="text-xs font-bold text-gray-900">{dest.rating}</span>
+                    </div>
+
+                    {/* Info */}
+                    <div className="absolute bottom-0 left-0 right-0 p-3">
+                      <h3 className="text-white font-bold text-sm mb-0.5 line-clamp-1">{dest.name}</h3>
+                      <p className="text-white/80 text-xs flex items-center gap-1">
+                        <MapPin className="w-3 h-3 flex-shrink-0" />
+                        <span className="truncate">{dest.location}</span>
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+
+            {/* View More Card */}
+            {featuredDestinations.length > 5 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                className="col-span-2"
+              >
+                <Link href="/destinasi">
+                  <div className="relative h-20 rounded-xl overflow-hidden bg-gradient-to-r from-blue-500 to-indigo-600 group hover:from-blue-600 hover:to-indigo-700 transition-all">
+                    <div className="absolute inset-0 flex items-center justify-between px-5">
+                      <div>
+                        <p className="text-white font-semibold">Jelajahi {allDestinations.length - 5}+ destinasi lainnya</p>
+                        <p className="text-white/80 text-sm">Temukan tempat wisata impianmu</p>
+                      </div>
+                      <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                        <ChevronRight className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Paket Perjalanan Rekomendasi */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className="px-4 mb-6"
         >
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-            {/* Main Services Row */}
-            <div className="grid grid-cols-4 gap-2 mb-4 pb-4 border-b border-gray-100">
-              {mainServices.map((service, index) => (
-                <Link key={service.label} href={service.href}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 * index }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex flex-col items-center p-2 rounded-xl hover:bg-gray-50 transition-colors"
-                  >
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-md mb-2`}>
-                      <service.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <span className="text-[11px] font-semibold text-gray-800">{service.label}</span>
-                  </motion.div>
-                </Link>
-              ))}
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="font-bold text-gray-900 text-lg">Paket Perjalanan</h2>
+              <p className="text-gray-500 text-xs">Itinerary siap pakai untuk liburanmu</p>
             </div>
+            <Link href="/rencanakan" className="text-sm text-blue-600 font-medium flex items-center gap-1">
+              Semua <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
 
-            {/* More Services Grid */}
-            <div className="grid grid-cols-4 gap-2">
-              {moreServices.map((service, index) => (
-                <Link key={service.label} href={service.href}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 * (index + 4) }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex flex-col items-center p-2 rounded-xl hover:bg-gray-50 transition-colors"
-                  >
-                    <div className={`w-10 h-10 ${service.bg} rounded-xl flex items-center justify-center mb-1.5`}>
-                      <service.icon className={`w-5 h-5 ${service.color}`} />
+          <div className="space-y-3">
+            {featuredItineraries.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 * index }}
+              >
+                <Link href="/rencanakan">
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div className="flex">
+                      <div className="relative w-28 h-28 flex-shrink-0">
+                        <Image src={item.image} alt={item.name} fill className="object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20" />
+                      </div>
+                      <div className="flex-1 p-3">
+                        <div className="flex items-start justify-between mb-1">
+                          <h3 className="font-bold text-gray-900 text-sm line-clamp-1">{item.name}</h3>
+                          <span className="px-2 py-0.5 bg-blue-100 text-blue-600 text-xs font-semibold rounded-full flex-shrink-0">
+                            {item.duration}
+                          </span>
+                        </div>
+                        <p className="text-gray-500 text-xs line-clamp-2 mb-2">{item.description}</p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1">
+                            <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                            <span className="text-xs font-medium text-gray-700">{item.rating}</span>
+                            <span className="text-xs text-gray-400">({item.reviews})</span>
+                          </div>
+                          <p className="text-blue-600 font-bold text-sm">{formatPrice(item.price)}</p>
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-[10px] text-gray-600 text-center leading-tight">{service.label}</span>
-                  </motion.div>
+                  </div>
                 </Link>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Promo Slider */}
-        <motion.div 
+        {/* Kategori Wisata */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="px-4 mb-6"
+        >
+          <h2 className="font-bold text-gray-900 text-lg mb-3">Jelajahi Berdasarkan Kategori</h2>
+          <div className="grid grid-cols-4 gap-2">
+            {categories.map((cat, index) => (
+              <motion.div
+                key={cat.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.05 * index }}
+              >
+                <Link href={`/destinasi?category=${cat.id}`}>
+                  <div className="flex flex-col items-center p-3 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center shadow-md mb-2`}>
+                      <cat.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-xs font-medium text-gray-700">{cat.name}</span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Promo Slider - Tetap Ada */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="px-4 mb-6"
         >
-          <div className="relative overflow-hidden rounded-2xl h-40">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-bold text-gray-900">Promo & Penawaran</h2>
+          </div>
+          <div className="relative overflow-hidden rounded-2xl h-36">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentPromo}
@@ -652,22 +659,21 @@ export default function Home() {
                   fill
                   className="object-cover mix-blend-overlay opacity-30"
                 />
-                <div className="absolute inset-0 p-5 flex flex-col justify-between">
+                <div className="absolute inset-0 p-4 flex flex-col justify-between">
                   <div>
                     <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium mb-2">
                       <Percent className="w-3 h-3" />
                       PROMO
                     </span>
-                    <h3 className="text-xl font-bold text-white">{promos[currentPromo].title}</h3>
+                    <h3 className="text-lg font-bold text-white">{promos[currentPromo].title}</h3>
                     <p className="text-white/80 text-sm">{promos[currentPromo].subtitle}</p>
                   </div>
                   <button className="self-start px-4 py-2 bg-white text-gray-900 text-sm font-semibold rounded-lg hover:bg-gray-100 transition-colors">
-                    Klaim Sekarang
+                    Lihat Detail
                   </button>
                 </div>
               </motion.div>
             </AnimatePresence>
-            {/* Indicators */}
             <div className="absolute bottom-3 right-3 flex gap-1.5">
               {promos.map((_, index) => (
                 <button
@@ -682,118 +688,21 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Trending Section */}
-        <motion.div 
+        {/* Event Mendatang */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="mb-6"
         >
-          <div className="px-4 flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 bg-red-100 rounded-lg">
-                <Flame className="w-4 h-4 text-red-500" />
-              </div>
-              <h2 className="font-bold text-gray-900">Trending</h2>
-            </div>
-            <Link href="/destinasi" className="text-sm text-blue-500 font-medium flex items-center gap-1">
-              Semua <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
-          
-          <div className="flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-hide">
-            {topDestinations.map((dest, index) => (
-              <motion.div
-                key={dest.id}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 * index }}
-              >
-                <Link href={`/destinasi/${dest.slug}`}>
-                  <div className="relative w-36 h-48 rounded-2xl overflow-hidden flex-shrink-0 group">
-                    <Image
-                      src={dest.image}
-                      alt={dest.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    
-                    {/* Rank badge */}
-                    <div className="absolute top-2 left-2 w-7 h-7 bg-white rounded-lg flex items-center justify-center shadow-lg">
-                      <span className="text-sm font-bold text-gray-900">#{index + 1}</span>
-                    </div>
-
-                    {/* Wishlist */}
-                    <button className="absolute top-2 right-2 p-1.5 bg-white/20 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Heart className="w-4 h-4 text-white" />
-                    </button>
-
-                    <div className="absolute bottom-0 left-0 right-0 p-3">
-                      <div className="flex items-center gap-1 mb-1">
-                        <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                        <span className="text-white text-xs font-medium">{dest.rating}</span>
-                      </div>
-                      <h3 className="text-white font-semibold text-sm line-clamp-1">{dest.name}</h3>
-                      <p className="text-white/70 text-xs flex items-center gap-1">
-                        <MapPin className="w-3 h-3" />
-                        {dest.location}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Quick Access Cards */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="px-4 mb-6"
-        >
-          <div className="grid grid-cols-2 gap-3">
-            {/* Tour Guide Card */}
-            <Link href="/guide" className="relative overflow-hidden rounded-2xl p-4 bg-gradient-to-br from-green-500 to-emerald-600 h-32">
-              <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full" />
-              <div className="absolute -right-8 -top-8 w-20 h-20 bg-white/10 rounded-full" />
-              <div className="relative z-10">
-                <Users className="w-8 h-8 text-white mb-2" />
-                <h3 className="text-white font-bold">Tour Guide</h3>
-                <p className="text-white/80 text-xs">150+ guide berpengalaman</p>
-              </div>
-            </Link>
-
-            {/* UMKM Card */}
-            <Link href="/belanja" className="relative overflow-hidden rounded-2xl p-4 bg-gradient-to-br from-pink-500 to-rose-600 h-32">
-              <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full" />
-              <div className="absolute -right-8 -top-8 w-20 h-20 bg-white/10 rounded-full" />
-              <div className="relative z-10">
-                <ShoppingBag className="w-8 h-8 text-white mb-2" />
-                <h3 className="text-white font-bold">UMKM Lokal</h3>
-                <p className="text-white/80 text-xs">15.000+ produk tersedia</p>
-              </div>
-            </Link>
-          </div>
-        </motion.div>
-
-        {/* Upcoming Events */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="mb-6"
-        >
-          <div className="px-4 flex items-center justify-between mb-4">
+          <div className="px-4 flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="p-1.5 bg-indigo-100 rounded-lg">
                 <Calendar className="w-4 h-4 text-indigo-500" />
               </div>
               <h2 className="font-bold text-gray-900">Event Mendatang</h2>
             </div>
-            <Link href="/event" className="text-sm text-blue-500 font-medium flex items-center gap-1">
+            <Link href="/event" className="text-sm text-blue-600 font-medium flex items-center gap-1">
               Semua <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
@@ -819,11 +728,9 @@ export default function Home() {
                         <MapPin className="w-3 h-3" />
                         {event.location}
                       </p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[10px] font-medium rounded-full capitalize">
-                          {event.category}
-                        </span>
-                      </div>
+                      <span className="inline-block px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[10px] font-medium rounded-full mt-1 capitalize">
+                        {event.category}
+                      </span>
                     </div>
                     <ChevronRight className="w-5 h-5 text-gray-300 self-center" />
                   </Link>
@@ -833,11 +740,39 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Stats Banner */}
-        <motion.div 
+        {/* Layanan Lainnya - Di Bawah */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 0.6 }}
+          className="px-4 mb-6"
+        >
+          <h2 className="font-bold text-gray-900 mb-3">Layanan Lainnya</h2>
+          <div className="grid grid-cols-3 gap-3">
+            {otherServices.map((service, index) => (
+              <Link key={service.label} href={service.href}>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 * index }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex flex-col items-center p-3 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all"
+                >
+                  <div className={`w-10 h-10 ${service.bg} rounded-xl flex items-center justify-center mb-2`}>
+                    <service.icon className={`w-5 h-5 ${service.color}`} />
+                  </div>
+                  <span className="text-xs font-medium text-gray-700">{service.label}</span>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Stats Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
           className="px-4 mb-6"
         >
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 relative overflow-hidden">
@@ -854,21 +789,20 @@ export default function Home() {
                   <p className="text-white/70 text-xs">Wisatawan/tahun</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-white">15K+</p>
-                  <p className="text-white/70 text-xs">UMKM Terdaftar</p>
+                  <p className="text-2xl font-bold text-white">500+</p>
+                  <p className="text-white/70 text-xs">Destinasi Wisata</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-white">150+</p>
-                  <p className="text-white/70 text-xs">Tour Guide</p>
+                  <p className="text-2xl font-bold text-white">24</p>
+                  <p className="text-white/70 text-xs">Kabupaten/Kota</p>
                 </div>
               </div>
             </div>
           </div>
         </motion.div>
 
-
         {/* Bottom Spacing */}
-        <div className="h-8" />
+        <div className="h-20" />
       </div>
     </main>
   );

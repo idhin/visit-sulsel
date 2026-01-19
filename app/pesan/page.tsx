@@ -78,7 +78,7 @@ const completedOrders = [
 
 const quickActions = [
   { icon: Ticket, label: "Tiket", href: "/destinasi", color: "bg-blue-500" },
-  { icon: Package, label: "Paket", href: "/itinerary", color: "bg-green-500" },
+  { icon: Package, label: "Paket", href: "/rencanakan", color: "bg-green-500" },
   { icon: History, label: "Riwayat", href: "#riwayat", color: "bg-purple-500" },
 ];
 
